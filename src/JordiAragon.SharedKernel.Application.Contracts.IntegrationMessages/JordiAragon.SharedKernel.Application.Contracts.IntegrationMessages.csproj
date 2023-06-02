@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.1.3" />
-  <ItemGroup>
-    <PackageReference Include="MassTransit" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\..\GlobalSuppressions.cs">
-      <Link>GlobalSuppressions.cs</Link>
-    </Compile>
+  <PropertyGroup>
+		<PackageId>JordiAragon.SharedKernel.Application.Contracts.IntegrationMessages</PackageId>
+		<Title>JordiAragon.SharedKernel.Application.Contracts</Title>
+		<Description>A simple package to implement the building blocks to follow DDD principles and Clean Architecture.</Description>
+		<Summary>A simple package to implement the building blocks to follow DDD principles and Clean Architecture.</Summary>
+		<AssemblyName>JordiAragon.SharedKernel.Application.Contracts.IntegrationMessages</AssemblyName>
+		<Version>1.0.0</Version>
+		<Authors>Jordi Aragon Zaragoza</Authors>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="MassTransit" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Include="..\..\GlobalSuppressions.cs">
+			<Link>GlobalSuppressions.cs</Link>
+		</Compile>
   </ItemGroup>
 </Project>
