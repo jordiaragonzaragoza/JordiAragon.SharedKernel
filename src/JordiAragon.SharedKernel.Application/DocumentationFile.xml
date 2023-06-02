@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JordiAragon.SharedKernel.Application</name>
+    </assembly>
+    <members>
+        <member name="T:JordiAragon.SharedKernel.Application.Attributes.AuthorizeAttribute">
+            <summary>
+            Specifies the class this attribute is applied to requires authorization.
+            </summary>
+        </member>
+        <member name="P:JordiAragon.SharedKernel.Application.Attributes.AuthorizeAttribute.Roles">
+            <summary>
+            Gets or sets a comma delimited list of roles that are allowed to access the resource.
+            </summary>
+        </member>
+        <member name="P:JordiAragon.SharedKernel.Application.Attributes.AuthorizeAttribute.Policy">
+            <summary>
+            Gets or sets the policy name that determines access to the resource.
+            </summary>
+        </member>
+        <member name="T:JordiAragon.SharedKernel.Application.Behaviours.LoggerBehaviour`1">
+            <summary>
+            Defined a request pre-processor for a handler.
+            </summary>
+            <typeparam name="TRequest">Request type.</typeparam>
+        </member>
+        <member name="M:JordiAragon.SharedKernel.Application.Behaviours.LoggerBehaviour`1.Process(`0,System.Threading.CancellationToken)">
+            <summary>
+            Process method executes before calling the Handle method on your handler.
+            </summary>
+            <param name="request">Incoming request.</param>
+            <param name="cancellationToken">Cancellation token.</param>
+            <returns>An awaitable task.</returns>
+        </member>
+    </members>
+</doc>

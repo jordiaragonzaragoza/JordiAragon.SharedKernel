@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project>
+	<PropertyGroup>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+		<TargetFramework>net7.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageVersion Include="Ardalis.GuardClauses" Version="4.0.1" />
+		<PackageVersion Include="Ardalis.Result.FluentValidation" Version="7.1.0" />
+		<PackageVersion Include="Ardalis.Result" Version="7.1.0" />
+		<PackageVersion Include="Ardalis.Specification.EntityFrameworkCore" Version="7.0.0" />
+		<PackageVersion Include="Ardalis.Specification" Version="7.0.0" />
+		<PackageVersion Include="Ardalis.SmartEnum" Version="7.0.0" />
+		<PackageVersion Include="Ardalis.SmartEnum.EFCore" Version="7.0.0" />
+		<PackageVersion Include="Autofac" Version="7.0.1" />
+		<PackageVersion Include="AutoMapper" Version="12.0.1" />
+		<PackageVersion Include="EasyCaching.Core" Version="1.9.0" />
+		<PackageVersion Include="FluentValidation" Version="11.5.2" />
+		<PackageVersion Include="MassTransit" Version="8.0.16" />
+		<PackageVersion Include="MediatR" Version="12.0.1" />
+		<PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
+		<PackageVersion Include="Microsoft.Extensions.Logging" Version="7.0.0" />
+		<PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
+		<PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.6.40"/>
+		<PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageVersion Include="Quartz" Version="3.6.2" />
+		<PackageVersion Include="SonarAnalyzer.CSharp" Version="8.55.0.65544"/>
+		<PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.435" />
+		<PackageVersion Include="Volo.Abp.Guids" Version="7.2.2" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="StyleCop.Analyzers">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="SonarAnalyzer.CSharp">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DocumentationFile>DocumentationFile.xml</DocumentationFile>
+		<NoWarn>$(NoWarn),1573,1591,1712</NoWarn>
+	</PropertyGroup>
+</Project>

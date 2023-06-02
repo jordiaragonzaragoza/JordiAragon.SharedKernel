@@ -1,0 +1,11 @@
+﻿# This file is the top-most EditorConfig file
+root = true
+
+[*.cs]
+
+
+# Show this enabled
+dotnet_style_qualification_for_field = true
+dotnet_style_qualification_for_property = true
+dotnet_style_qualification_for_method = true
+dotnet_style_qualification_for_event = true

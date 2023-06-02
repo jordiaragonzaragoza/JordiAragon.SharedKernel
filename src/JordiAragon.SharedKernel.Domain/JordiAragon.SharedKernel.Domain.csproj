@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+	<Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.1.3" />
+	<ItemGroup>
+		<PackageReference Include="Ardalis.GuardClauses" />
+		<PackageReference Include="Ardalis.SmartEnum" />
+		<PackageReference Include="Microsoft.Extensions.Logging" />
+		<PackageReference Include="MediatR" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Include="..\..\GlobalSuppressions.cs">
+			<Link>GlobalSuppressions.cs</Link>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\JordiAragon.SharedKernel\JordiAragon.SharedKernel.csproj" />
+	  <ProjectReference Include="..\JordiAragon.SharedKernel.Domain.Contracts\JordiAragon.SharedKernel.Domain.Contracts.csproj" />
+	</ItemGroup>
+</Project>
