@@ -4,11 +4,7 @@
 	<PropertyGroup>
 		<PackageId>JordiAragon.SharedKernel.Infrastructure.EntityFramework</PackageId>
 		<Title>JordiAragon.SharedKernel.Infrastructure.EntityFramework</Title>
-		<Description>A simple package to implement the building blocks to follow DDD principles and Clean Architecture.</Description>
-		<Summary>A simple package to implement the building blocks to follow DDD principles and Clean Architecture.</Summary>
 		<AssemblyName>JordiAragon.SharedKernel.Infrastructure.EntityFramework</AssemblyName>
-		<Version>1.0.0</Version>
-		<Authors>Jordi Aragon Zaragoza</Authors>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Ardalis.SmartEnum.EFCore" />
@@ -18,11 +14,6 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" />
 		<PackageReference Include="Newtonsoft.Json" />
 		<PackageReference Include="Volo.Abp.Guids" />
-	</ItemGroup>
-	<ItemGroup>
-		<Compile Include="..\..\GlobalSuppressions.cs">
-			<Link>GlobalSuppressions.cs</Link>
-		</Compile>
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\JordiAragon.SharedKernel\JordiAragon.SharedKernel.csproj" />

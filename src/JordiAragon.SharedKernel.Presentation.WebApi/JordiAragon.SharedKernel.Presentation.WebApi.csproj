@@ -4,20 +4,11 @@
 	<PropertyGroup>
 		<PackageId>JordiAragon.SharedKernel.Presentation.WebApi</PackageId>
 		<Title>JordiAragon.SharedKernel.Presentation.WebApi</Title>
-		<Description>A simple package to implement the building blocks to follow DDD principles and Clean Architecture.</Description>
-		<Summary>A simple package to implement the building blocks to follow DDD principles and Clean Architecture.</Summary>
 		<AssemblyName>JordiAragon.SharedKernel.Presentation.WebApi</AssemblyName>
-		<Version>1.0.0</Version>
-		<Authors>Jordi Aragon Zaragoza</Authors>
 	</PropertyGroup>
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 		<PackageReference Include="AutoMapper" />
-	</ItemGroup>
-	<ItemGroup>
-		<Compile Include="..\..\GlobalSuppressions.cs">
-			<Link>GlobalSuppressions.cs</Link>
-		</Compile>
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\JordiAragon.SharedKernel\JordiAragon.SharedKernel.csproj" />

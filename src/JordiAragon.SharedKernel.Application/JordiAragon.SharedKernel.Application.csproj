@@ -4,21 +4,12 @@
 	<PropertyGroup>
 		<PackageId>JordiAragon.SharedKernel.Application</PackageId>
 		<Title>JordiAragon.SharedKernel.Application</Title>
-		<Description>A simple package to implement the building blocks to follow DDD principles and Clean Architecture.</Description>
-		<Summary>A simple package to implement the building blocks to follow DDD principles and Clean Architecture.</Summary>
 		<AssemblyName>JordiAragon.SharedKernel.Application</AssemblyName>
-		<Version>1.0.0</Version>
-		<Authors>Jordi Aragon Zaragoza</Authors>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Ardalis.Result.FluentValidation" />
 		<PackageReference Include="Microsoft.Extensions.Logging" />
 		<PackageReference Include="FluentValidation" />
-	</ItemGroup>
-	<ItemGroup>
-		<Compile Include="..\..\GlobalSuppressions.cs">
-			<Link>GlobalSuppressions.cs</Link>
-		</Compile>
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\JordiAragon.SharedKernel.Application.Contracts\JordiAragon.SharedKernel.Application.Contracts.csproj" />

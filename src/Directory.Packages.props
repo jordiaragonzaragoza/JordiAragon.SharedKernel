@@ -5,7 +5,23 @@
 		<TargetFramework>net7.0</TargetFramework>
 		<LangVersion>latest</LangVersion>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<Description>A simple package to implement the building blocks to follow DDD principles and Clean Architecture.</Description>
+		<Summary>A simple package to implement the building blocks to follow DDD principles and Clean Architecture.</Summary>
+		<PackageTags>Building blocks to follow DDD principles and Clean Architecture</PackageTags>
+		<PackageProjectUrl>https://github.com/jordiaragonzaragoza/JordiAragon.SharedKernel</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/jordiaragonzaragoza/JordiAragon.SharedKernel</RepositoryUrl>
+		<Authors>Jordi Aragon Zaragoza</Authors>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 	</PropertyGroup>
+	<ItemGroup>
+		<None Include="..\..\icon.png" Pack="true" Visible="false" PackagePath="" />
+		<None Include="..\..\LICENSE" Pack="true" PackagePath=""/>
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Include="..\..\GlobalSuppressions.cs">
+			<Link>GlobalSuppressions.cs</Link>
+		</Compile>
+	</ItemGroup>
 	<ItemGroup>
 		<PackageVersion Include="Ardalis.GuardClauses" Version="4.0.1" />
 		<PackageVersion Include="Ardalis.Result.FluentValidation" Version="7.1.0" />

@@ -4,21 +4,12 @@
 	<PropertyGroup>
 		<PackageId>JordiAragon.SharedKernel.Application.Contracts</PackageId>
 		<Title>JordiAragon.SharedKernel.Application.Contracts</Title>
-		<Description>A simple package to implement the building blocks to follow DDD principles and Clean Architecture.</Description>
-		<Summary>A simple package to implement the building blocks to follow DDD principles and Clean Architecture.</Summary>
 		<AssemblyName>JordiAragon.SharedKernel.Application.Contracts</AssemblyName>
-		<Version>1.0.0</Version>
-		<Authors>Jordi Aragon Zaragoza</Authors>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Ardalis.Result" />
 		<PackageReference Include="MediatR" />
     </ItemGroup>
-	<ItemGroup>
-		<Compile Include="..\..\GlobalSuppressions.cs">
-			<Link>GlobalSuppressions.cs</Link>
-		</Compile>
-	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\JordiAragon.SharedKernel.Domain.Contracts\JordiAragon.SharedKernel.Domain.Contracts.csproj" />
 	  <ProjectReference Include="..\JordiAragon.SharedKernel.Application.Contracts.IntegrationMessages\JordiAragon.SharedKernel.Application.Contracts.IntegrationMessages.csproj" />

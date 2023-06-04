@@ -4,21 +4,9 @@
   <PropertyGroup>
     <PackageId>JordiAragon.SharedKernel.Contracts</PackageId>
     <Title>JordiAragon.SharedKernel.Contracts</Title>
-    <Description>A simple package to implement the building blocks to follow DDD principles and Clean Architecture.</Description>
-    <Summary>A simple package to implement the building blocks to follow DDD principles and Clean Architecture.</Summary>
     <AssemblyName>JordiAragon.SharedKernel.Contracts</AssemblyName>
-    <Version>1.0.0</Version>
-    <Authors>Jordi Aragon Zaragoza</Authors>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
-  </ItemGroup>
-  <ItemGroup>
       <PackageReference Include="MediatR" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\..\GlobalSuppressions.cs">
-      <Link>GlobalSuppressions.cs</Link>
-    </Compile>
   </ItemGroup>
 </Project>

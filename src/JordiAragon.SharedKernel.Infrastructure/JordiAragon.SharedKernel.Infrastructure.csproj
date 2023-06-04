@@ -4,20 +4,11 @@
 	<PropertyGroup>
 		<PackageId>JordiAragon.SharedKernel.Infrastructure</PackageId>
 		<Title>JordiAragon.SharedKernel.Infrastructure</Title>
-		<Description>A simple package to implement the building blocks to follow DDD principles and Clean Architecture.</Description>
-		<Summary>A simple package to implement the building blocks to follow DDD principles and Clean Architecture.</Summary>
 		<AssemblyName>JordiAragon.SharedKernel.Infrastructure</AssemblyName>
-		<Version>1.0.0</Version>
-		<Authors>Jordi Aragon Zaragoza</Authors>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="EasyCaching.Core" />
     </ItemGroup>
-	<ItemGroup>
-		<Compile Include="..\..\GlobalSuppressions.cs">
-			<Link>GlobalSuppressions.cs</Link>
-		</Compile>
-	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\JordiAragon.SharedKernel\JordiAragon.SharedKernel.csproj" />
 	  <ProjectReference Include="..\JordiAragon.SharedKernel.Application.Contracts\JordiAragon.SharedKernel.Application.Contracts.csproj" />

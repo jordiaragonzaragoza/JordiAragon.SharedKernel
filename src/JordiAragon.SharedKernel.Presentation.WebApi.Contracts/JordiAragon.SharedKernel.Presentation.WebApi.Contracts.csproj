@@ -4,15 +4,6 @@
 	<PropertyGroup>
 		<PackageId>JordiAragon.SharedKernel.Presentation.WebApi.Contracts</PackageId>
 		<Title>JordiAragon.SharedKernel.Presentation.WebApi.Contracts</Title>
-		<Description>A simple package to implement the building blocks to follow DDD principles and Clean Architecture.</Description>
-		<Summary>A simple package to implement the building blocks to follow DDD principles and Clean Architecture.</Summary>
 		<AssemblyName>JordiAragon.SharedKernel.Presentation.WebApi.Contracts</AssemblyName>
-		<Version>1.0.0</Version>
-		<Authors>Jordi Aragon Zaragoza</Authors>
 	</PropertyGroup>
-	<ItemGroup>
-		<Compile Include="..\..\GlobalSuppressions.cs">
-			<Link>GlobalSuppressions.cs</Link>
-		</Compile>
-	</ItemGroup>
 </Project>
