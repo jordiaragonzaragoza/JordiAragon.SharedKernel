@@ -7,15 +7,18 @@
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 		<Description>A simple package to implement the building blocks to follow DDD principles and Clean Architecture.</Description>
 		<Summary>A simple package to implement the building blocks to follow DDD principles and Clean Architecture.</Summary>
-		<PackageTags>Building blocks to follow DDD principles and Clean Architecture</PackageTags>
-		<PackageProjectUrl>https://github.com/jordiaragonzaragoza/JordiAragon.SharedKernel</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/jordiaragonzaragoza/JordiAragon.SharedKernel</RepositoryUrl>
 		<Authors>Jordi Aragon Zaragoza</Authors>
+		<PackageProjectUrl>https://github.com/jordiaragonzaragoza/JordiAragon.SharedKernel</PackageProjectUrl>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageTags>DDD, SharedKernel, Clean Architecture, Onion Architecture</PackageTags>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="..\..\icon.png" Pack="true" Visible="false" PackagePath="" />
-		<None Include="..\..\LICENSE" Pack="true" PackagePath=""/>
+		<None Include="..\..\LICENSE" Pack="true" Visible="false" PackagePath=""/>
+		<None Include="..\..\README.md" Pack="true" Visible="false" PackagePath=""/>
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Include="..\..\GlobalSuppressions.cs">
