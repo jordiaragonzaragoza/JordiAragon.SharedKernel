@@ -18,7 +18,7 @@ The goal of this project is create the building blocks to follow DDD principles 
 
 ## Dependency graph:
 
-![JordiAragon.SharedKernel - Dependency graph](.\docs\ArchitectureDiagram.jpg)
+![JordiAragon.SharedKernel - Dependency graph](./docs/ArchitectureDiagram.jpg)
 
 ## How to debug:
 - You will need the latest Visual Studio 2022 and the latest .NET Core SDK (at least .NET 7 SDK)
