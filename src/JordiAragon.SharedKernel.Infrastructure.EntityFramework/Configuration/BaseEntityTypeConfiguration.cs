@@ -1,6 +1,5 @@
 ﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework.Configuration
 {
-    using System.Security.Cryptography;
     using JordiAragon.SharedKernel.Domain.Entities;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;

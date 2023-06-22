@@ -10,6 +10,10 @@
         {
         }
 
+        protected BaseAuditableEntity()
+        {
+        }
+
         public DateTime CreationDateOnUtc { get; set; }
 
         public string CreatedByUserId { get; set; }

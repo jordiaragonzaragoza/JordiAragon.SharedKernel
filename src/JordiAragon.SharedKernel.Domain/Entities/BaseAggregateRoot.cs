@@ -4,24 +4,37 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
 
-    // TODO: Remove. And use BaseAggregateRoot.
-    public abstract class BaseEventableEntity<TId> : BaseEntity<TId>
+    public abstract class BaseAggregateRoot<TId, TIdType> : BaseEntity<TId>, IAggregateRoot<TId>
+        where TId : BaseAggregateRootId<TIdType>
     {
         private readonly List<IDomainEvent> domainEvents = new();
 
-        protected BaseEventableEntity(TId id)
+        protected BaseAggregateRoot(TId id)
             : base(id)
         {
         }
 
-        protected BaseEventableEntity()
+        // Required by EF
+        protected BaseAggregateRoot()
         {
         }
+
+        public new BaseAggregateRootId<TIdType> Id { get; protected set; }
+
+        /// <summary>
+        /// Gets a value indicating whether indicates whether this aggregate is logically deleted.
+        /// </summary>
+        public bool IsDeleted { get; private set; }
 
         [NotMapped]
         public IEnumerable<IDomainEvent> DomainEvents => this.domainEvents.AsReadOnly();
 
         internal void ClearDomainEvents() => this.domainEvents.Clear();
+
+        protected void MarkAsDeleted()
+        {
+            this.IsDeleted = true;
+        }
 
         protected void RegisterDomainEvent(IDomainEvent domainEvent) => this.domainEvents.Add(domainEvent);
     }

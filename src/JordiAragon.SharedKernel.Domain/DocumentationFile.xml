@@ -4,5 +4,10 @@
         <name>JordiAragon.SharedKernel.Domain</name>
     </assembly>
     <members>
+        <member name="P:JordiAragon.SharedKernel.Domain.Entities.BaseAggregateRoot`2.IsDeleted">
+            <summary>
+            Gets a value indicating whether indicates whether this aggregate is logically deleted.
+            </summary>
+        </member>
     </members>
 </doc>

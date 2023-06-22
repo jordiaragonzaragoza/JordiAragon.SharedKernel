@@ -6,12 +6,16 @@
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Domain.Exceptions;
 
-    public abstract class BaseEntity<TId> : IEqualityComparer<BaseEntity<TId>>, IIgnoreDependency
-        where TId : notnull
+    public abstract class BaseEntity<TId> : IEqualityComparer<BaseEntity<TId>>, IEntity<TId>, IIgnoreDependency
     {
         protected BaseEntity(TId id)
         {
             this.Id = Guard.Against.Null(id, nameof(id));
+        }
+
+        // Required by EF
+        protected BaseEntity()
+        {
         }
 
         public TId Id { get; private init; }
@@ -41,7 +45,7 @@
             return entity.Id.GetHashCode();
         }
 
-        protected void CheckRule(IBusinessRule rule)
+        protected static void CheckRule(IBusinessRule rule)
         {
             if (rule.IsBroken())
             {

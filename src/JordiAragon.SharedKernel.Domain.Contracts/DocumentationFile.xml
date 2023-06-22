@@ -19,5 +19,11 @@
             </summary>
             <typeparam name="TDomainEvent">Source domainEvent.</typeparam>
         </member>
+        <member name="T:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.IEntity`1">
+            <summary>
+            Generic abstraction for a domain entity.
+            </summary>
+            <typeparam name="TId">The id for the entity.</typeparam>
+        </member>
     </members>
 </doc>
