@@ -15,6 +15,7 @@
         }
 
         protected BaseEventableEntity()
+            : base()
         {
         }
 
