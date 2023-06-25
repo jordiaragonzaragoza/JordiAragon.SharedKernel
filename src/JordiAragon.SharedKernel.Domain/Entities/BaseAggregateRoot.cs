@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
+    using Ardalis.GuardClauses;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
 
     public abstract class BaseAggregateRoot<TId, TIdType> : BaseEntity<TId>, IAggregateRoot<TId>
@@ -12,10 +13,12 @@
         protected BaseAggregateRoot(TId id)
             : base(id)
         {
+            this.Id = Guard.Against.Null(id, nameof(id));
         }
 
         // Required by EF
         protected BaseAggregateRoot()
+            : base()
         {
         }
 

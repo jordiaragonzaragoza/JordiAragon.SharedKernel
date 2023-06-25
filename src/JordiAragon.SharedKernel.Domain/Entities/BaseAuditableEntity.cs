@@ -11,6 +11,7 @@
         }
 
         protected BaseAuditableEntity()
+            : base()
         {
         }
 
