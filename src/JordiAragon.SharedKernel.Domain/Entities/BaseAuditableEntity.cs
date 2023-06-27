@@ -3,7 +3,7 @@
     using System;
 
     // TODO: Move to an interface and add soft delete for required entities
-    public abstract class BaseAuditableEntity<TId> : BaseEventableEntity<TId>
+    public abstract class BaseAuditableEntity<TId> : BaseEntity<TId>
     {
         protected BaseAuditableEntity(TId id)
             : base(id)

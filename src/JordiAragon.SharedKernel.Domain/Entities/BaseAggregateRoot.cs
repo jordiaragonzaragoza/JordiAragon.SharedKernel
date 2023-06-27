@@ -5,7 +5,7 @@
     using Ardalis.GuardClauses;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
 
-    public abstract class BaseAggregateRoot<TId, TIdType> : BaseEntity<TId>, IAggregateRoot<TId>
+    public abstract class BaseAggregateRoot<TId, TIdType> : BaseAuditableEntity<TId>, IAggregateRoot<TId>
         where TId : BaseAggregateRootId<TIdType>
     {
         private readonly List<IDomainEvent> domainEvents = new();
