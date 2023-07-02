@@ -2,7 +2,7 @@
 {
     using System;
 
-    // TODO: Move to an interface and add soft delete for required entities
+    // TODO: Move to an interface for required entities
     public abstract class BaseAuditableEntity<TId> : BaseEntity<TId>
     {
         protected BaseAuditableEntity(TId id)
@@ -10,8 +10,8 @@
         {
         }
 
+        // Required by EF.
         protected BaseAuditableEntity()
-            : base()
         {
         }
 

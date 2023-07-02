@@ -1,6 +1,5 @@
 ﻿namespace JordiAragon.SharedKernel.Application.Contracts.Interfaces
 {
-    using System;
     using JordiAragon.SharedKernel.Contracts.Events;
 
     /// <summary>

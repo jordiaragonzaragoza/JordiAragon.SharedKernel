@@ -5,7 +5,7 @@
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
 
     // TODO: Remove. And use BaseAggregateRoot.
-    public abstract class BaseEventableEntity<TId> : BaseEntity<TId>
+    public abstract class BaseEventableEntity<TId> : BaseEntity<TId>, IDomainEventsContainer
     {
         private readonly List<IDomainEvent> domainEvents = new();
 
@@ -22,7 +22,7 @@
         [NotMapped]
         public IEnumerable<IDomainEvent> DomainEvents => this.domainEvents.AsReadOnly();
 
-        internal void ClearDomainEvents() => this.domainEvents.Clear();
+        public void ClearDomainEvents() => this.domainEvents.Clear();
 
         protected void RegisterDomainEvent(IDomainEvent domainEvent) => this.domainEvents.Add(domainEvent);
     }

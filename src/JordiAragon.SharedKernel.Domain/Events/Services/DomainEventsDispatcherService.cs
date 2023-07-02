@@ -31,9 +31,9 @@
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task DispatchAndClearEventsAsync(IEnumerable<dynamic> eventableEntities, CancellationToken cancellationToken = default)
+        public async Task DispatchAndClearEventsAsync(IEnumerable<IDomainEventsContainer> eventableEntities, CancellationToken cancellationToken = default)
         {
-            var domainEvents = eventableEntities.SelectMany(x => (IEnumerable<IDomainEvent>)x.DomainEvents).ToList();
+            var domainEvents = eventableEntities.SelectMany(x => x.DomainEvents).ToList();
 
             var domainEventNotifications = new List<IDomainEventNotification<IDomainEvent>>();
             foreach (var domainEvent in domainEvents)
