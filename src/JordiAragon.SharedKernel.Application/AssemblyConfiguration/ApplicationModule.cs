@@ -3,6 +3,7 @@
     using System.Reflection;
     using Autofac;
     using JordiAragon.SharedKernel;
+    using JordiAragon.SharedKernel.Application.Commands.Decorators;
     using JordiAragon.SharedKernel.Application.Events.Decorators;
     using MediatR;
 
@@ -17,6 +18,14 @@
             builder.RegisterGenericDecorator(
                 typeof(DomainEventsDispatcherNotificationHandlerDecorator<>),
                 typeof(INotificationHandler<>));
+
+            builder.RegisterGenericDecorator(
+                typeof(ApplicationEventsDispatcherCommandHandlerDecorator<>),
+                typeof(IRequestHandler<,>));
+
+            builder.RegisterGenericDecorator(
+                typeof(ApplicationEventsDispatcherCommandHandlerDecorator<,>),
+                typeof(IRequestHandler<,>));
         }
     }
 }
