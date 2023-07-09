@@ -17,6 +17,8 @@
 
         public TId Value { get; init; }
 
+        public static implicit operator TId(BaseEntityId<TId> self) => self.Value;
+
         public override string ToString() => this.Value?.ToString() ?? base.ToString();
 
         protected override IEnumerable<object> GetEqualityComponents()
