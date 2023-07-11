@@ -31,12 +31,6 @@
             </summary>
             <typeparam name="TApplicationEventNotification">The application event notification.</typeparam>
         </member>
-        <member name="T:JordiAragon.SharedKernel.Application.Contracts.Interfaces.IDomainEventHandler`1">
-            <summary>
-            Handle the domain event in the same source transaction.
-            </summary>
-            <typeparam name="TDomainEvent">The source domain event.</typeparam>
-        </member>
         <member name="T:JordiAragon.SharedKernel.Application.Contracts.Interfaces.IDomainEventNotificationHandler`1">
             <summary>
             Handle the domain event out side the source transaction.

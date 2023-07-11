@@ -57,6 +57,7 @@
                 entity.ClearDomainEvents();
             }
 
+            /*
             var tasks = domainEvents
                 .Select(async (domainEvent) =>
                 {
@@ -80,7 +81,29 @@
                     }
                 });
 
-            await Task.WhenAll(tasks);
+            await Task.WhenAll(tasks);*/
+
+            foreach (var domainEvent in domainEvents)
+            {
+                try
+                {
+                    domainEvent.IsPublished = true;
+
+                    this.logger.LogInformation("Dispatched Domain Event {DomainEvent}", domainEvent.GetType().Name);
+
+                    await this.mediator.Publish(domainEvent, cancellationToken).ConfigureAwait(true);
+                }
+                catch (Exception exception)
+                {
+                    this.logger.LogError(
+                       exception,
+                       "Error publishing domain event: {@Name} {Content}.",
+                       domainEvent.GetType().Name,
+                       domainEvent);
+
+                    throw;
+                }
+            }
 
             foreach (var domainEventNotification in domainEventNotifications)
             {
