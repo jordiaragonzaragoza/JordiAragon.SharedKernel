@@ -11,12 +11,6 @@
             This is a private event, not persisted, part of Ubiquitous Language.
             </summary>
         </member>
-        <member name="T:JordiAragon.SharedKernel.Application.Contracts.Interfaces.IApplicationEventHandler`1">
-            <summary>
-            Handle the application event in the same source transaction.
-            </summary>
-            <typeparam name="TApplicationEvent">The source application event.</typeparam>
-        </member>
         <member name="T:JordiAragon.SharedKernel.Application.Contracts.Interfaces.IApplicationEventNotification`1">
             <summary>
             The Application Event Notification is an event that occurs within the problem domain (living inside a bounded context)
