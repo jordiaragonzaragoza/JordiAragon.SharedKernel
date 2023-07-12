@@ -43,7 +43,7 @@
                 var domainNotificationWithGenericType = domainEventNotificationType.MakeGenericType(domainEvent.GetType());
                 var domainNotification = this.scope.ResolveOptional(domainNotificationWithGenericType, new List<Parameter>
                 {
-                    new NamedParameter("domainEvent", domainEvent),
+                    new NamedParameter("event", domainEvent),
                 });
 
                 if (domainNotification != null)
