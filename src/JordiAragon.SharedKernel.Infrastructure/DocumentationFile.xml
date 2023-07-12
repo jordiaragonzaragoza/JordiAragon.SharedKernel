@@ -9,15 +9,5 @@
             This class is required due to an issue with Autofac, Decorators and .NET DI.
             </summary>
         </member>
-        <member name="T:JordiAragon.SharedKernel.Infrastructure.InMemoryBus.ForeachAwaitPublisher">
-            <summary>
-            Awaits each notification handler in a single foreach loop:
-            <code>
-            foreach (var handler in handlers) {
-                await handler(notification, cancellationToken);
-            }
-            </code>
-            </summary>
-        </member>
     </members>
 </doc>

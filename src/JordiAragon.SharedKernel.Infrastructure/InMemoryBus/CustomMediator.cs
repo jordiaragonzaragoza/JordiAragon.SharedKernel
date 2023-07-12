@@ -2,6 +2,7 @@
 {
     using System;
     using MediatR;
+    using MediatR.NotificationPublishers;
 
     /// <summary>
     /// This class is required due to an issue with Autofac, Decorators and .NET DI.

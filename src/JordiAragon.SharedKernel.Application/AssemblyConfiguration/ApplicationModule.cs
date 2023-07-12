@@ -20,6 +20,10 @@
                 typeof(INotificationHandler<>));
 
             builder.RegisterGenericDecorator(
+                typeof(EventNotificationDomainEventsDispatcherNotificationHandlerDecorator<>),
+                typeof(INotificationHandler<>));
+
+            builder.RegisterGenericDecorator(
                 typeof(ApplicationEventsDispatcherCommandHandlerDecorator<>),
                 typeof(IRequestHandler<,>));
 
