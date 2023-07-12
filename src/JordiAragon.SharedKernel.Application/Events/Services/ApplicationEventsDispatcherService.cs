@@ -43,7 +43,7 @@
                 var applicationNotificationWithGenericType = applicationEvenNotificationType.MakeGenericType(applicationEvent.GetType());
                 var applicationNotification = this.scope.ResolveOptional(applicationNotificationWithGenericType, new List<Parameter>
                 {
-                    new NamedParameter("applicationEvent", applicationEvent),
+                    new NamedParameter("event", applicationEvent),
                 });
 
                 if (applicationNotification != null)
@@ -52,30 +52,27 @@
                 }
             }
 
-            var tasks = applicationEventsList
-                .Select(async (applicationEvent) =>
+            foreach (var applicationEvent in applicationEventsList)
+            {
+                try
                 {
-                    try
-                    {
-                        applicationEvent.IsPublished = true;
+                    applicationEvent.IsPublished = true;
 
-                        this.logger.LogInformation("Dispatched Application Event {DomainEvent}", applicationEvent.GetType().Name);
+                    this.logger.LogInformation("Dispatched Application Event {DomainEvent}", applicationEvent.GetType().Name);
 
-                        await this.mediator.Publish(applicationEvent, cancellationToken);
-                    }
-                    catch (Exception exception)
-                    {
-                        this.logger.LogError(
-                           exception,
-                           "Error publishing application event: {@Name} {Content}.",
-                           applicationEvent.GetType().Name,
-                           applicationEvent);
+                    await this.mediator.Publish(applicationEvent, cancellationToken);
+                }
+                catch (Exception exception)
+                {
+                    this.logger.LogError(
+                       exception,
+                       "Error publishing application event: {@Name} {Content}.",
+                       applicationEvent.GetType().Name,
+                       applicationEvent);
 
-                        throw;
-                    }
-                });
-
-            await Task.WhenAll(tasks);
+                    throw;
+                }
+            }
 
             foreach (var applicationEventNotification in applicationEventNotifications)
             {
