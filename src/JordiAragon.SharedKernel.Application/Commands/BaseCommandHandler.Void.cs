@@ -11,11 +11,11 @@
     {
         private readonly List<IApplicationEvent> applicationEvents = new();
 
-        public IEnumerable<IApplicationEvent> ApplicationEvents => this.applicationEvents.AsReadOnly();
+        public IEnumerable<IApplicationEvent> Events => this.applicationEvents.AsReadOnly();
 
         public abstract Task<Result> Handle(TCommand request, CancellationToken cancellationToken);
 
-        public void ClearApplicationEvents() => this.applicationEvents.Clear();
+        public void ClearEvents() => this.applicationEvents.Clear();
 
         protected void RegisterApplicationEvent(IApplicationEvent applicationEvent) => this.applicationEvents.Add(applicationEvent);
     }

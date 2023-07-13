@@ -8,7 +8,7 @@
     /// This is a private event, persisted, part of Ubiquitous Language.
     /// </summary>
     /// <typeparam name="TDomainEvent">Source domainEvent.</typeparam>
-    public interface IDomainEventNotification<out TDomainEvent> : IEventNotification<TDomainEvent>, IDomainEventNotification
+    public interface IDomainEventNotification<out TDomainEvent> : IEventNotification<TDomainEvent>, IDomainEventNotification // TODO: Remove this interface.
         where TDomainEvent : IDomainEvent
     {
     }
