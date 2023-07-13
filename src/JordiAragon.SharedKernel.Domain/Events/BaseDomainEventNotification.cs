@@ -1,9 +1,10 @@
 ﻿namespace JordiAragon.SharedKernel.Domain.Events
 {
     using System;
+    using JordiAragon.SharedKernel.Contracts.Events;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
 
-    public abstract record class BaseDomainEventNotification<T> : IDomainEventNotification<T>
+    public abstract record class BaseDomainEventNotification<T> : IEventNotification<T>
         where T : IDomainEvent
     {
         protected BaseDomainEventNotification(T domainEvent)

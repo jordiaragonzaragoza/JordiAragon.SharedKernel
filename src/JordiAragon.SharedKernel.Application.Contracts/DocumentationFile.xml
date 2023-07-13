@@ -11,13 +11,5 @@
             This is a private event, not persisted, part of Ubiquitous Language.
             </summary>
         </member>
-        <member name="T:JordiAragon.SharedKernel.Application.Contracts.Interfaces.IApplicationEventNotification`1">
-            <summary>
-            The Application Event Notification is an event that occurs within the problem domain (living inside a bounded context)
-            and is used to communicate a change in the state of the entity or aggregate.
-            This is a private event, persisted, part of Ubiquitous Language.
-            </summary>
-            <typeparam name="TApplicationEvent">Source applicationEvent.</typeparam>
-        </member>
     </members>
 </doc>
