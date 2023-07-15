@@ -1,9 +1,9 @@
 ﻿namespace JordiAragon.SharedKernel.Domain.Entities
 {
     using System;
+    using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
 
-    // TODO: Move to an interface for required entities
-    public abstract class BaseAuditableEntity<TId> : BaseEntity<TId>
+    public abstract class BaseAuditableEntity<TId> : BaseEntity<TId>, IAuditableEntity
     {
         protected BaseAuditableEntity(TId id)
             : base(id)
@@ -23,6 +23,7 @@
 
         public string LastModifiedByUserId { get; set; }
 
+        // TODO: Implement SoftDelete
         ////public DateTime? DeletionDate { get; set; }
         ////public string DeletedByUserId { get; set; }
     }
