@@ -1,11 +1,27 @@
 What is the SharedKernel Project?
 =====================
-The SharedKernel Project is a project written in .NET 7.
+The goal of this project is create the building blocks to follow DDD principles and Clean Architecture in .NET 
 
-The goal of this project is create the building blocks to follow DDD principles and Clean Architecture. 
+## Nugets ready to use:
 
-## How to use:
-- You will need the latest Visual Studio 2022 and the latest .NET Core SDK.
+- [![JordiAragon.SharedKernel - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.svg?label=JordiAragon.SharedKernel%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel)
+[![JordiAragon.SharedKernel.Contracts - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Contracts.svg?label=JordiAragon.SharedKernel.Contracts%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Contracts)
+- [![JordiAragon.SharedKernel.Domain - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Domain.svg?label=JordiAragon.SharedKernel.Domain%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Domain)
+[![JordiAragon.SharedKernel.Domain.Contracts - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Domain.Contracts.svg?label=JordiAragon.SharedKernel.Domain.Contracts%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Domain.Contracts)
+- [![JordiAragon.SharedKernel.Application - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Application.svg?label=JordiAragon.SharedKernel.Application%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Application)
+[![JordiAragon.SharedKernel.Application.Contracts - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Application.Contracts.svg?label=JordiAragon.SharedKernel.Application.Contracts%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Application.Contracts)
+[![JordiAragon.SharedKernel.Application.Contracts.IntegrationMessages - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Application.Contracts.IntegrationMessages.svg?label=JordiAragon.SharedKernel.Application.Contracts.IntegrationMessages%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Application.Contracts.IntegrationMessages)
+- [![JordiAragon.SharedKernel.Infrastructure - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Infrastructure.svg?label=JordiAragon.SharedKernel.Infrastructure%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Infrastructure)
+[![JordiAragon.SharedKernel.Infrastructure.EntityFramework - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Infrastructure.EntityFramework.svg?label=JordiAragon.SharedKernel.Infrastructure.EntityFramework%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Infrastructure.EntityFramework)
+- [![JordiAragon.SharedKernel.Presentation.WebApi - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Presentation.WebApi.svg?label=JordiAragon.SharedKernel.Presentation.WebApi%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Presentation.WebApi)
+[![JordiAragon.SharedKernel.Presentation.WebApi.Contracts - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Presentation.WebApi.Contracts.svg?label=JordiAragon.SharedKernel.Presentation.WebApi.Contracts%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Presentation.WebApi.Contracts)
+
+## Dependency graph:
+
+![JordiAragon.SharedKernel - Dependency graph](./docs/ArchitectureDiagram.jpg)
+
+## How to debug:
+- You will need the latest Visual Studio 2022 and the latest .NET Core SDK (at least .NET 7 SDK)
 - All the projects library are contained in JordiAragon.SharedKernel.sln solution file.
 
 ## Used libraries:
@@ -14,11 +30,10 @@ The goal of this project is create the building blocks to follow DDD principles 
 - AutoMapper
 - Autofac
 - MassTransit
-- Ardalis Libraries
- - Ardalis.Result
- - Ardalis.Specification
- - Ardalis.SmartEnums
- - Ardalis.GuardClauses
+- Ardalis.Result
+- Ardalis.Specification
+- Ardalis.SmartEnums
+- Ardalis.GuardClauses
 - FluentValidator
 - Serilog
 - Quartz
@@ -54,10 +69,15 @@ The goal of this project is create the building blocks to follow DDD principles 
 - <a href="https://github.com/ardalis/CleanArchitecture" target="_blank">Ardalis: Clean Architecture</a>
 - <a href="https://www.youtube.com/watch?v=SUiWfhAhgQw" target="_blank">Jimmy Bogard: Vertical Slice Architecture</a>
 - <a href="https://github.com/jasontaylordev/CleanArchitecture" target="_blank">Jason Taylor: Clean Architecture</a>
-- <a href="https://github.com/dotnet-architecture/eShopOnContainers" target="_blank">Microsoft: eShopOnContainers</a>
-- <a href="https://github.com/dotnet-architecture/eShopOnWeb" target="_blank">Microsoft: eShopOnWeb</a>
+- <a href="https://www.oreilly.com/library/view/implementing-domain-driven-design/9780133039900/" target="_blank">Vaughn Vernon: Implementing Domain-Driven Design (book)</a>
+- <a href="https://kalele.io/books/ddd-destilado/" target="_blank">Vaughn Vernon: Domain-Driven Design Destilado (book)</a>
+- <a href="https://www.amazon.com/Hands-Domain-Driven-Design-NET-ebook/dp/B07C5WSR9B" target="_blank">Alexey Zimarev: Hands-on Domain-Driven Design (book)</a>
+- <a href="https://github.com/dotnet-architecture/eShopOnContainers" target="_blank">Microsoft eShopOnContainers</a>
+- <a href="https://github.com/dotnet-architecture/eShopOnWeb" target="_blank">Microsoft eShopOnWeb</a>
 - <a href="https://github.com/kgrzybek/sample-dotnet-core-cqrs-api" target="_blank">Kamil Grzybek: Sample .NET Core REST API CQRS</a>
 - <a href="https://github.com/kgrzybek/modular-monolith-with-ddd" target="_blank">Kamil Grzybek: Modular Monolith With DDD</a>
+- <a href="https://www.youtube.com/@amantinband" target="_blank">Amichai Mantinband: Youtube Channel</a>
+- <a href="https://www.youtube.com/@MilanJovanovicTech" target="_blank">Milan Jovanović: Youtube Channel</a>
 
 ## About:
 

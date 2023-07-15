@@ -7,15 +7,18 @@
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 		<Description>A simple package to implement the building blocks to follow DDD principles and Clean Architecture.</Description>
 		<Summary>A simple package to implement the building blocks to follow DDD principles and Clean Architecture.</Summary>
-		<PackageTags>Building blocks to follow DDD principles and Clean Architecture</PackageTags>
-		<PackageProjectUrl>https://github.com/jordiaragonzaragoza/JordiAragon.SharedKernel</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/jordiaragonzaragoza/JordiAragon.SharedKernel</RepositoryUrl>
 		<Authors>Jordi Aragon Zaragoza</Authors>
+		<PackageProjectUrl>https://github.com/jordiaragonzaragoza/JordiAragon.SharedKernel</PackageProjectUrl>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageTags>DDD, SharedKernel, Clean Architecture, Onion Architecture</PackageTags>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="..\..\icon.png" Pack="true" Visible="false" PackagePath="" />
-		<None Include="..\..\LICENSE" Pack="true" PackagePath=""/>
+		<None Include="..\..\LICENSE" Pack="true" Visible="false" PackagePath=""/>
+		<None Include="..\..\README.md" Pack="true" Visible="false" PackagePath=""/>
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Include="..\..\GlobalSuppressions.cs">
@@ -33,18 +36,18 @@
 		<PackageVersion Include="Autofac" Version="7.0.1" />
 		<PackageVersion Include="AutoMapper" Version="12.0.1" />
 		<PackageVersion Include="EasyCaching.Core" Version="1.9.0" />
-		<PackageVersion Include="FluentValidation" Version="11.5.2" />
+		<PackageVersion Include="FluentValidation" Version="11.6.0" />
 		<PackageVersion Include="MassTransit" Version="8.0.16" />
-		<PackageVersion Include="MediatR" Version="12.0.1" />
+		<PackageVersion Include="MediatR" Version="12.1.1" />
 		<PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
 		<PackageVersion Include="Microsoft.Extensions.Logging" Version="7.0.0" />
 		<PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
-		<PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.6.40"/>
+		<PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.6.40" />
 		<PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageVersion Include="Quartz" Version="3.6.2" />
+		<PackageVersion Include="Quartz" Version="3.6.3" />
 		<PackageVersion Include="SonarAnalyzer.CSharp" Version="8.55.0.65544"/>
-		<PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.435" />
-		<PackageVersion Include="Volo.Abp.Guids" Version="7.2.2" />
+		<PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.507" />
+		<PackageVersion Include="Volo.Abp.Guids" Version="7.2.3" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="StyleCop.Analyzers">

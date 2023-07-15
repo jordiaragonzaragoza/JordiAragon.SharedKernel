@@ -1,12 +1,17 @@
 ﻿namespace JordiAragon.SharedKernel.Domain.Entities
 {
     using System;
+    using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
 
-    // TODO: Move to an interface and add soft delete for required entities
-    public abstract class BaseAuditableEntity<TId> : BaseEventableEntity<TId>
+    public abstract class BaseAuditableEntity<TId> : BaseEntity<TId>, IAuditableEntity
     {
         protected BaseAuditableEntity(TId id)
             : base(id)
+        {
+        }
+
+        // Required by EF.
+        protected BaseAuditableEntity()
         {
         }
 
@@ -18,6 +23,7 @@
 
         public string LastModifiedByUserId { get; set; }
 
+        // TODO: Implement SoftDelete
         ////public DateTime? DeletionDate { get; set; }
         ////public string DeletedByUserId { get; set; }
     }
