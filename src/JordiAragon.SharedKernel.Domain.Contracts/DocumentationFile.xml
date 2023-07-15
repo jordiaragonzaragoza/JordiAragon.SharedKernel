@@ -6,18 +6,21 @@
     <members>
         <member name="T:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.IDomainEvent">
             <summary>
-            The Domain Event is an event that occurs within the problem domain (living inside a bounded context)
+            The Event occurs within the problem domain (living inside a bounded context)
             and is used to communicate a change in the state of the entity.
-            This is a private event, not persisted, part of Ubiquitous Language.
+            This is a private event part of Ubiquitous Language.
             </summary>
         </member>
-        <member name="T:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.IDomainEventNotification`1">
+        <member name="T:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.IEntity`1">
             <summary>
-            The Domain Event Notification is an event that occurs within the problem domain (living inside a bounded context)
-            and is used to communicate a change in the state of the entity or aggregate.
-            This is a private event, persisted, part of Ubiquitous Language.
+            Generic abstraction for a domain entity.
             </summary>
-            <typeparam name="TDomainEvent">Source domainEvent.</typeparam>
+            <typeparam name="TId">The id for the entity.</typeparam>
+        </member>
+        <member name="T:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.ISoftDelete">
+            <summary>
+            It indicates whether is logically deleted.
+            </summary>
         </member>
     </members>
 </doc>

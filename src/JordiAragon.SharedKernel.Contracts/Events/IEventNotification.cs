@@ -1,7 +1,5 @@
 ﻿namespace JordiAragon.SharedKernel.Contracts.Events
 {
-    using System;
-
     /// <summary>
     /// The Event Notification is an event that occurs within the problem (living inside a bounded context)
     /// and is used to communicate a change in the state of the entity or aggregate.

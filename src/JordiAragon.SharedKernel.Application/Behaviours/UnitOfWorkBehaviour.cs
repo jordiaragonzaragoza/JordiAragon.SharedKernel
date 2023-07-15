@@ -13,7 +13,7 @@
     using Microsoft.Extensions.Logging;
 
     public class UnitOfWorkBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : IRequest<TResponse>
+        where TRequest : IRequest<TResponse> // TODO: Review restrict to ICommand<TResponse> or ICommand
         where TResponse : IResult
     {
         private readonly ILogger<TRequest> logger;
