@@ -37,6 +37,15 @@
             this.IsDeleted = true;
         }
 
-        protected void RegisterDomainEvent(IDomainEvent domainEvent) => this.domainEvents.Add(domainEvent);
+        protected void Apply(IDomainEvent domainEvent)
+        {
+            this.When(domainEvent);
+            this.EnsureValidState();
+            this.domainEvents.Add(domainEvent);
+        }
+
+        protected abstract void When(IDomainEvent domainEvent);
+
+        protected abstract void EnsureValidState();
     }
 }

@@ -3,7 +3,7 @@
     using System;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
 
-    public abstract record class BaseDomainEvent : IDomainEvent
+    public abstract record class BaseDomainEvent(Guid AggregateId) : IDomainEvent
     {
         public Guid Id { get; protected init; } = Guid.NewGuid();
 
