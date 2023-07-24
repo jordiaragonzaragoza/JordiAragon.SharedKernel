@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+	<Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.1.3" />
+	<PropertyGroup>
+		<PackageId>JordiAragon.SharedKernel.Infrastructure.EventStore</PackageId>
+		<Title>JordiAragon.SharedKernel.Infrastructure.EventStore</Title>
+		<AssemblyName>JordiAragon.SharedKernel.Infrastructure.EventStore</AssemblyName>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="EventStore.Client" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\JordiAragon.SharedKernel\JordiAragon.SharedKernel.csproj" />
+	  <ProjectReference Include="..\JordiAragon.SharedKernel.Domain\JordiAragon.SharedKernel.Domain.csproj" />
+	  <ProjectReference Include="..\JordiAragon.SharedKernel.Application.Contracts\JordiAragon.SharedKernel.Application.Contracts.csproj" />
+	</ItemGroup>
+</Project>

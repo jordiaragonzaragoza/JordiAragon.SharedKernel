@@ -36,6 +36,7 @@
 		<PackageVersion Include="Autofac" Version="7.0.1" />
 		<PackageVersion Include="AutoMapper" Version="12.0.1" />
 		<PackageVersion Include="EasyCaching.Core" Version="1.9.0" />
+		<PackageVersion Include="EventStore.Client" Version="22.0.0" />
 		<PackageVersion Include="FluentValidation" Version="11.6.0" />
 		<PackageVersion Include="MassTransit" Version="8.0.16" />
 		<PackageVersion Include="MediatR" Version="12.1.1" />
