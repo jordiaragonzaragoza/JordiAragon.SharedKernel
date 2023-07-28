@@ -17,7 +17,12 @@
 
         public TId Value { get; init; }
 
-        public static implicit operator TId(BaseEntityId<TId> self) => self.Value;
+        public static implicit operator TId(BaseEntityId<TId> self)
+        {
+            Guard.Against.Null(self, nameof(self));
+
+            return self.Value;
+        }
 
         public override string ToString() => this.Value?.ToString() ?? base.ToString();
 
