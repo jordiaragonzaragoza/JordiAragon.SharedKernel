@@ -38,6 +38,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JordiAragon.SharedKernel.Ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JordiAragon.SharedKernel.Infrastructure", "src\JordiAragon.SharedKernel.Infrastructure\JordiAragon.SharedKernel.Infrastructure.csproj", "{F8CF1D41-56D8-4CC4-B515-A289B58A52F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JordiAragon.SharedKernel.Infrastructure.EventStore", "src\JordiAragon.SharedKernel.Infrastructure.EventStore\JordiAragon.SharedKernel.Infrastructure.EventStore.csproj", "{796BE02B-A145-4719-9A4E-21676F660BC5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -88,6 +90,10 @@ Global
 		{F8CF1D41-56D8-4CC4-B515-A289B58A52F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8CF1D41-56D8-4CC4-B515-A289B58A52F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8CF1D41-56D8-4CC4-B515-A289B58A52F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{796BE02B-A145-4719-9A4E-21676F660BC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{796BE02B-A145-4719-9A4E-21676F660BC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{796BE02B-A145-4719-9A4E-21676F660BC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{796BE02B-A145-4719-9A4E-21676F660BC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,5 +113,6 @@ Global
 		{B6BECF65-B4DC-45F1-ABF3-148E292A9574} = {45EA8B9A-49B1-4FA6-95C6-DCCCF2DAF27E}
 		{66F24904-2CBB-40B8-97F6-42AF787788B8} = {45EA8B9A-49B1-4FA6-95C6-DCCCF2DAF27E}
 		{F8CF1D41-56D8-4CC4-B515-A289B58A52F7} = {45EA8B9A-49B1-4FA6-95C6-DCCCF2DAF27E}
+		{796BE02B-A145-4719-9A4E-21676F660BC5} = {45EA8B9A-49B1-4FA6-95C6-DCCCF2DAF27E}
 	EndGlobalSection
 EndGlobal

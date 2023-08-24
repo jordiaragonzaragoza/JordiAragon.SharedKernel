@@ -1,5 +1,6 @@
 ﻿namespace JordiAragon.SharedKernel.Domain.Contracts.Interfaces
 {
+    using System;
     using JordiAragon.SharedKernel.Contracts.Events;
 
     /// <summary>
@@ -9,5 +10,6 @@
     /// </summary>
     public interface IDomainEvent : IEvent
     {
+        public Guid AggregateId { get; } // TODO: Review if it's required.
     }
 }
