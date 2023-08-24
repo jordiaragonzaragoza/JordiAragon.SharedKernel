@@ -82,6 +82,12 @@ jobs:
         dotnet pack --no-build src/JordiAragon.SharedKernel.Infrastructure.EntityFramework/JordiAragon.SharedKernel.Infrastructure.EntityFramework.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
         dotnet nuget push nuget/*.nupkg -k '${{ secrets.NUGET_API_KEY }}' --skip-duplicate -s https://api.nuget.org/v3/index.json
 
+    - name: Publish JordiAragon.SharedKernel.Infrastructure.EventStore to NuGet
+      run: |
+        rm -rf nuget/
+        dotnet pack --no-build src/JordiAragon.SharedKernel.Infrastructure.EventStore/JordiAragon.SharedKernel.Infrastructure.EventStore.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
+        dotnet nuget push nuget/*.nupkg -k '${{ secrets.NUGET_API_KEY }}' --skip-duplicate -s https://api.nuget.org/v3/index.json
+
     - name: Publish JordiAragon.SharedKernel.Presentation.WebApi to NuGet
       run: |
         rm -rf nuget/
