@@ -58,7 +58,7 @@
                 var notificationWithGenericType = eventNotificationType.MakeGenericType(@event.GetType());
                 var notification = this.scope.ResolveOptional(notificationWithGenericType, new List<Parameter>
                 {
-                    new NamedParameter("event", @event),
+                    new NamedParameter("Event", @event),
                 });
 
                 if (notification != null)
