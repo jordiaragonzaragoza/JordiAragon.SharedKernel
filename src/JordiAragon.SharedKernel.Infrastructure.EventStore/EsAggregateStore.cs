@@ -16,7 +16,7 @@ namespace JordiAragon.SharedKernel.Infrastructure.EventStore
         public EsAggregateStore(IEventStoreConnection connection) => this.connection = connection;
 
         public async Task SaveAsync<T, TId>(T aggregate)
-            where T : IAggregateRoot<TId>
+            where T : IEventSourcedAggregateRoot<TId>
         {
             if (aggregate == null)
             {
@@ -50,7 +50,7 @@ namespace JordiAragon.SharedKernel.Infrastructure.EventStore
         }
 
         public async Task<T> LoadAsync<T, TId>(TId aggregateId)
-            where T : IAggregateRoot<TId>
+            where T : IEventSourcedAggregateRoot<TId>
         {
             Guard.Against.Null(aggregateId, nameof(aggregateId));
 
@@ -91,7 +91,7 @@ namespace JordiAragon.SharedKernel.Infrastructure.EventStore
             => $"{typeof(T).Name}-{aggregateId}";
 
         private static string GetStreamName<T, TId>(T aggregate)
-            where T : IAggregateRoot<TId>
+            where T : IEventSourcedAggregateRoot<TId>
             => $"{typeof(T).Name}-{aggregate.Id}";
 
         private sealed class EventMetadata

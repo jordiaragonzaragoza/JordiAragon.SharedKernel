@@ -6,7 +6,7 @@
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Domain.ValueObjects;
 
-    public abstract class BaseAggregateRoot<TId, TIdType> : BaseAuditableEntity<TId>, IAggregateRoot<TId>, ISoftDelete
+    public abstract class BaseAggregateRoot<TId, TIdType> : BaseEntity<TId>, IAggregateRoot<TId>
         where TId : BaseAggregateRootId<TIdType>
     {
         private readonly List<IDomainEvent> domainEvents = new();
@@ -27,25 +27,7 @@
         [NotMapped]
         public IEnumerable<IDomainEvent> Events => this.domainEvents.AsReadOnly();
 
-        public int Version { get; private set; } = -1;
-
-        public bool IsDeleted { get; private set; }
-
         public void ClearEvents() => this.domainEvents.Clear();
-
-        public void Load(IEnumerable<IDomainEvent> history)
-        {
-            foreach (var @event in history)
-            {
-                this.When(@event);
-                this.Version++;
-            }
-        }
-
-        protected void MarkAsDeleted()
-        {
-            this.IsDeleted = true;
-        }
 
         protected void Apply(IDomainEvent domainEvent)
         {

@@ -7,9 +7,9 @@ namespace JordiAragon.SharedKernel.Domain.Contracts.Interfaces
         Task<bool> ExistsAsync<T, TId>(TId aggregateId);
 
         Task SaveAsync<T, TId>(T aggregate)
-            where T : IAggregateRoot<TId>;
+            where T : IEventSourcedAggregateRoot<TId>;
 
         Task<T> LoadAsync<T, TId>(TId aggregateId)
-            where T : IAggregateRoot<TId>;
+            where T : IEventSourcedAggregateRoot<TId>;
     }
 }
