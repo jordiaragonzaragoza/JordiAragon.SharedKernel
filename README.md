@@ -64,6 +64,12 @@ The goal of this project is create the building blocks to follow DDD principles 
 **Presentation and Contracts**
 - WebApi building blocks. Like BaseApiController, ExceptionMiddleware and CurrentUserService
 
+## Testing
+
+- GitHub workflow CI with SonarCloud integration
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=jordiaragonzaragoza_JordiAragon.SharedKernel)
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=jordiaragonzaragoza_JordiAragon.SharedKernel)](https://sonarcloud.io/summary/new_code?id=jordiaragonzaragoza_JordiAragon.SharedKernel)
+
 ## Resources and Inspiration
 
 - <a href="https://github.com/ardalis/CleanArchitecture" target="_blank">Ardalis: Clean Architecture</a>

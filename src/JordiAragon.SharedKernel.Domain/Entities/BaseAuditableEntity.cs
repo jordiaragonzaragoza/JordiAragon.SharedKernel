@@ -3,6 +3,7 @@
     using System;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
 
+    // TODO: Move this base class to a data entity. It is not part of the domain
     public abstract class BaseAuditableEntity<TId> : BaseEntity<TId>, IAuditableEntity
     {
         protected BaseAuditableEntity(TId id)
