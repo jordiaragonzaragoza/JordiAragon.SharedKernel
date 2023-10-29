@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Ardalis.Result;
     using Ardalis.Result.FluentValidation;
     using FluentValidation;
@@ -10,12 +9,6 @@
 
     public static class FluentValidationHelper
     {
-        // TODO: Temporal. Remove when all validations where will be moved to Application Layer.
-        public static IDictionary<string, string[]> FormatResponse(this ValidationResult result)
-        {
-            return result.Errors.GroupBy(x => x.PropertyName, x => x.ErrorMessage).ToDictionary(g => g.Key, g => g.ToArray());
-        }
-
         public static List<ValidationError> AsErrors(this List<ValidationFailure> valResult)
         {
             var resultErrors = new List<ValidationError>();

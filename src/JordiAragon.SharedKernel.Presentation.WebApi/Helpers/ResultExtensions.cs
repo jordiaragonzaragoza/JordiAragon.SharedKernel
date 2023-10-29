@@ -182,7 +182,6 @@
 
         private static ActionResult Forbidden(ControllerBase controller)
         {
-            // TODO: Complete with forbid details.
             return controller.Forbid();
         }
     }
