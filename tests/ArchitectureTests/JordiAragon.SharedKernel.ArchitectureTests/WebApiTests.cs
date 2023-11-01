@@ -17,7 +17,7 @@
             var testResult = Types
                 .InAssembly(assembly)
                 .That()
-                .HaveNameEndingWith("ControllerBase")
+                .HaveNameEndingWith("BaseApiController")
                 .Should()
                 .HaveDependencyOn("MediatR")
                 .GetResult();

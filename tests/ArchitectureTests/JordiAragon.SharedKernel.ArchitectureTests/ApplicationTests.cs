@@ -8,7 +8,7 @@
     public class ApplicationTests
     {
         [Fact]
-        public void Handlers_Should_Have_DependencyOnArdalisResult()
+        public void CommandHandlers_Should_Have_DependencyOnArdalisResult()
         {
             // Arrange.
             var assembly = ApplicationAssemblyReference.Assembly;
