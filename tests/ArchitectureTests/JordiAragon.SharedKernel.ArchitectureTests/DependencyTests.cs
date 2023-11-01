@@ -1,5 +1,6 @@
 ﻿namespace JordiAragon.SharedKernel.ArchitectureTests
 {
+    using System.Collections.Generic;
     using System.Linq;
     using FluentAssertions;
     using JordiAragon.SharedKernel;
@@ -473,6 +474,30 @@
         }
 
         [Fact]
+        public void InfrastructureEventStore_Should_HaveSomeDependencies()
+        {
+            var assembly = InfrastructureEventStoreAssemblyReference.Assembly;
+
+            var otherProjects = new[]
+            {
+                this.applicationContractsNamespace,
+                this.sharedKernelNamespace,
+                this.domainNamespace,
+            };
+
+            // Act.
+            var testResult = Types
+                .InAssembly(assembly)
+                .Should()
+                .HaveDependencyOnAny(otherProjects)
+                .GetTypes()
+                .Any();
+
+            // Assert.
+            testResult.Should().BeTrue();
+        }
+
+        [Fact]
         public void WebApiContracts_Should_Not_HaveDependencyOnOtherProjects()
         {
             // Arrange.
@@ -503,6 +528,48 @@
 
             // Assert.
             types.Should().BeEmpty();
+        }
+
+        [Fact]
+        public void WebApi_Should_Not_HaveDependencyOnOtherProjectsExceptApplicationContracts()
+        {
+            // Arrange.
+            var assembly = WebApiAssemblyReference.Assembly;
+
+            var otherProjects = new[]
+            {
+                this.domainNamespace,
+                this.domainContractsNamespace,
+                this.applicationNamespace,
+                this.infrastructureNamespace,
+                this.infrastructureEntityFrameworkNamespace,
+                this.infrastructureEventStoreNamespace,
+            };
+
+            // Act.
+            var types = Types
+                .InAssembly(assembly)
+                .ShouldNot()
+                .HaveDependencyOnAny(otherProjects)
+                .GetTypes();
+
+            var testResults = new List<TestResult>();
+            foreach (var type in types)
+            {
+                var result = Types
+                    .InNamespace(type.Namespace)
+                    .Should()
+                    .HaveDependencyOn(this.applicationContractsNamespace)
+                    .GetResult();
+
+                testResults.Add(result);
+            }
+
+            // Assert.
+            foreach (var testResult in testResults)
+            {
+                testResult.IsSuccessful.Should().BeTrue(Utils.GetFailingTypes(testResult));
+            }
         }
     }
 }
