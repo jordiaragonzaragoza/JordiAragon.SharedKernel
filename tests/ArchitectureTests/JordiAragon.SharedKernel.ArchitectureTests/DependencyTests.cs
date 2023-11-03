@@ -1,7 +1,5 @@
 ﻿namespace JordiAragon.SharedKernel.ArchitectureTests
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using FluentAssertions;
     using JordiAragon.SharedKernel;
     using JordiAragon.SharedKernel.Application;
@@ -32,6 +30,26 @@
         private readonly string infrastructureEventStoreNamespace = InfrastructureEventStoreAssemblyReference.Assembly.GetName().Name;
         private readonly string webApiNamespace = WebApiAssemblyReference.Assembly.GetName().Name;
         private readonly string webApiContractsNamespace = WebApiContractsAssemblyReference.Assembly.GetName().Name;
+        private readonly string[] allProjects;
+
+        public DependencyTests()
+        {
+            this.allProjects = new[]
+            {
+                this.sharedKernelNamespace,
+                this.sharedKernelContractsNamespace,
+                this.domainNamespace,
+                this.domainContractsNamespace,
+                this.applicationNamespace,
+                this.applicationContractsNamespace,
+                this.applicationContractsIntegrationMessagesNamespace,
+                this.infrastructureNamespace,
+                this.infrastructureEntityFrameworkNamespace,
+                this.infrastructureEventStoreNamespace,
+                this.webApiNamespace,
+                this.webApiContractsNamespace,
+            };
+        }
 
         [Fact]
         public void SharedKernelContracts_Should_Not_HaveDependencyOnOtherProjects()
@@ -55,15 +73,18 @@
             };
 
             // Act.
-            var types = Types
+            var testResult = Types
                 .InAssembly(assembly)
-                .ShouldNot()
-                .HaveDependencyOnAny(otherProjects)
-                .GetTypes()
-                .Where(t => !t.Namespace.Contains(this.sharedKernelContractsNamespace));
+                .Should()
+                .NotHaveDependencyOnAny(otherProjects)
+                .Or()
+                .HaveDependencyOn(this.sharedKernelContractsNamespace)
+                .Or()
+                .NotHaveDependencyOnAny(this.allProjects)
+                .GetResult();
 
             // Assert.
-            types.Should().BeEmpty();
+            testResult.IsSuccessful.Should().BeTrue(Utils.GetFailingTypes(testResult));
         }
 
         [Fact]
@@ -89,29 +110,18 @@
             // Act.
             var testResult = Types
                 .InAssembly(assembly)
-                .ShouldNot()
-                .HaveDependencyOnAny(otherProjects)
+                .Should()
+                .NotHaveDependencyOnAny(otherProjects)
+                .Or()
+                .HaveDependencyOn(this.sharedKernelContractsNamespace)
+                .Or()
+                .HaveDependencyOn(this.sharedKernelNamespace)
+                .Or()
+                .NotHaveDependencyOnAny(this.allProjects)
                 .GetResult();
 
             // Assert.
             testResult.IsSuccessful.Should().BeTrue(Utils.GetFailingTypes(testResult));
-        }
-
-        [Fact]
-        public void SharedKernel_Should_HaveDependencyOnSharedKernelContractsProject()
-        {
-            // Arrange.
-            var assembly = SharedKernelAssemblyReference.Assembly;
-
-            // Act.
-            var types = Types
-                .InAssembly(assembly)
-                .Should()
-                .HaveDependencyOn(this.sharedKernelContractsNamespace)
-                .GetTypes();
-
-            // Assert.
-            types.Should().NotBeEmpty();
         }
 
         [Fact]
@@ -134,32 +144,19 @@
             };
 
             // Act.
-            var types = Types
-                .InAssembly(assembly)
-                .ShouldNot()
-                .HaveDependencyOnAny(otherProjects)
-                .GetTypes()
-                .Where(t => !t.Namespace.Contains(this.domainContractsNamespace));
-
-            // Assert.
-            types.Should().BeEmpty();
-        }
-
-        [Fact]
-        public void DomainContracts_Should_HaveDependencyOnSharedKernelContractsProject()
-        {
-            // Arrange.
-            var assembly = DomainContractsAssemblyReference.Assembly;
-
-            // Act.
-            var types = Types
+            var testResult = Types
                 .InAssembly(assembly)
                 .Should()
+                .NotHaveDependencyOnAny(otherProjects)
+                .Or()
+                .HaveDependencyOn(this.domainContractsNamespace)
+                .Or()
                 .HaveDependencyOn(this.sharedKernelContractsNamespace)
-                .GetTypes();
+                .Or()
+                .NotHaveDependencyOnAny(this.allProjects)
+                .GetResult();
 
-            // Assert.
-            types.Should().NotBeEmpty();
+            testResult.IsSuccessful.Should().BeTrue(Utils.GetFailingTypes(testResult));
         }
 
         [Fact]
@@ -168,7 +165,7 @@
             // Arrange.
             var assembly = DomainAssemblyReference.Assembly;
 
-            var otherProjects = new[]
+            var forbiddenDependencies = new[]
             {
                 this.applicationNamespace,
                 this.applicationContractsNamespace,
@@ -180,24 +177,7 @@
                 this.webApiContractsNamespace,
             };
 
-            // Act.
-            var testResult = Types
-                .InAssembly(assembly)
-                .ShouldNot()
-                .HaveDependencyOnAny(otherProjects)
-                .GetResult();
-
-            // Assert.
-            testResult.IsSuccessful.Should().BeTrue(Utils.GetFailingTypes(testResult));
-        }
-
-        [Fact]
-        public void Domain_Should_HaveSomeDependencies()
-        {
-            // Arrange.
-            var assembly = DomainAssemblyReference.Assembly;
-
-            var otherProjects = new[]
+            var dependencies = new[]
             {
                 this.sharedKernelNamespace,
                 this.domainContractsNamespace,
@@ -207,12 +187,17 @@
             var testResult = Types
                 .InAssembly(assembly)
                 .Should()
-                .HaveDependencyOnAny(otherProjects)
-                .GetTypes()
-                .Any();
+                .NotHaveDependencyOnAny(forbiddenDependencies)
+                .Or()
+                .HaveDependencyOn(this.domainNamespace)
+                .Or()
+                .HaveDependencyOnAny(dependencies)
+                .Or()
+                .NotHaveDependencyOnAny(this.allProjects)
+                .GetResult();
 
             // Assert.
-            testResult.Should().BeTrue();
+            testResult.IsSuccessful.Should().BeTrue(Utils.GetFailingTypes(testResult));
         }
 
         [Fact]
@@ -221,7 +206,7 @@
             // Arrange.
             var assembly = ApplicationContractsAssemblyReference.Assembly;
 
-            var otherProjects = new[]
+            var forbiddenDependencies = new[]
             {
                 this.sharedKernelNamespace,
                 this.domainNamespace,
@@ -234,40 +219,28 @@
                 this.webApiContractsNamespace,
             };
 
-            // Act.
-            var testResult = Types
-                .InAssembly(assembly)
-                .ShouldNot()
-                .HaveDependencyOnAny(otherProjects)
-                .GetTypes()
-                .Where(t => !t.Namespace.Contains(this.applicationContractsNamespace));
-
-            // Assert.
-            testResult.Should().BeEmpty();
-        }
-
-        [Fact]
-        public void ApplicationContracts_Should_HaveSomeDependencies()
-        {
-            // Arrange.
-            var assembly = ApplicationContractsAssemblyReference.Assembly;
-
-            var otherProjects = new[]
+            var dependencies = new[]
             {
                 this.applicationContractsIntegrationMessagesNamespace,
                 this.domainContractsNamespace,
+                this.sharedKernelContractsNamespace,
             };
 
             // Act.
-            var types = Types
+            var testResult = Types
                 .InAssembly(assembly)
                 .Should()
-                .HaveDependencyOnAny(otherProjects)
-                .GetTypes()
-                .Any();
+                .NotHaveDependencyOnAny(forbiddenDependencies)
+                .Or()
+                .HaveDependencyOn(this.applicationContractsNamespace)
+                .Or()
+                .HaveDependencyOnAny(dependencies)
+                .Or()
+                .NotHaveDependencyOnAny(this.allProjects)
+                .GetResult();
 
             // Assert.
-            types.Should().BeTrue();
+            testResult.IsSuccessful.Should().BeTrue(Utils.GetFailingTypes(testResult));
         }
 
         [Fact]
@@ -292,15 +265,18 @@
             };
 
             // Act.
-            var types = Types
+            var testResult = Types
                 .InAssembly(assembly)
-                .ShouldNot()
-                .HaveDependencyOnAny(otherProjects)
-                .GetTypes()
-                .Where(t => !t.Namespace.Contains(this.applicationContractsIntegrationMessagesNamespace));
+                .Should()
+                .NotHaveDependencyOnAny(otherProjects)
+                .Or()
+                .HaveDependencyOn(this.applicationContractsIntegrationMessagesNamespace)
+                .Or()
+                .NotHaveDependencyOnAny(this.allProjects)
+                .GetResult();
 
             // Assert.
-            types.Should().BeEmpty();
+            testResult.IsSuccessful.Should().BeTrue(Utils.GetFailingTypes(testResult));
         }
 
         [Fact]
@@ -309,7 +285,7 @@
             // Arrange.
             var assembly = ApplicationAssemblyReference.Assembly;
 
-            var otherProjects = new[]
+            var forbiddenDependencies = new[]
             {
                 this.infrastructureNamespace,
                 this.infrastructureEntityFrameworkNamespace,
@@ -318,23 +294,6 @@
                 this.webApiContractsNamespace,
             };
 
-            // Act.
-            var testResult = Types
-                .InAssembly(assembly)
-                .ShouldNot()
-                .HaveDependencyOnAny(otherProjects)
-                .GetResult();
-
-            // Assert.
-            testResult.IsSuccessful.Should().BeTrue(Utils.GetFailingTypes(testResult));
-        }
-
-        [Fact]
-        public void Application_Should_HaveSomeDependencies()
-        {
-            // Arrange.
-            var assembly = ApplicationAssemblyReference.Assembly;
-
             var otherProjects = new[]
             {
                 this.applicationContractsNamespace,
@@ -345,12 +304,17 @@
             var testResult = Types
                 .InAssembly(assembly)
                 .Should()
+                .NotHaveDependencyOnAny(forbiddenDependencies)
+                .Or()
+                .HaveDependencyOn(this.applicationNamespace)
+                .Or()
                 .HaveDependencyOnAny(otherProjects)
-                .GetTypes()
-                .Any();
+                .Or()
+                .NotHaveDependencyOnAny(this.allProjects)
+                .GetResult();
 
             // Assert.
-            testResult.Should().BeTrue();
+            testResult.IsSuccessful.Should().BeTrue(Utils.GetFailingTypes(testResult));
         }
 
         [Fact]
@@ -359,46 +323,37 @@
             // Arrange.
             var assembly = InfrastructureAssemblyReference.Assembly;
 
-            var otherProjects = new[]
+            var forbiddenDependencies = new[]
             {
+                this.domainNamespace,
+                this.applicationNamespace,
                 this.infrastructureEntityFrameworkNamespace,
                 this.infrastructureEventStoreNamespace,
                 this.webApiNamespace,
                 this.webApiContractsNamespace,
             };
 
-            // Act.
-            var testResult = Types
-                .InAssembly(assembly)
-                .ShouldNot()
-                .HaveDependencyOnAny(otherProjects)
-                .GetResult();
-
-            // Assert.
-            testResult.IsSuccessful.Should().BeTrue(Utils.GetFailingTypes(testResult));
-        }
-
-        [Fact]
-        public void Infrastructure_Should_HaveSomeDependencies()
-        {
-            var assembly = InfrastructureAssemblyReference.Assembly;
-
             var otherProjects = new[]
             {
-                this.applicationContractsNamespace,
                 this.sharedKernelNamespace,
+                this.applicationContractsNamespace,
             };
 
             // Act.
             var testResult = Types
                 .InAssembly(assembly)
                 .Should()
+                .NotHaveDependencyOnAny(forbiddenDependencies)
+                .Or()
+                .HaveDependencyOn(this.infrastructureNamespace)
+                .Or()
                 .HaveDependencyOnAny(otherProjects)
-                .GetTypes()
-                .Any();
+                .Or()
+                .NotHaveDependencyOnAny(this.allProjects)
+                .GetResult();
 
             // Assert.
-            testResult.Should().BeTrue();
+            testResult.IsSuccessful.Should().BeTrue(Utils.GetFailingTypes(testResult));
         }
 
         [Fact]
@@ -407,30 +362,15 @@
             // Arrange.
             var assembly = InfrastructureEntityFrameworkAssemblyReference.Assembly;
 
-            var otherProjects = new[]
+            var forbiddenDependencies = new[]
             {
+                this.infrastructureNamespace,
                 this.infrastructureEventStoreNamespace,
                 this.webApiNamespace,
                 this.webApiContractsNamespace,
             };
 
-            // Act.
-            var testResult = Types
-                .InAssembly(assembly)
-                .ShouldNot()
-                .HaveDependencyOnAny(otherProjects)
-                .GetResult();
-
-            // Assert.
-            testResult.IsSuccessful.Should().BeTrue(Utils.GetFailingTypes(testResult));
-        }
-
-        [Fact]
-        public void InfrastructureEntityFramework_Should_HaveSomeDependencies()
-        {
-            var assembly = InfrastructureEntityFrameworkAssemblyReference.Assembly;
-
-            var otherProjects = new[]
+            var dependencies = new[]
             {
                 this.applicationContractsNamespace,
                 this.sharedKernelNamespace,
@@ -441,12 +381,17 @@
             var testResult = Types
                 .InAssembly(assembly)
                 .Should()
-                .HaveDependencyOnAny(otherProjects)
-                .GetTypes()
-                .Any();
+                .NotHaveDependencyOnAny(forbiddenDependencies)
+                .And()
+                .HaveDependencyOn(this.infrastructureEntityFrameworkNamespace)
+                .Or()
+                .HaveDependencyOnAny(dependencies)
+                .Or()
+                .NotHaveDependencyOnAny(this.allProjects)
+                .GetResult();
 
             // Assert.
-            testResult.Should().BeTrue();
+            testResult.IsSuccessful.Should().BeTrue(Utils.GetFailingTypes(testResult));
         }
 
         [Fact]
@@ -455,30 +400,15 @@
             // Arrange.
             var assembly = InfrastructureEventStoreAssemblyReference.Assembly;
 
-            var otherProjects = new[]
+            var forbiddenDependencies = new[]
             {
+                this.infrastructureNamespace,
                 this.infrastructureEntityFrameworkNamespace,
                 this.webApiNamespace,
                 this.webApiContractsNamespace,
             };
 
-            // Act.
-            var testResult = Types
-                .InAssembly(assembly)
-                .ShouldNot()
-                .HaveDependencyOnAny(otherProjects)
-                .GetResult();
-
-            // Assert.
-            testResult.IsSuccessful.Should().BeTrue(Utils.GetFailingTypes(testResult));
-        }
-
-        [Fact]
-        public void InfrastructureEventStore_Should_HaveSomeDependencies()
-        {
-            var assembly = InfrastructureEventStoreAssemblyReference.Assembly;
-
-            var otherProjects = new[]
+            var dependencies = new[]
             {
                 this.applicationContractsNamespace,
                 this.sharedKernelNamespace,
@@ -489,12 +419,17 @@
             var testResult = Types
                 .InAssembly(assembly)
                 .Should()
-                .HaveDependencyOnAny(otherProjects)
-                .GetTypes()
-                .Any();
+                .NotHaveDependencyOnAny(forbiddenDependencies)
+                .And()
+                .HaveDependencyOn(this.infrastructureEventStoreNamespace)
+                .Or()
+                .HaveDependencyOnAny(dependencies)
+                .Or()
+                .NotHaveDependencyOnAny(this.allProjects)
+                .GetResult();
 
             // Assert.
-            testResult.Should().BeTrue();
+            testResult.IsSuccessful.Should().BeTrue(Utils.GetFailingTypes(testResult));
         }
 
         [Fact]
@@ -519,24 +454,26 @@
             };
 
             // Act.
-            var types = Types
+            var testResult = Types
                 .InAssembly(assembly)
-                .ShouldNot()
-                .HaveDependencyOnAny(otherProjects)
-                .GetTypes()
-                .Where(t => !t.Namespace.Contains(this.webApiContractsNamespace));
+                .Should()
+                .NotHaveDependencyOnAny(otherProjects)
+                .Or()
+                .HaveDependencyOn(this.webApiContractsNamespace)
+                .Or()
+                .NotHaveDependencyOnAny(this.allProjects)
+                .GetResult();
 
-            // Assert.
-            types.Should().BeEmpty();
+            testResult.IsSuccessful.Should().BeTrue(Utils.GetFailingTypes(testResult));
         }
 
         [Fact]
-        public void WebApi_Should_Not_HaveDependencyOnOtherProjectsExceptApplicationContracts()
+        public void WebApi_Should_Not_HaveDependencyOnOtherProjects()
         {
             // Arrange.
             var assembly = WebApiAssemblyReference.Assembly;
 
-            var otherProjects = new[]
+            var forbiddenDependencies = new[]
             {
                 this.domainNamespace,
                 this.domainContractsNamespace,
@@ -546,30 +483,27 @@
                 this.infrastructureEventStoreNamespace,
             };
 
+            var dependencies = new[]
+            {
+                this.applicationContractsNamespace,
+                this.sharedKernelNamespace,
+                this.webApiContractsNamespace,
+            };
+
             // Act.
-            var types = Types
+            var testResult = Types
                 .InAssembly(assembly)
-                .ShouldNot()
-                .HaveDependencyOnAny(otherProjects)
-                .GetTypes();
+                .Should()
+                .NotHaveDependencyOnAny(forbiddenDependencies)
+                .Or()
+                .HaveDependencyOn(this.webApiNamespace)
+                .Or()
+                .HaveDependencyOnAny(dependencies)
+                .Or()
+                .NotHaveDependencyOnAny(this.allProjects)
+                .GetResult();
 
-            var testResults = new List<TestResult>();
-            foreach (var type in types)
-            {
-                var result = Types
-                    .InNamespace(type.Namespace)
-                    .Should()
-                    .HaveDependencyOn(this.applicationContractsNamespace)
-                    .GetResult();
-
-                testResults.Add(result);
-            }
-
-            // Assert.
-            foreach (var testResult in testResults)
-            {
-                testResult.IsSuccessful.Should().BeTrue(Utils.GetFailingTypes(testResult));
-            }
+            testResult.IsSuccessful.Should().BeTrue(Utils.GetFailingTypes(testResult));
         }
     }
 }
