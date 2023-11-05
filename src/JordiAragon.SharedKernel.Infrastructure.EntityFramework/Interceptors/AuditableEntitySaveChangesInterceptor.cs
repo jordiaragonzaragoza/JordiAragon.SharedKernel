@@ -1,7 +1,6 @@
 ﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework.Interceptors
 {
     using System;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
@@ -51,7 +50,7 @@
 
                 Type entityType = entry.Entity.GetType();
 
-                var idProperty = entityType.GetProperties().FirstOrDefault(p => p.Name == "Id");
+                var idProperty = Array.Find(entityType.GetProperties(), p => p.Name == "Id");
                 if (idProperty != null)
                 {
                     Type[] typeArgs = { idProperty.PropertyType };
