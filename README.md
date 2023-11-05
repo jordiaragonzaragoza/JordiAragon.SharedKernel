@@ -30,6 +30,7 @@ The goal of this project is create the building blocks to follow DDD principles 
 - AutoMapper
 - Autofac
 - MassTransit
+- FastEndpoints
 - Ardalis.Result
 - Ardalis.Specification
 - Ardalis.SmartEnums
@@ -62,13 +63,12 @@ The goal of this project is create the building blocks to follow DDD principles 
 - MassTransitEventBus base implementation.
 
 **Presentation and Contracts**
-- WebApi building blocks. Like BaseApiController, ExceptionMiddleware and CurrentUserService
+- WebApi building blocks. Like BaseApiController, ExceptionMiddleware, CurrentUserService and ResponseBuilder for ProblemDetails.
 
 ## Testing
 
 - GitHub workflow CI with SonarCloud integration
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=jordiaragonzaragoza_JordiAragon.SharedKernel)
-[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=jordiaragonzaragoza_JordiAragon.SharedKernel)](https://sonarcloud.io/summary/new_code?id=jordiaragonzaragoza_JordiAragon.SharedKernel)
 
 ## Resources and Inspiration
 
@@ -82,6 +82,7 @@ The goal of this project is create the building blocks to follow DDD principles 
 - <a href="https://github.com/dotnet-architecture/eShopOnWeb" target="_blank">Microsoft eShopOnWeb</a>
 - <a href="https://github.com/kgrzybek/sample-dotnet-core-cqrs-api" target="_blank">Kamil Grzybek: Sample .NET Core REST API CQRS</a>
 - <a href="https://github.com/kgrzybek/modular-monolith-with-ddd" target="_blank">Kamil Grzybek: Modular Monolith With DDD</a>
+- <a href="https://www.youtube.com/@CodeOpinion" target="_blank">CodeOpinion: Youtube Channel</a>
 - <a href="https://www.youtube.com/@amantinband" target="_blank">Amichai Mantinband: Youtube Channel</a>
 - <a href="https://www.youtube.com/@MilanJovanovicTech" target="_blank">Milan Jovanović: Youtube Channel</a>
 
