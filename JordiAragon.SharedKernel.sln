@@ -40,6 +40,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JordiAragon.SharedKernel.In
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JordiAragon.SharedKernel.Infrastructure.EventStore", "src\JordiAragon.SharedKernel.Infrastructure.EventStore\JordiAragon.SharedKernel.Infrastructure.EventStore.csproj", "{796BE02B-A145-4719-9A4E-21676F660BC5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{662332CB-460C-4BEE-8AC1-7C351346C783}"
+	ProjectSection(SolutionItems) = preProject
+		tests\Directory.Packages.props = tests\Directory.Packages.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ArchitectureTests", "ArchitectureTests", "{7F1AD85A-BEF9-4443-96AC-B2F02E1F8D83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JordiAragon.SharedKernel.ArchitectureTests", "tests\ArchitectureTests\JordiAragon.SharedKernel.ArchitectureTests\JordiAragon.SharedKernel.ArchitectureTests.csproj", "{4256D37C-DFA6-4BE0-916A-338DED54C7D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -94,6 +103,10 @@ Global
 		{796BE02B-A145-4719-9A4E-21676F660BC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{796BE02B-A145-4719-9A4E-21676F660BC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{796BE02B-A145-4719-9A4E-21676F660BC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4256D37C-DFA6-4BE0-916A-338DED54C7D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4256D37C-DFA6-4BE0-916A-338DED54C7D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4256D37C-DFA6-4BE0-916A-338DED54C7D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4256D37C-DFA6-4BE0-916A-338DED54C7D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -114,5 +127,7 @@ Global
 		{66F24904-2CBB-40B8-97F6-42AF787788B8} = {45EA8B9A-49B1-4FA6-95C6-DCCCF2DAF27E}
 		{F8CF1D41-56D8-4CC4-B515-A289B58A52F7} = {45EA8B9A-49B1-4FA6-95C6-DCCCF2DAF27E}
 		{796BE02B-A145-4719-9A4E-21676F660BC5} = {45EA8B9A-49B1-4FA6-95C6-DCCCF2DAF27E}
+		{7F1AD85A-BEF9-4443-96AC-B2F02E1F8D83} = {662332CB-460C-4BEE-8AC1-7C351346C783}
+		{4256D37C-DFA6-4BE0-916A-338DED54C7D2} = {7F1AD85A-BEF9-4443-96AC-B2F02E1F8D83}
 	EndGlobalSection
 EndGlobal
