@@ -5,25 +5,18 @@
     using Ardalis.GuardClauses;
     using JordiAragon.SharedKernel.Domain.ValueObjects;
 
-    public sealed class OutboxMessageId : BaseValueObject
+    public sealed class OutboxMessageId : BaseAggregateRootId<Guid>
     {
         private OutboxMessageId(Guid value)
+            : base(value)
         {
-            this.Value = value;
         }
-
-        public Guid Value { get; init; }
 
         public static OutboxMessageId Create(Guid id)
         {
             Guard.Against.NullOrEmpty(id, nameof(id));
 
             return new OutboxMessageId(id);
-        }
-
-        protected override IEnumerable<object> GetEqualityComponents()
-        {
-            yield return this.Value;
         }
     }
 }

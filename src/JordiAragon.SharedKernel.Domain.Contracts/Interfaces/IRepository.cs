@@ -2,8 +2,8 @@
 {
     using Ardalis.Specification;
 
-    public interface IRepository<T> : IRepositoryBase<T>
-        where T : class, IAggregateRoot
+    public interface IRepository<T, TId> : IRepositoryBase<T>
+        where T : class, IAggregateRoot<TId>
     {
     }
 }

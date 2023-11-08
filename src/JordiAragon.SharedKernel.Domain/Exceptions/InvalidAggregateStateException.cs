@@ -5,14 +5,15 @@
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
 
     [Serializable]
-    public class InvalidAggregateStateException : Exception
+    public sealed class InvalidAggregateStateException<T, TId> : Exception
+        where T : class, IAggregateRoot<TId>
     {
-        public InvalidAggregateStateException(IAggregateRoot aggregate, string message = null)
+        public InvalidAggregateStateException(T aggregate, string message = null)
                 : base($"Aggregate {aggregate.GetType().Name} state change rejected. {message}")
         {
         }
 
-        protected InvalidAggregateStateException(SerializationInfo serializationInfo, StreamingContext streamingContext)
+        private InvalidAggregateStateException(SerializationInfo serializationInfo, StreamingContext streamingContext)
             : base(serializationInfo, streamingContext)
         {
         }

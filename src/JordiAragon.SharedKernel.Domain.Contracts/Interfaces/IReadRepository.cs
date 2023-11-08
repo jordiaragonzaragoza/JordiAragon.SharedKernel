@@ -2,8 +2,8 @@
 {
     using Ardalis.Specification;
 
-    public interface IReadRepository<T> : IReadRepositoryBase<T>
-        where T : class
+    public interface IReadRepository<T, TId> : IReadRepositoryBase<T>
+        where T : class, IEntity<TId>
     {
     }
 }

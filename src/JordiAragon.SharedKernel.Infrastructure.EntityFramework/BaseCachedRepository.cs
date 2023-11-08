@@ -13,15 +13,15 @@
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using Microsoft.Extensions.Logging;
 
-    public abstract class BaseCachedRepository<T> : RepositoryBase<T>, ICachedRepository<T>, IScopedDependency
-        where T : class, IAggregateRoot
+    public abstract class BaseCachedRepository<T, TId> : RepositoryBase<T>, ICachedRepository<T, TId>, IScopedDependency
+        where T : class, IAggregateRoot<TId>
     {
         private readonly ICacheService cacheService;
-        private readonly ILogger<BaseCachedRepository<T>> logger;
+        private readonly ILogger<BaseCachedRepository<T, TId>> logger;
 
         protected BaseCachedRepository(
             BaseContext dbContext,
-            ILogger<BaseCachedRepository<T>> logger,
+            ILogger<BaseCachedRepository<T, TId>> logger,
             ICacheService cacheService)
             : base(dbContext)
         {
@@ -77,7 +77,7 @@
             await this.CacheServiceRemoveByPrefixAsync(cancellationToken);
         }
 
-        public override async Task<T> GetByIdAsync<TId>(TId id, CancellationToken cancellationToken = default)
+        public override async Task<T> GetByIdAsync<TIdentifier>(TIdentifier id, CancellationToken cancellationToken = default)
         {
             var cacheKeyId = $"{this.CacheKey}_{id}";
 

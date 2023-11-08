@@ -9,7 +9,7 @@ namespace JordiAragon.SharedKernel.Infrastructure.EventStore
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using Newtonsoft.Json; // TODO: Change to System.Text.Json;
 
-    public class EsAggregateStore : IAggregateStore
+    public class EsAggregateStore : IAggregateStore // TODO: Temporal remove.
     {
         private readonly IEventStoreConnection connection;
 

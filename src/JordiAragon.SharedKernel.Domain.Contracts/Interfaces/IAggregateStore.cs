@@ -2,7 +2,7 @@ namespace JordiAragon.SharedKernel.Domain.Contracts.Interfaces
 {
     using System.Threading.Tasks;
 
-    public interface IAggregateStore
+    public interface IAggregateStore // TODO: Temporal remove.
     {
         Task<bool> ExistsAsync<T, TId>(TId aggregateId);
 

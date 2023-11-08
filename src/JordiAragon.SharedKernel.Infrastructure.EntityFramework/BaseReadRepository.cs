@@ -4,8 +4,8 @@
     using JordiAragon.SharedKernel.Contracts.DependencyInjection;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
 
-    public abstract class BaseReadRepository<T> : RepositoryBase<T>, IReadRepository<T>, IScopedDependency
-        where T : class
+    public abstract class BaseReadRepository<T, TId> : RepositoryBase<T>, IReadRepository<T, TId>, IScopedDependency
+        where T : class, IEntity<TId>
     {
         protected BaseReadRepository(BaseContext dbContext)
             : base(dbContext)
