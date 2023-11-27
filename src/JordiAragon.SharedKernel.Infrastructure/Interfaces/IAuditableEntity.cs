@@ -1,4 +1,4 @@
-﻿namespace JordiAragon.SharedKernel.Domain.Contracts.Interfaces
+﻿namespace JordiAragon.SharedKernel.Infrastructure.Interfaces
 {
     using System;
 

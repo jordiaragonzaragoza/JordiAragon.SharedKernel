@@ -1,5 +1,6 @@
 ﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework.Outbox
 {
+    using System;
     using JordiAragon.SharedKernel.Infrastructure.EntityFramework.Configuration;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

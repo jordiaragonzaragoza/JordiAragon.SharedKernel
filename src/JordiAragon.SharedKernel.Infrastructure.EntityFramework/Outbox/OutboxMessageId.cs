@@ -1,7 +1,6 @@
 ﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework.Outbox
 {
     using System;
-    using System.Collections.Generic;
     using Ardalis.GuardClauses;
     using JordiAragon.SharedKernel.Domain.ValueObjects;
 

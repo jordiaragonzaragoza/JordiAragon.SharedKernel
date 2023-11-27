@@ -6,7 +6,8 @@
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Domain.Exceptions;
 
-    public abstract class BaseEntity<TId> : IEqualityComparer<BaseEntity<TId>>, IEntity<TId>, IIgnoreDependency
+    public abstract class BaseEntity<TId, TIdType> : IEqualityComparer<BaseEntity<TId, TIdType>>, IEntity<TId, TIdType>, IIgnoreDependency
+        where TId : IEntityId<TIdType>
     {
         protected BaseEntity(TId id)
         {
@@ -18,9 +19,9 @@
         {
         }
 
-        public TId Id { get; private init; }
+        public TId Id { get; protected set; }
 
-        public bool Equals(BaseEntity<TId> x, BaseEntity<TId> y)
+        public bool Equals(BaseEntity<TId, TIdType> x, BaseEntity<TId, TIdType> y)
         {
             if (ReferenceEquals(x, y))
             {
@@ -35,7 +36,7 @@
             return x.Id.Equals(y.Id);
         }
 
-        public int GetHashCode(BaseEntity<TId> entity)
+        public int GetHashCode(BaseEntity<TId, TIdType> entity)
         {
             if (entity == null)
             {

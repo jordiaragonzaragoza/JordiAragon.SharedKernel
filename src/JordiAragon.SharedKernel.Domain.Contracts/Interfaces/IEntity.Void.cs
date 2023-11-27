@@ -4,9 +4,8 @@
     /// Generic abstraction for a domain entity.
     /// </summary>
     /// <typeparam name="TId">The id for the entity.</typeparam>
-    /// <typeparam name="TIdType">The id value for the entity.</typeparam>
-    public interface IEntity<out TId, TIdType> : IEntity<TId>
-        where TId : IEntityId<TIdType>
+    public interface IEntity<out TId>
     {
+        TId Id { get; }
     }
 }

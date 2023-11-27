@@ -1,9 +1,8 @@
 ﻿namespace JordiAragon.SharedKernel.Domain.Contracts.Interfaces
 {
-    using Ardalis.Specification;
-
-    public interface ICachedRepository<T, TId> : IRepositoryBase<T>
-        where T : class, IAggregateRoot<TId>
+    public interface ICachedRepository<TAggregate, TId, TIdType> : IReadRepository<TAggregate, TId, TIdType>, IRepository<TAggregate, TId, TIdType>
+        where TAggregate : class, IAggregateRoot<TId, TIdType>
+        where TId : IEntityId<TIdType>
     {
         string CacheKey { get; }
     }

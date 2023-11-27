@@ -13,15 +13,16 @@
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using Microsoft.Extensions.Logging;
 
-    public abstract class BaseCachedRepository<T, TId> : RepositoryBase<T>, ICachedRepository<T, TId>, IScopedDependency
-        where T : class, IAggregateRoot<TId>
+    public abstract class BaseCachedRepository<TAggregate, TId, TIdType> : RepositoryBase<TAggregate>, ICachedRepository<TAggregate, TId, TIdType>, IScopedDependency
+        where TAggregate : class, IAggregateRoot<TId, TIdType>
+        where TId : IEntityId<TIdType>
     {
         private readonly ICacheService cacheService;
-        private readonly ILogger<BaseCachedRepository<T, TId>> logger;
+        private readonly ILogger<BaseCachedRepository<TAggregate, TId, TIdType>> logger;
 
         protected BaseCachedRepository(
             BaseContext dbContext,
-            ILogger<BaseCachedRepository<T, TId>> logger,
+            ILogger<BaseCachedRepository<TAggregate, TId, TIdType>> logger,
             ICacheService cacheService)
             : base(dbContext)
         {
@@ -29,9 +30,9 @@
             this.logger = Guard.Against.Null(logger, nameof(logger));
         }
 
-        public string CacheKey => $"{typeof(T)}";
+        public string CacheKey => $"{typeof(TAggregate)}";
 
-        public override async Task<T> AddAsync(T entity, CancellationToken cancellationToken = default)
+        public override async Task<TAggregate> AddAsync(TAggregate entity, CancellationToken cancellationToken = default)
         {
             var response = await base.AddAsync(entity, cancellationToken);
 
@@ -40,7 +41,7 @@
             return response;
         }
 
-        public override async Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+        public override async Task<IEnumerable<TAggregate>> AddRangeAsync(IEnumerable<TAggregate> entities, CancellationToken cancellationToken = default)
         {
             var response = await base.AddRangeAsync(entities, cancellationToken);
 
@@ -49,39 +50,45 @@
             return response;
         }
 
-        public override async Task UpdateAsync(T entity, CancellationToken cancellationToken = default)
+        public override async Task UpdateAsync(TAggregate entity, CancellationToken cancellationToken = default)
         {
             await base.UpdateAsync(entity, cancellationToken);
 
             await this.CacheServiceRemoveByPrefixAsync(cancellationToken);
         }
 
-        public override async Task UpdateRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+        public override async Task UpdateRangeAsync(IEnumerable<TAggregate> entities, CancellationToken cancellationToken = default)
         {
             await base.UpdateRangeAsync(entities, cancellationToken);
 
             await this.CacheServiceRemoveByPrefixAsync(cancellationToken);
         }
 
-        public override async Task DeleteAsync(T entity, CancellationToken cancellationToken = default)
+        public override async Task DeleteAsync(TAggregate entity, CancellationToken cancellationToken = default)
         {
             await base.DeleteAsync(entity, cancellationToken);
 
             await this.CacheServiceRemoveByPrefixAsync(cancellationToken);
         }
 
-        public override async Task DeleteRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+        public override async Task DeleteRangeAsync(IEnumerable<TAggregate> entities, CancellationToken cancellationToken = default)
         {
             await base.DeleteRangeAsync(entities, cancellationToken);
 
             await this.CacheServiceRemoveByPrefixAsync(cancellationToken);
         }
 
-        public override async Task<T> GetByIdAsync<TIdentifier>(TIdentifier id, CancellationToken cancellationToken = default)
+        public Task<TAggregate> GetByIdAsync(TId id, CancellationToken cancellationToken = default)
+        {
+            // TODO: Review workarround.
+            return this.GetByIdAsync<TId>(id, cancellationToken);
+        }
+
+        public override async Task<TAggregate> GetByIdAsync<TIdentifier>(TIdentifier id, CancellationToken cancellationToken = default)
         {
             var cacheKeyId = $"{this.CacheKey}_{id}";
 
-            var cachedResponse = await this.CacheGetAsync<T>(cacheKeyId, cancellationToken);
+            var cachedResponse = await this.CacheGetAsync<TAggregate>(cacheKeyId, cancellationToken);
             if (cachedResponse.IsSuccess)
             {
                 return cachedResponse;
@@ -94,13 +101,11 @@
             return response;
         }
 
-        [Obsolete]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Major Code Smell", "S1123:\"Obsolete\" attributes should include explanations", Justification = "This method is added to keep support to base library")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Major Code Smell", "S1133:\"Obsolete\" attributes should include explanations", Justification = "This method is added to keep support to base library")]
-        public override async Task<T> GetBySpecAsync(ISpecification<T> specification, CancellationToken cancellationToken = default)
+        [Obsolete("Use FirstOrDefaultAsync<T> or SingleOrDefaultAsync<T> instead. The SingleOrDefaultAsync<T> can be applied only to SingleResultSpecification<T> specifications.")]
+        public override async Task<TAggregate> GetBySpecAsync(ISpecification<TAggregate> specification, CancellationToken cancellationToken = default)
         {
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
-            var cachedResponse = await this.CacheGetAsync<T>(cacheKeySpecification, cancellationToken);
+            var cachedResponse = await this.CacheGetAsync<TAggregate>(cacheKeySpecification, cancellationToken);
             if (cachedResponse.IsSuccess)
             {
                 return cachedResponse;
@@ -113,10 +118,8 @@
             return response;
         }
 
-        [Obsolete]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Major Code Smell", "S1123:\"Obsolete\" attributes should include explanations", Justification = "This method is added to keep support to base library")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Major Code Smell", "S1133:\"Obsolete\" attributes should include explanations", Justification = "This method is added to keep support to base library")]
-        public override async Task<TResult> GetBySpecAsync<TResult>(ISpecification<T, TResult> specification, CancellationToken cancellationToken = default)
+        [Obsolete("Use FirstOrDefaultAsync<T> or SingleOrDefaultAsync<T> instead. The SingleOrDefaultAsync<T> can be applied only to SingleResultSpecification<T> specifications.")]
+        public override async Task<TResult> GetBySpecAsync<TResult>(ISpecification<TAggregate, TResult> specification, CancellationToken cancellationToken = default)
         {
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
             var cachedResponse = await this.CacheGetResultAsync<TResult>(cacheKeySpecification, cancellationToken);
@@ -132,11 +135,11 @@
             return response;
         }
 
-        public override async Task<T> FirstOrDefaultAsync(ISpecification<T> specification, CancellationToken cancellationToken = default)
+        public override async Task<TAggregate> FirstOrDefaultAsync(ISpecification<TAggregate> specification, CancellationToken cancellationToken = default)
         {
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
 
-            var cachedResponse = await this.CacheGetAsync<T>(cacheKeySpecification, cancellationToken);
+            var cachedResponse = await this.CacheGetAsync<TAggregate>(cacheKeySpecification, cancellationToken);
             if (cachedResponse.IsSuccess)
             {
                 return cachedResponse;
@@ -149,7 +152,7 @@
             return response;
         }
 
-        public override async Task<TResult> FirstOrDefaultAsync<TResult>(ISpecification<T, TResult> specification, CancellationToken cancellationToken = default)
+        public override async Task<TResult> FirstOrDefaultAsync<TResult>(ISpecification<TAggregate, TResult> specification, CancellationToken cancellationToken = default)
         {
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
             var cachedResponse = await this.CacheGetResultAsync<TResult>(cacheKeySpecification, cancellationToken);
@@ -165,10 +168,10 @@
             return response;
         }
 
-        public override async Task<T> SingleOrDefaultAsync(ISingleResultSpecification<T> specification, CancellationToken cancellationToken = default)
+        public override async Task<TAggregate> SingleOrDefaultAsync(ISingleResultSpecification<TAggregate> specification, CancellationToken cancellationToken = default)
         {
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
-            var cachedResponse = await this.CacheGetAsync<T>(cacheKeySpecification, cancellationToken);
+            var cachedResponse = await this.CacheGetAsync<TAggregate>(cacheKeySpecification, cancellationToken);
             if (cachedResponse.IsSuccess)
             {
                 return cachedResponse;
@@ -181,7 +184,7 @@
             return response;
         }
 
-        public override async Task<TResult> SingleOrDefaultAsync<TResult>(ISingleResultSpecification<T, TResult> specification, CancellationToken cancellationToken = default)
+        public override async Task<TResult> SingleOrDefaultAsync<TResult>(ISingleResultSpecification<TAggregate, TResult> specification, CancellationToken cancellationToken = default)
         {
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
             var cachedResponse = await this.CacheGetResultAsync<TResult>(cacheKeySpecification, cancellationToken);
@@ -197,7 +200,7 @@
             return response;
         }
 
-        public override async Task<List<T>> ListAsync(CancellationToken cancellationToken = default)
+        public override async Task<List<TAggregate>> ListAsync(CancellationToken cancellationToken = default)
         {
             var cachedResponse = await this.CacheGetListAsync(this.CacheKey, cancellationToken);
             if (cachedResponse.IsSuccess)
@@ -212,7 +215,7 @@
             return response;
         }
 
-        public override async Task<List<T>> ListAsync(ISpecification<T> specification, CancellationToken cancellationToken = default)
+        public override async Task<List<TAggregate>> ListAsync(ISpecification<TAggregate> specification, CancellationToken cancellationToken = default)
         {
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
 
@@ -229,7 +232,7 @@
             return response;
         }
 
-        public override async Task<List<TResult>> ListAsync<TResult>(ISpecification<T, TResult> specification, CancellationToken cancellationToken = default)
+        public override async Task<List<TResult>> ListAsync<TResult>(ISpecification<TAggregate, TResult> specification, CancellationToken cancellationToken = default)
         {
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
             var cachedResponse = await this.CacheGetListResultAsync<TResult>(cacheKeySpecification, cancellationToken);
@@ -245,7 +248,7 @@
             return response;
         }
 
-        public override async Task<int> CountAsync(ISpecification<T> specification, CancellationToken cancellationToken = default)
+        public override async Task<int> CountAsync(ISpecification<TAggregate> specification, CancellationToken cancellationToken = default)
         {
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
 
@@ -277,7 +280,7 @@
             return response;
         }
 
-        public override async Task<bool> AnyAsync(ISpecification<T> specification, CancellationToken cancellationToken = default)
+        public override async Task<bool> AnyAsync(ISpecification<TAggregate> specification, CancellationToken cancellationToken = default)
         {
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
             var cachedResponse = await this.CacheGetAsync<bool>(cacheKeySpecification, cancellationToken);
@@ -321,9 +324,9 @@
             return Result.NotFound();
         }
 
-        private async Task<Result<List<T>>> CacheGetListAsync(string cacheKey, CancellationToken cancellationToken)
+        private async Task<Result<List<TAggregate>>> CacheGetListAsync(string cacheKey, CancellationToken cancellationToken)
         {
-            var cachedResponse = await this.cacheService.GetAsync<List<T>>(cacheKey, cancellationToken);
+            var cachedResponse = await this.cacheService.GetAsync<List<TAggregate>>(cacheKey, cancellationToken);
             if (!cachedResponse.IsNull && cachedResponse.HasValue)
             {
                 this.logger.LogInformation("Fetch data from cache with cacheKey: {cacheKey}", cacheKey);
@@ -367,7 +370,7 @@
             this.logger.LogInformation("Set data to cache with  cacheKey: {cacheKey}", cacheKey);
         }
 
-        private async Task CacheSetListAsync(string cacheKey, List<T> response, CancellationToken cancellationToken)
+        private async Task CacheSetListAsync(string cacheKey, List<TAggregate> response, CancellationToken cancellationToken)
         {
             await this.cacheService.SetAsync(cacheKey, response, cancellationToken: cancellationToken);
 

@@ -4,7 +4,7 @@
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Domain.ValueObjects;
 
-    public abstract class BaseEventSourcedAggregateRoot<TId, TIdType> : BaseAggregateRoot<TId, TIdType>, IEventSourcedAggregateRoot<TId>
+    public abstract class BaseEventSourcedAggregateRoot<TId, TIdType> : BaseAggregateRoot<TId, TIdType>, IEventSourcedAggregateRoot<TId, TIdType>
         where TId : BaseAggregateRootId<TIdType>
     {
         protected BaseEventSourcedAggregateRoot(TId id)
