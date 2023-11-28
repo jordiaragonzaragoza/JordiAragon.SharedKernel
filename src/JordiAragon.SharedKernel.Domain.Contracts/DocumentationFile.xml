@@ -30,17 +30,21 @@
             </summary>
             <typeparam name="TIdType">The value for the entity id.</typeparam>
         </member>
-        <member name="T:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.IReadRepository`3">
+        <member name="T:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.IEntityId">
+            <summary>
+            Marker interface for a entity id.
+            </summary>
+        </member>
+        <member name="T:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.IReadRepository`2">
             <summary>
             <para>
-            A <see cref="T:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.IReadRepository`3" /> can be used to query instances of <typeparamref name="TEntity" />.
+            A <see cref="T:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.IReadRepository`2" /> can be used to query instances of <typeparamref name="TEntity" />.
             </para>
             </summary>
             <typeparam name="TEntity">The type of entity being operated on by this repository.</typeparam>
             <typeparam name="TId">The type of id entity being operated on by this repository.</typeparam>
-            <typeparam name="TIdType">The id type of id entity being operated on by this repository.</typeparam>
         </member>
-        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.IReadRepository`3.GetByIdAsync(`1,System.Threading.CancellationToken)">
+        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.IReadRepository`2.GetByIdAsync(`1,System.Threading.CancellationToken)">
             <summary>
             Finds an entity with the given primary key value.
             </summary>
@@ -51,7 +55,7 @@
             The task result contains the <typeparamref name="TEntity" />, or <see langword="null"/>.
             </returns>
         </member>
-        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.IReadRepository`3.ListAsync(System.Threading.CancellationToken)">
+        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.IReadRepository`2.ListAsync(System.Threading.CancellationToken)">
             <summary>
             Finds all entities of <typeparamref name="TEntity" /> from the database.
             </summary>
@@ -61,7 +65,7 @@
             The task result contains a <see cref="T:System.Collections.Generic.List`1" /> that contains elements from the input sequence.
             </returns>
         </member>
-        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.IReadRepository`3.AnyAsync(System.Threading.CancellationToken)">
+        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.IReadRepository`2.AnyAsync(System.Threading.CancellationToken)">
             <summary>
             Returns a boolean whether any entity exists or not.
             </summary>
@@ -71,18 +75,17 @@
             source sequence contains any elements; otherwise, false.
             </returns>
         </member>
-        <member name="T:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.ISpecificationReadRepository`3">
+        <member name="T:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.ISpecificationReadRepository`2">
             <summary>
             <para>
-            A <see cref="T:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.ISpecificationReadRepository`3" /> can be used to query instances of <typeparamref name="TEntity" />.
+            A <see cref="T:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.ISpecificationReadRepository`2" /> can be used to query instances of <typeparamref name="TEntity" />.
             An <see cref="T:Ardalis.Specification.ISpecification`1"/> (or derived) is used to encapsulate the LINQ queries against the database.
             </para>
             </summary>
             <typeparam name="TEntity">The type of entity being operated on by this repository.</typeparam>
             <typeparam name="TId">The type of id entity being operated on by this repository.</typeparam>
-            <typeparam name="TIdType">The id type of id entity being operated on by this repository.</typeparam>
         </member>
-        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.ISpecificationReadRepository`3.FirstOrDefaultAsync(Ardalis.Specification.ISpecification{`0},System.Threading.CancellationToken)">
+        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.ISpecificationReadRepository`2.FirstOrDefaultAsync(Ardalis.Specification.ISpecification{`0},System.Threading.CancellationToken)">
             <summary>
             Returns the first element of a sequence, or a default value if the sequence contains no elements.
             </summary>
@@ -93,7 +96,7 @@
             The task result contains the <typeparamref name="TEntity" />, or <see langword="null"/>.
             </returns>
         </member>
-        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.ISpecificationReadRepository`3.FirstOrDefaultAsync``1(Ardalis.Specification.ISpecification{`0,``0},System.Threading.CancellationToken)">
+        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.ISpecificationReadRepository`2.FirstOrDefaultAsync``1(Ardalis.Specification.ISpecification{`0,``0},System.Threading.CancellationToken)">
             <summary>
             Returns the first element of a sequence, or a default value if the sequence contains no elements.
             </summary>
@@ -105,7 +108,7 @@
             The task result contains the <typeparamref name="TResult" />, or <see langword="null"/>.
             </returns>
         </member>
-        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.ISpecificationReadRepository`3.SingleOrDefaultAsync(Ardalis.Specification.ISingleResultSpecification{`0},System.Threading.CancellationToken)">
+        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.ISpecificationReadRepository`2.SingleOrDefaultAsync(Ardalis.Specification.ISingleResultSpecification{`0},System.Threading.CancellationToken)">
             <summary>
             Returns the only element of a sequence, or a default value if the sequence is empty; this method throws an exception if there is more than one element in the sequence.
             </summary>
@@ -116,7 +119,7 @@
             The task result contains the <typeparamref name="TEntity" />, or <see langword="null"/>.
             </returns>
         </member>
-        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.ISpecificationReadRepository`3.SingleOrDefaultAsync``1(Ardalis.Specification.ISingleResultSpecification{`0,``0},System.Threading.CancellationToken)">
+        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.ISpecificationReadRepository`2.SingleOrDefaultAsync``1(Ardalis.Specification.ISingleResultSpecification{`0,``0},System.Threading.CancellationToken)">
             <summary>
             Returns the only element of a sequence, or a default value if the sequence is empty; this method throws an exception if there is more than one element in the sequence.
             </summary>
@@ -128,7 +131,7 @@
             The task result contains the <typeparamref name="TResult" />, or <see langword="null"/>.
             </returns>
         </member>
-        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.ISpecificationReadRepository`3.ListAsync(Ardalis.Specification.ISpecification{`0},System.Threading.CancellationToken)">
+        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.ISpecificationReadRepository`2.ListAsync(Ardalis.Specification.ISpecification{`0},System.Threading.CancellationToken)">
             <summary>
             Finds all entities of <typeparamref name="TEntity" />, that matches the encapsulated query logic of the
             <paramref name="specification"/>, from the database.
@@ -140,7 +143,7 @@
             The task result contains a <see cref="T:System.Collections.Generic.List`1" /> that contains elements from the input sequence.
             </returns>
         </member>
-        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.ISpecificationReadRepository`3.ListAsync``1(Ardalis.Specification.ISpecification{`0,``0},System.Threading.CancellationToken)">
+        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.ISpecificationReadRepository`2.ListAsync``1(Ardalis.Specification.ISpecification{`0,``0},System.Threading.CancellationToken)">
             <summary>
             Finds all entities of <typeparamref name="TEntity" />, that matches the encapsulated query logic of the
             <paramref name="specification"/>, from the database.
@@ -156,7 +159,7 @@
             The task result contains a <see cref="T:System.Collections.Generic.List`1" /> that contains elements from the input sequence.
             </returns>
         </member>
-        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.ISpecificationReadRepository`3.CountAsync(Ardalis.Specification.ISpecification{`0},System.Threading.CancellationToken)">
+        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.ISpecificationReadRepository`2.CountAsync(Ardalis.Specification.ISpecification{`0},System.Threading.CancellationToken)">
             <summary>
             Returns a number that represents how many entities satisfy the encapsulated query logic
             of the <paramref name="specification"/>.
@@ -168,7 +171,7 @@
             number of elements in the input sequence.
             </returns>
         </member>
-        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.ISpecificationReadRepository`3.CountAsync(System.Threading.CancellationToken)">
+        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.ISpecificationReadRepository`2.CountAsync(System.Threading.CancellationToken)">
             <summary>
             Returns the total number of records.
             </summary>
@@ -178,7 +181,7 @@
             number of elements in the input sequence.
             </returns>
         </member>
-        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.ISpecificationReadRepository`3.AnyAsync(Ardalis.Specification.ISpecification{`0},System.Threading.CancellationToken)">
+        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.ISpecificationReadRepository`2.AnyAsync(Ardalis.Specification.ISpecification{`0},System.Threading.CancellationToken)">
             <summary>
             Returns a boolean that represents whether any entity satisfy the encapsulated query logic
             of the <paramref name="specification"/> or not.
@@ -190,7 +193,7 @@
             source sequence contains any elements; otherwise, false.
             </returns>
         </member>
-        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.ISpecificationReadRepository`3.AsAsyncEnumerable(Ardalis.Specification.ISpecification{`0})">
+        <member name="M:JordiAragon.SharedKernel.Domain.Contracts.Interfaces.ISpecificationReadRepository`2.AsAsyncEnumerable(Ardalis.Specification.ISpecification{`0})">
             <summary>
             Finds all entities of <typeparamref name="TEntity" />, that matches the encapsulated query logic of the
             <paramref name="specification"/>, from the database.

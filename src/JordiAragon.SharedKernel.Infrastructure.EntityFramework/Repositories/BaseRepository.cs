@@ -3,9 +3,9 @@
     using JordiAragon.SharedKernel.Contracts.DependencyInjection;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
 
-    public abstract class BaseRepository<TAggregate, TId, TIdType> : BaseReadRepository<TAggregate, TId, TIdType>, IRepository<TAggregate, TId, TIdType>, IScopedDependency
-        where TAggregate : class, IAggregateRoot<TId, TIdType>
-        where TId : class, IEntityId<TIdType>
+    public abstract class BaseRepository<TAggregate, TId> : BaseReadRepository<TAggregate, TId>, IRepository<TAggregate, TId>, IScopedDependency
+        where TAggregate : class, IAggregateRoot<TId>
+        where TId : class, IEntityId
     {
         protected BaseRepository(BaseContext dbContext)
             : base(dbContext)

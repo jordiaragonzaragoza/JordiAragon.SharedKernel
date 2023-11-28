@@ -7,16 +7,15 @@
 
     /// <summary>
     /// <para>
-    /// A <see cref="ISpecificationReadRepository{TEntity, TId, TIdType}" /> can be used to query instances of <typeparamref name="TEntity" />.
+    /// A <see cref="ISpecificationReadRepository{TEntity, TId}" /> can be used to query instances of <typeparamref name="TEntity" />.
     /// An <see cref="ISpecification{TEntity}"/> (or derived) is used to encapsulate the LINQ queries against the database.
     /// </para>
     /// </summary>
     /// <typeparam name="TEntity">The type of entity being operated on by this repository.</typeparam>
     /// <typeparam name="TId">The type of id entity being operated on by this repository.</typeparam>
-    /// <typeparam name="TIdType">The id type of id entity being operated on by this repository.</typeparam>
-    public interface ISpecificationReadRepository<TEntity, TId, TIdType> : IReadRepository<TEntity, TId, TIdType>
-        where TEntity : class, IEntity<TId, TIdType>
-        where TId : IEntityId<TIdType>
+    public interface ISpecificationReadRepository<TEntity, TId> : IReadRepository<TEntity, TId>
+        where TEntity : class, IEntity<TId>
+        where TId : class, IEntityId
     {
         /// <summary>
         /// Returns the first element of a sequence, or a default value if the sequence contains no elements.

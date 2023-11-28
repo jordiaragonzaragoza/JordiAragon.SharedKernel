@@ -8,9 +8,9 @@
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Domain.Entities;
 
-    public abstract class BaseReadRepository<TEntity, TId, TIdType> : RepositoryBase<TEntity>, IReadRepository<TEntity, TId, TIdType>, IScopedDependency
-        where TEntity : class, IEntity<TId, TIdType>
-        where TId : class, IEntityId<TIdType>
+    public abstract class BaseReadRepository<TEntity, TId> : RepositoryBase<TEntity>, IReadRepository<TEntity, TId>, IScopedDependency
+        where TEntity : class, IEntity<TId>
+        where TId : class, IEntityId
     {
         protected BaseReadRepository(BaseContext dbContext)
             : base(dbContext)

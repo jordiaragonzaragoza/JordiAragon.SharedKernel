@@ -7,7 +7,7 @@
     using JordiAragon.SharedKernel.Domain.Entities;
 
     // TODO: Replace. It must be a DataEntity. This is not a part of domain entities.
-    public class OutboxMessage : BaseEntity<OutboxMessageId, Guid>, IAggregateRoot<OutboxMessageId, Guid>
+    public class OutboxMessage : BaseEntity<OutboxMessageId>, IAggregateRoot<OutboxMessageId>
     {
         private readonly List<IDomainEvent> domainEvents = new();
 

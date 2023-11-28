@@ -5,7 +5,7 @@
     /// </summary>
     /// <typeparam name="TId">The id for the entity.</typeparam>
     /// <typeparam name="TIdType">The id value for the entity.</typeparam>
-    public interface IEntity<out TId, TIdType> : IEntity<TId>
+    public interface IEntity<out TId, TIdType> : IEntity<TId> // TODO: Remove ??
         where TId : IEntityId<TIdType>
     {
     }

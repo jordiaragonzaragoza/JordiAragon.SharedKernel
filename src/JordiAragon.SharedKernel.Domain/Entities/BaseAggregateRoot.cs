@@ -6,7 +6,7 @@
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Domain.ValueObjects;
 
-    public abstract class BaseAggregateRoot<TId, TIdType> : BaseEntity<TId, TIdType>, IAggregateRoot<TId, TIdType>
+    public abstract class BaseAggregateRoot<TId, TIdType> : BaseEntity<TId>, IAggregateRoot<TId>
         where TId : BaseAggregateRootId<TIdType>
     {
         private readonly List<IDomainEvent> domainEvents = new();
@@ -23,6 +23,7 @@
         }
 
         // TODO: Remove this workaround when EF supports ValueObjects collections.
+        // https://github.com/dotnet/efcore/issues/31237
         public new BaseAggregateRootId<TIdType> Id { get; protected set; }
 
         [NotMapped]

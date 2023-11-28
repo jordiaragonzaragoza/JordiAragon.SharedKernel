@@ -5,9 +5,9 @@
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
 
     [Serializable]
-    public sealed class InvalidAggregateStateException<TAggregate, TId, TIdType> : Exception
-        where TAggregate : class, IAggregateRoot<TId, TIdType>
-        where TId : IEntityId<TIdType>
+    public sealed class InvalidAggregateStateException<TAggregate, TId> : Exception
+        where TAggregate : class, IAggregateRoot<TId>
+        where TId : class, IEntityId
     {
         public InvalidAggregateStateException(TAggregate aggregate, string message = null)
                 : base($"Aggregate {aggregate.GetType().Name} state change rejected. {message}")

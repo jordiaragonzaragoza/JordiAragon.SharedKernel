@@ -1,8 +1,8 @@
 ﻿namespace JordiAragon.SharedKernel.Domain.Contracts.Interfaces
 {
-    public interface ICachedSpecificationRepository<TAggregate, TId, TIdType> : IRepository<TAggregate, TId, TIdType>, ISpecificationReadRepository<TAggregate, TId, TIdType>
-        where TAggregate : class, IAggregateRoot<TId, TIdType>
-        where TId : IEntityId<TIdType>
+    public interface ICachedSpecificationRepository<TAggregate, TId> : IRepository<TAggregate, TId>, ISpecificationReadRepository<TAggregate, TId>
+        where TAggregate : class, IAggregateRoot<TId>
+        where TId : class, IEntityId
     {
         string CacheKey { get; }
     }

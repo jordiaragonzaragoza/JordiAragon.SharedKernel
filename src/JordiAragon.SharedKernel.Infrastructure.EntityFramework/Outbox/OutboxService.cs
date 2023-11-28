@@ -13,12 +13,12 @@
     public class OutboxService : IOutboxService
     {
         private readonly IGuidGenerator guidGenerator;
-        private readonly ICachedSpecificationRepository<OutboxMessage, OutboxMessageId, Guid> repositoryOutboxMessage;
+        private readonly ICachedSpecificationRepository<OutboxMessage, OutboxMessageId> repositoryOutboxMessage;
         private readonly ILogger<OutboxService> logger;
 
         public OutboxService(
             IGuidGenerator guidGenerator,
-            ICachedSpecificationRepository<OutboxMessage, OutboxMessageId, Guid> repositoryOutboxMessage,
+            ICachedSpecificationRepository<OutboxMessage, OutboxMessageId> repositoryOutboxMessage,
             ILogger<OutboxService> logger)
         {
             this.guidGenerator = guidGenerator ?? throw new ArgumentNullException(nameof(guidGenerator));

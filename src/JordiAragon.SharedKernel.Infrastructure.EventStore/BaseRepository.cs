@@ -12,9 +12,9 @@
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Infrastructure.EventStore.Serialization;
 
-    public abstract class BaseRepository<TAggregate, TId, TIdType> : IRepository<TAggregate, TId, TIdType>, ISingletonDependency
-        where TAggregate : class, IEventSourcedAggregateRoot<TId, TIdType>
-        where TId : IEntityId<TIdType>
+    public abstract class BaseRepository<TAggregate, TId> : IRepository<TAggregate, TId>, ISingletonDependency
+        where TAggregate : class, IEventSourcedAggregateRoot<TId>
+        where TId : class, IEntityId
     {
         protected BaseRepository(EventStoreClient eventStoreClient)
             => this.EventStoreClient = eventStoreClient;

@@ -4,9 +4,9 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    public interface IRepository<TAggregate, TId, TIdType> : IReadRepository<TAggregate, TId, TIdType>
-        where TAggregate : class, IAggregateRoot<TId, TIdType>
-        where TId : IEntityId<TIdType>
+    public interface IRepository<TAggregate, TId> : IReadRepository<TAggregate, TId>
+        where TAggregate : class, IAggregateRoot<TId>
+        where TId : class, IEntityId
     {
         Task<TAggregate> AddAsync(TAggregate aggregate, CancellationToken cancellationToken = default);
 

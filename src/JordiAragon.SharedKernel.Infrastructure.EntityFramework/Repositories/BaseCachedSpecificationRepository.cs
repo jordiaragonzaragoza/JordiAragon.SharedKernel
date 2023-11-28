@@ -11,16 +11,16 @@
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using Microsoft.Extensions.Logging;
 
-    public abstract class BaseCachedSpecificationRepository<TAggregate, TId, TIdType> : BaseReadRepository<TAggregate, TId, TIdType>, ICachedSpecificationRepository<TAggregate, TId, TIdType>, IScopedDependency
-        where TAggregate : class, IAggregateRoot<TId, TIdType>
-        where TId : class, IEntityId<TIdType>
+    public abstract class BaseCachedSpecificationRepository<TAggregate, TId> : BaseReadRepository<TAggregate, TId>, ICachedSpecificationRepository<TAggregate, TId>, IScopedDependency
+        where TAggregate : class, IAggregateRoot<TId>
+        where TId : class, IEntityId
     {
         private readonly ICacheService cacheService;
-        private readonly ILogger<BaseCachedSpecificationRepository<TAggregate, TId, TIdType>> logger;
+        private readonly ILogger<BaseCachedSpecificationRepository<TAggregate, TId>> logger;
 
         protected BaseCachedSpecificationRepository(
             BaseContext dbContext,
-            ILogger<BaseCachedSpecificationRepository<TAggregate, TId, TIdType>> logger,
+            ILogger<BaseCachedSpecificationRepository<TAggregate, TId>> logger,
             ICacheService cacheService)
             : base(dbContext)
         {
