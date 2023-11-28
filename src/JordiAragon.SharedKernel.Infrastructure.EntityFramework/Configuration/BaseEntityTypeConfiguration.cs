@@ -6,6 +6,7 @@
 
     public abstract class BaseEntityTypeConfiguration<TEntity, TId> : IEntityTypeConfiguration<TEntity>
         where TEntity : class, IEntity<TId>
+        where TId : class, IEntityId
     {
         public virtual void Configure(EntityTypeBuilder<TEntity> builder)
         {

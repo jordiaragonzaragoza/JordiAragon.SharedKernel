@@ -4,9 +4,9 @@
     /// Generic abstraction for a domain entity.
     /// </summary>
     /// <typeparam name="TId">The id for the entity.</typeparam>
-    public interface IEntity<out TId> : IEntity
-        where TId : class, IEntityId
+    /// <typeparam name="TIdType">The id value for the entity.</typeparam>
+    public interface IEntity<out TId, TIdType> : IEntity<TId> // TODO: Remove ??
+        where TId : class, IEntityId<TIdType>
     {
-        TId Id { get; }
     }
 }
