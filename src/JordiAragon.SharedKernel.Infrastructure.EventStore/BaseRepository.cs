@@ -51,6 +51,16 @@
             return aggregate;
         }
 
+        public Task<List<TAggregate>> ListAsync(CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException(); // TODO: Complete.
+        }
+
+        public Task<bool> AnyAsync(CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException(); // TODO: Complete.
+        }
+
         public async Task<TAggregate> AddAsync(TAggregate aggregate, CancellationToken cancellationToken = default)
         {
             return await this.StoreAsync(aggregate, cancellationToken);
