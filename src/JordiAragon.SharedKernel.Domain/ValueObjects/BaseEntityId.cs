@@ -2,10 +2,11 @@
 {
     using System.Collections.Generic;
     using Ardalis.GuardClauses;
+    using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
 
-    public abstract class BaseEntityId<TId> : BaseValueObject
+    public abstract class BaseEntityId<TIdType> : BaseValueObject, IEntityId<TIdType>
     {
-        protected BaseEntityId(TId value)
+        protected BaseEntityId(TIdType value)
         {
             this.Value = Guard.Against.Null(value, nameof(value));
         }
@@ -15,9 +16,9 @@
         {
         }
 
-        public TId Value { get; init; }
+        public TIdType Value { get; init; }
 
-        public static implicit operator TId(BaseEntityId<TId> self)
+        public static implicit operator TIdType(BaseEntityId<TIdType> self)
         {
             Guard.Against.Null(self, nameof(self));
 

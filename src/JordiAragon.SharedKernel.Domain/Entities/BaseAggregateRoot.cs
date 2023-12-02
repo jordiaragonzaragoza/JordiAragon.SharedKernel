@@ -22,6 +22,8 @@
         {
         }
 
+        // TODO: Remove this workaround when EF supports ValueObjects collections.
+        // https://github.com/dotnet/efcore/issues/31237
         public new BaseAggregateRootId<TIdType> Id { get; protected set; }
 
         [NotMapped]

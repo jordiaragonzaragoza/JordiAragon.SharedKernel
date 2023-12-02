@@ -5,7 +5,7 @@
     using System.Threading.Tasks;
     using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
-    using JordiAragon.SharedKernel.Domain.Entities;
+    using JordiAragon.SharedKernel.Infrastructure.EntityFramework.Audit;
     using JordiAragon.SharedKernel.Infrastructure.EntityFramework.Helpers;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -46,18 +46,17 @@
 
             foreach (var entry in context.ChangeTracker.Entries())
             {
-                Type baseAuditableEntityType = typeof(BaseAuditableEntity<>);
-
                 Type entityType = entry.Entity.GetType();
 
                 var idProperty = Array.Find(entityType.GetProperties(), p => p.Name == "Id");
                 if (idProperty != null)
                 {
-                    Type[] typeArgs = { idProperty.PropertyType };
+                    Type baseAuditableEntityType = typeof(BaseAuditableDataEntity);
 
-                    Type auditableEntityType = baseAuditableEntityType.MakeGenericType(typeArgs);
+                    ////Type[] typeArgs = { idProperty.PropertyType };
+                    ////Type auditableEntityType = baseAuditableEntityType.MakeGenericType(typeArgs);
 
-                    if (auditableEntityType.IsAssignableFrom(entityType))
+                    if (baseAuditableEntityType.IsAssignableFrom(entityType))
                     {
                         dynamic auditableEntity = entry.Entity;
 

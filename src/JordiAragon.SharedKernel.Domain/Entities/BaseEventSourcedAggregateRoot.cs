@@ -12,7 +12,6 @@
         {
         }
 
-        // Required by EF.
         protected BaseEventSourcedAggregateRoot()
         {
         }
