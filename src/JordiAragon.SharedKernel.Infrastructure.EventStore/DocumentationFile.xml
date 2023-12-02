@@ -4,5 +4,15 @@
         <name>JordiAragon.SharedKernel.Infrastructure.EventStore</name>
     </assembly>
     <members>
+        <member name="M:JordiAragon.SharedKernel.Infrastructure.EventStore.StreamNameMapper.ToStreamId(System.Type,System.Object,System.Object)">
+            <summary>
+            Generates a stream id in the canonical `{category}-{aggregateId}` format.
+            It can be expanded to the `{module}_{streamType}-{tenantId}_{aggregateId}` format.
+            </summary>
+            <param name="streamType">The stream type based on aggregate type.</param>
+            <param name="aggregateId">The aggregate Id.</param>
+            <param name="tenantId">The Tenant Id.</param>
+            <returns>The Stream Id.</returns>
+        </member>
     </members>
 </doc>

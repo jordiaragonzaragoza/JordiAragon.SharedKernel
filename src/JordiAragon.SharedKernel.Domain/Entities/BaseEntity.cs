@@ -7,6 +7,7 @@
     using JordiAragon.SharedKernel.Domain.Exceptions;
 
     public abstract class BaseEntity<TId> : IEqualityComparer<BaseEntity<TId>>, IEntity<TId>, IIgnoreDependency
+        where TId : class, IEntityId
     {
         protected BaseEntity(TId id)
         {
@@ -18,7 +19,7 @@
         {
         }
 
-        public TId Id { get; private init; }
+        public TId Id { get; protected set; }
 
         public bool Equals(BaseEntity<TId> x, BaseEntity<TId> y)
         {

@@ -13,12 +13,12 @@
     public class OutboxService : IOutboxService
     {
         private readonly IGuidGenerator guidGenerator;
-        private readonly ICachedRepository<OutboxMessage> repositoryOutboxMessage;
+        private readonly ICachedSpecificationRepository<OutboxMessage, OutboxMessageId> repositoryOutboxMessage;
         private readonly ILogger<OutboxService> logger;
 
         public OutboxService(
             IGuidGenerator guidGenerator,
-            ICachedRepository<OutboxMessage> repositoryOutboxMessage,
+            ICachedSpecificationRepository<OutboxMessage, OutboxMessageId> repositoryOutboxMessage,
             ILogger<OutboxService> logger)
         {
             this.guidGenerator = guidGenerator ?? throw new ArgumentNullException(nameof(guidGenerator));
@@ -29,7 +29,7 @@
         public async Task AddMessageAsync(IEventNotification<IEvent> eventNotification, CancellationToken cancellationToken = default)
         {
             var type = eventNotification.GetType().FullName;
-            var data = JsonConvert.SerializeObject(eventNotification);
+            var data = JsonConvert.SerializeObject(eventNotification); // TODO: Change to System.Text.Json
 
             var outboxMessage = OutboxMessage.Create(
                 id: this.guidGenerator.Create(),
