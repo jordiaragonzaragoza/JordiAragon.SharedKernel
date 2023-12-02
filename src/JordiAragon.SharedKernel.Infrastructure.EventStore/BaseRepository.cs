@@ -6,7 +6,6 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Ardalis.GuardClauses;
-    using Ardalis.Specification;
     using global::EventStore.Client;
     using JordiAragon.SharedKernel.Contracts.DependencyInjection;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;

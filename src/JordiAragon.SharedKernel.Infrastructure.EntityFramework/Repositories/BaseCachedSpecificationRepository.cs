@@ -93,23 +93,6 @@
             return response;
         }
 
-        /*public override async Task<TAggregate> GetByIdAsync<TIdentifier>(TIdentifier id, CancellationToken cancellationToken = default)
-        {
-            var cacheKeyId = $"{this.CacheKey}_{id}";
-
-            var cachedResponse = await this.CacheGetAsync<TAggregate>(cacheKeyId, cancellationToken);
-            if (cachedResponse.IsSuccess)
-            {
-                return cachedResponse;
-            }
-
-            var response = await base.GetByIdAsync(id, cancellationToken);
-
-            await this.CacheSetAsync(cacheKeyId, response, cancellationToken);
-
-            return response;
-        }*/
-
         public override async Task<TAggregate> FirstOrDefaultAsync(ISpecification<TAggregate> specification, CancellationToken cancellationToken = default)
         {
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
