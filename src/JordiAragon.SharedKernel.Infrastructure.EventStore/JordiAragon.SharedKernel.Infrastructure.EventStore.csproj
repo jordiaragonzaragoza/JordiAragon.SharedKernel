@@ -7,7 +7,7 @@
 		<AssemblyName>JordiAragon.SharedKernel.Infrastructure.EventStore</AssemblyName>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="EventStore.Client" />
+		<PackageReference Include="EventStore.Client.Grpc.Streams" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\JordiAragon.SharedKernel\JordiAragon.SharedKernel.csproj" />
