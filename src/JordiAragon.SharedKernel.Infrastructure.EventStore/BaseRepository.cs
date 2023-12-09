@@ -9,14 +9,23 @@
     using global::EventStore.Client;
     using JordiAragon.SharedKernel.Contracts.DependencyInjection;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
+    using JordiAragon.SharedKernel.Domain.Entities;
     using JordiAragon.SharedKernel.Infrastructure.EventStore.Serialization;
+    using Microsoft.Extensions.Logging;
 
     public abstract class BaseRepository<TAggregate, TId> : IRepository<TAggregate, TId>, ISingletonDependency
-        where TAggregate : class, IEventSourcedAggregateRoot<TId>
+        where TAggregate : BaseEventSourcedAggregateRoot<TId>
         where TId : class, IEntityId
     {
-        protected BaseRepository(EventStoreClient eventStoreClient)
-            => this.EventStoreClient = eventStoreClient;
+        private readonly ILogger<BaseRepository<TAggregate, TId>> logger;
+
+        protected BaseRepository(
+            EventStoreClient eventStoreClient,
+            ILogger<BaseRepository<TAggregate, TId>> logger)
+        {
+            this.EventStoreClient = Guard.Against.Null(eventStoreClient, nameof(eventStoreClient));
+            this.logger = Guard.Against.Null(logger, nameof(logger));
+        }
 
         protected EventStoreClient EventStoreClient { get; private init; }
 
@@ -35,24 +44,21 @@
                 return null;
             }
 
-            // If this reflection causes performance issues, use a public constructors on aggregates.
+            // If this reflection causes performance issues, use a public constructors on aggregates if its required.
             var aggregate = (TAggregate)Activator.CreateInstance(typeof(TAggregate), true);
 
             var domainEvents = new List<IDomainEvent>();
-            await foreach (ResolvedEvent resolvedEvent in readResult)
+            await foreach (var resolvedEvent in readResult)
             {
                 var domainEvent = SerializerHelper.Deserialize(resolvedEvent);
                 domainEvents.Add(domainEvent);
             }
 
+            this.logger.LogInformation("Loading events for the aggregate: {Aggregate}", aggregate.ToString());
+
             aggregate.Load(domainEvents);
 
             return aggregate;
-        }
-
-        public Task<bool> AnyAsync(CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException(); // TODO: Complete.
         }
 
         public async Task<TAggregate> AddAsync(TAggregate aggregate, CancellationToken cancellationToken = default)
@@ -79,11 +85,17 @@
                 return aggregate;
             }
 
-            var streamName = StreamNameMapper.ToStreamId(typeof(TAggregate), aggregate.Id);
+            var streamName = StreamNameMapper.ToStreamId<TAggregate>(aggregate.Id);
+            var nextVersion = StreamRevision.FromInt64(aggregate.Version); // TODO: Review if its correct.
+
+            foreach (var @event in events)
+            {
+                this.logger.LogInformation("Persisting event: {Event}", @event.ToString());
+            }
 
             await this.EventStoreClient.AppendToStreamAsync(
                 streamName,
-                StreamRevision.FromInt64(aggregate.Version),
+                nextVersion,
                 events,
                 cancellationToken: cancellationToken);
 
