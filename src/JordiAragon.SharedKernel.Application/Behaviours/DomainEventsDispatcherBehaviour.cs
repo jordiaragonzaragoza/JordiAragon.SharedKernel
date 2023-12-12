@@ -7,6 +7,7 @@
     using MediatR;
 
     /// <summary>
+    /// The deferred approach to raise and dispatch events
     /// Dispatch Domain Events collection in a unique atomic transaction.
     /// BEFORE committing data (EF SaveChanges) into the DB. This makes
     /// a single transaction including side effects from the domain event

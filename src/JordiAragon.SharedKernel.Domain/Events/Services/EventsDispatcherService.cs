@@ -38,6 +38,7 @@
 
             var eventNotifications = this.CreateEventNotifications(events);
 
+            // TODO: Move to DomainEventsDispatcher? Instead filter by not published.
             foreach (var eventsContainer in eventableEntities)
             {
                 eventsContainer.ClearEvents();

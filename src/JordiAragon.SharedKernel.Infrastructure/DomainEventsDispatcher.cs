@@ -1,33 +1,36 @@
-﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework
+﻿namespace JordiAragon.SharedKernel.Infrastructure
 {
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using Ardalis.GuardClauses;
-    using Ardalis.Specification;
     using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
-    using JordiAragon.SharedKernel.Contracts.Events;
-    using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Domain.Events.Services;
+    using JordiAragon.SharedKernel.Infrastructure.Interfaces;
 
-    public abstract class BaseDomainEventsDispatcher : IDomainEventsDispatcher
+    public class DomainEventsDispatcher : IDomainEventsDispatcher
     {
-        private readonly BaseContext context;
         private readonly IEventsDispatcherService eventDispatcherService;
+        private readonly IWriteStore writeStore;
+        private readonly IEventStore eventStore;
 
-        protected BaseDomainEventsDispatcher(
-            BaseContext context,
+        public DomainEventsDispatcher(
+            IWriteStore writeStore,
+            IEventStore eventStore,
             IEventsDispatcherService domainEventDispatcherService)
         {
-            this.context = Guard.Against.Null(context, nameof(context));
+            this.writeStore = Guard.Against.Null(writeStore, nameof(writeStore));
+            this.eventStore = Guard.Against.Null(eventStore, nameof(eventStore));
             this.eventDispatcherService = Guard.Against.Null(domainEventDispatcherService, nameof(domainEventDispatcherService));
         }
 
         public virtual async Task DispatchDomainEventsAsync(CancellationToken cancellationToken = default)
         {
-            var eventableEntities = this.context.ChangeTracker.Entries<IEventsContainer<IDomainEvent>>()
-                            .Select(e => e.Entity)
-                            .Where(entity => entity.Events.Any());
+            var writeStoreEventableEntities = this.writeStore.EventableEntities;
+
+            var eventStoreEventableEntities = this.eventStore.EventableEntities;
+
+            var eventableEntities = writeStoreEventableEntities.Concat(eventStoreEventableEntities);
 
             if (!eventableEntities.Any())
             {
