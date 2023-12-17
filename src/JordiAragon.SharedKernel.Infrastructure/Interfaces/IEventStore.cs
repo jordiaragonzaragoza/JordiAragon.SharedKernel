@@ -5,7 +5,7 @@
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Infrastructure.Interfaces;
 
-    public interface IEventStore : IWriteStore
+    public interface IEventStore : IAggregatesStore
     {
         void AppendChanges<TAggregate, TId>(TAggregate aggregate)
             where TAggregate : class, IEventSourcedAggregateRoot<TId>

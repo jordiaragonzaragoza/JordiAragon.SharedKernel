@@ -42,7 +42,7 @@
                 var isSuccessResponse = typeof(TResponse).GetProperty("IsSuccess").GetValue(response, null);
                 if ((bool)isSuccessResponse)
                 {
-                    this.unitOfWork.CommitTransaction(cancellationToken);
+                    this.unitOfWork.CommitTransaction();
                 }
                 else
                 {

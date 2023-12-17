@@ -8,12 +8,14 @@
     using Ardalis.GuardClauses;
     using Autofac;
     using Autofac.Core;
+    using JordiAragon.SharedKernel.Contracts.DependencyInjection;
     using JordiAragon.SharedKernel.Contracts.Events;
     using JordiAragon.SharedKernel.Contracts.Outbox;
+    using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using MediatR;
     using Microsoft.Extensions.Logging;
 
-    public class EventsDispatcherService : IEventsDispatcherService
+    public class EventsDispatcherService : IEventsDispatcherService, IScopedDependency
     {
         private readonly IPublisher publisher;
         private readonly ILifetimeScope scope;
@@ -32,24 +34,29 @@
             this.logger = Guard.Against.Null(logger, nameof(logger));
         }
 
-        public async Task DispatchAndClearEventsAsync(IEnumerable<IEventsContainer<IEvent>> eventableEntities, CancellationToken cancellationToken = default)
+        public async Task DispatchEventsAsync(IEnumerable<IEventsContainer<IEvent>> eventableEntities, CancellationToken cancellationToken = default)
         {
-            var events = eventableEntities.SelectMany(x => x.Events).ToList();
+            var events = eventableEntities.SelectMany(x => x.Events).Where(e => !e.IsPublished).OrderBy(e => e.DateOccurredOnUtc);
 
-            var eventNotifications = this.CreateEventNotifications(events);
+            // Filter to not include IEventSourcedAggregateRoot events.
+            // This events will come from event store subscription.
+            var aggregateEvents = eventableEntities.Where(entity => entity is not IEventSourcedAggregateRoot<IEntityId>)
+                .SelectMany(x => x.Events).Where(e => !e.IsPublished).OrderBy(e => e.DateOccurredOnUtc);
+
+            var eventNotifications = this.CreateEventNotifications(aggregateEvents);
 
             // TODO: Move to DomainEventsDispatcher? Instead filter by not published.
-            foreach (var eventsContainer in eventableEntities)
+            /*foreach (var eventsContainer in eventableEntities)
             {
                 eventsContainer.ClearEvents();
-            }
+            }*/
 
             await this.PublishEventsAsync(events, cancellationToken);
 
             await this.StoreEventNotificationsAsync(eventNotifications, cancellationToken);
         }
 
-        private IList<IEventNotification<IEvent>> CreateEventNotifications(IList<IEvent> events)
+        private IEnumerable<IEventNotification<IEvent>> CreateEventNotifications(IEnumerable<IEvent> events)
         {
             var eventNotifications = new List<IEventNotification<IEvent>>();
             foreach (var @event in events)
@@ -71,7 +78,7 @@
             return eventNotifications;
         }
 
-        private async Task PublishEventsAsync(IList<IEvent> events, CancellationToken cancellationToken)
+        private async Task PublishEventsAsync(IEnumerable<IEvent> events, CancellationToken cancellationToken)
         {
             foreach (var @event in events)
             {
@@ -96,7 +103,7 @@
             }
         }
 
-        private async Task StoreEventNotificationsAsync(IList<IEventNotification<IEvent>> eventNotifications, CancellationToken cancellationToken)
+        private async Task StoreEventNotificationsAsync(IEnumerable<IEventNotification<IEvent>> eventNotifications, CancellationToken cancellationToken)
         {
             foreach (var eventNotification in eventNotifications)
             {

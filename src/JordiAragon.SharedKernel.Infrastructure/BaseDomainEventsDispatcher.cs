@@ -5,16 +5,17 @@
     using System.Threading.Tasks;
     using Ardalis.GuardClauses;
     using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
+    using JordiAragon.SharedKernel.Contracts.DependencyInjection;
     using JordiAragon.SharedKernel.Domain.Events.Services;
     using JordiAragon.SharedKernel.Infrastructure.Interfaces;
 
-    public class DomainEventsDispatcher : IDomainEventsDispatcher
+    public abstract class BaseDomainEventsDispatcher : IDomainEventsDispatcher, IScopedDependency
     {
         private readonly IEventsDispatcherService eventDispatcherService;
         private readonly IWriteStore writeStore;
         private readonly IEventStore eventStore;
 
-        public DomainEventsDispatcher(
+        protected BaseDomainEventsDispatcher(
             IWriteStore writeStore,
             IEventStore eventStore,
             IEventsDispatcherService domainEventDispatcherService)
@@ -24,7 +25,7 @@
             this.eventDispatcherService = Guard.Against.Null(domainEventDispatcherService, nameof(domainEventDispatcherService));
         }
 
-        public virtual async Task DispatchDomainEventsAsync(CancellationToken cancellationToken = default)
+        public async Task DispatchDomainEventsAsync(CancellationToken cancellationToken = default)
         {
             var writeStoreEventableEntities = this.writeStore.EventableEntities;
 
@@ -37,7 +38,7 @@
                 return;
             }
 
-            await this.eventDispatcherService.DispatchAndClearEventsAsync(eventableEntities, cancellationToken);
+            await this.eventDispatcherService.DispatchEventsAsync(eventableEntities, cancellationToken);
         }
     }
 }

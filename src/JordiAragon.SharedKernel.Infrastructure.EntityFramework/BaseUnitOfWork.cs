@@ -1,7 +1,6 @@
 ﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework
 {
     using System;
-    using System.Threading;
     using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Contracts.DependencyInjection;
     using Microsoft.EntityFrameworkCore.Storage;
@@ -27,7 +26,7 @@
             this.transaction = this.context.Database.BeginTransaction();
         }
 
-        public virtual void CommitTransaction(CancellationToken cancellationToken = default)
+        public virtual void CommitTransaction()
         {
             if (this.transaction == null)
             {
