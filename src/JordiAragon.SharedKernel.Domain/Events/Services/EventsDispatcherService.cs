@@ -36,20 +36,14 @@
 
         public async Task DispatchEventsAsync(IEnumerable<IEventsContainer<IEvent>> eventableEntities, CancellationToken cancellationToken = default)
         {
-            var events = eventableEntities.SelectMany(x => x.Events).Where(e => !e.IsPublished).OrderBy(e => e.DateOccurredOnUtc);
+            var events = eventableEntities.SelectMany(x => x.Events).Where(e => !e.IsPublished).OrderBy(e => e.DateOccurredOnUtc).ToList();
 
             // Filter to not include IEventSourcedAggregateRoot events.
             // This events will come from event store subscription.
             var aggregateEvents = eventableEntities.Where(entity => entity is not IEventSourcedAggregateRoot<IEntityId>)
-                .SelectMany(x => x.Events).Where(e => !e.IsPublished).OrderBy(e => e.DateOccurredOnUtc);
+                .SelectMany(x => x.Events).Where(e => !e.IsPublished).OrderBy(e => e.DateOccurredOnUtc).ToList();
 
             var eventNotifications = this.CreateEventNotifications(aggregateEvents);
-
-            // TODO: Move to DomainEventsDispatcher? Instead filter by not published.
-            /*foreach (var eventsContainer in eventableEntities)
-            {
-                eventsContainer.ClearEvents();
-            }*/
 
             await this.PublishEventsAsync(events, cancellationToken);
 
