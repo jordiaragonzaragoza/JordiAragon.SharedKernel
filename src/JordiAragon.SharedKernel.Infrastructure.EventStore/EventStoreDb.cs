@@ -81,6 +81,21 @@
             this.pendingChanges.Clear();
         }
 
+        public void BeginTransaction()
+        {
+            // Not required on Event Store DB.
+        }
+
+        public Task CommitTransactionAsync()
+        {
+            return this.SaveChangesAsync();
+        }
+
+        public void RollbackTransaction()
+        {
+            // Not required on Event Store DB.
+        }
+
         private async Task StoreAsync(IEventSourcedAggregateRoot<IEntityId> aggregate, CancellationToken cancellationToken)
         {
             var events = aggregate.Events.AsEnumerable().Select(SerializerHelper.Serialize).ToArray();
