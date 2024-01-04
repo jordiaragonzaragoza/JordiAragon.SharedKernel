@@ -14,6 +14,6 @@
 
         public bool IsPublished { get; set; }
 
-        public DateTime DateOccurredOnUtc { get; }
+        public DateTimeOffset DateOccurredOnUtc { get; }
     }
 }

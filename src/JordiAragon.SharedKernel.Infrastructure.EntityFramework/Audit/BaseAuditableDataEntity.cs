@@ -5,11 +5,11 @@
 
     public abstract class BaseAuditableDataEntity : IAuditableEntity
     {
-        public DateTime CreationDateOnUtc { get; set; }
+        public DateTimeOffset CreationDateOnUtc { get; set; }
 
         public string CreatedByUserId { get; set; }
 
-        public DateTime ModificationDateOnUtc { get; set; }
+        public DateTimeOffset ModificationDateOnUtc { get; set; }
 
         public string LastModifiedByUserId { get; set; }
 
