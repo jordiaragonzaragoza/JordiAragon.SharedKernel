@@ -28,6 +28,7 @@
         public virtual async Task CommitTransactionAsync()
         {
             // TODO: Wrap on a System.Transaction
+            // Check: https://discuss.eventstore.com/t/event-store-and-transactions/401/11
             await this.eventStore.CommitTransactionAsync();
             await this.writeStore.CommitTransactionAsync();
         }
