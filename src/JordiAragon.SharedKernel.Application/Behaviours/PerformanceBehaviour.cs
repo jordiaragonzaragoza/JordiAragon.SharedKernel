@@ -46,7 +46,8 @@
 
             var elapsedMilliseconds = this.timer.ElapsedMilliseconds;
 
-            if (elapsedMilliseconds > 1500) // TODO: Pass this '1500' through IConfiguration
+            // TODO: Pass this '1500' through IConfiguration
+            if (elapsedMilliseconds > 1500)
             {
                 this.logger.LogWarning(
                     "Long Running Request: {RequestName} Elapsed Time: {ElapsedMilliseconds} milliseconds User ID: {@UserId} Request Data: {RequestSerialized}",

@@ -3,30 +3,21 @@
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    using System.Text.Json;
     using System.Threading;
     using System.Threading.Tasks;
     using Ardalis.Result;
     using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Domain.Exceptions;
     using MediatR;
-    using Microsoft.Extensions.Logging;
 
     public class UnitOfWorkBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : IRequest<TResponse> // TODO: Review restrict to ICommand<TResponse> or ICommand
+        where TRequest : IRequest<TResponse>, IBaseCommand
         where TResponse : IResult
     {
-        private readonly ILogger<TRequest> logger;
-        private readonly ICurrentUserService currentUserService;
         private readonly IUnitOfWork unitOfWork;
 
-        public UnitOfWorkBehaviour(
-            ILogger<TRequest> logger,
-            ICurrentUserService currentUserService,
-            IUnitOfWork unitOfWork)
+        public UnitOfWorkBehaviour(IUnitOfWork unitOfWork)
         {
-            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            this.currentUserService = currentUserService ?? throw new ArgumentNullException(nameof(currentUserService));
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
@@ -86,20 +77,9 @@
 
                 return (TResponse)resultInvalidMethod.Invoke(null, new object[] { errors });
             }
-            catch (Exception exception)
+            catch (Exception)
             {
                 this.unitOfWork.RollbackTransaction();
-
-                var requestName = typeof(TRequest).Name;
-                var userId = this.currentUserService.UserId ?? string.Empty;
-                var requestSerialized = JsonSerializer.Serialize(request);
-
-                this.logger.LogError(
-                    exception,
-                    "Unhandled Exception. Request: {RequestName}  User ID: {@UserId} Request Data: {RequestSerialized}",
-                    requestName,
-                    userId,
-                    requestSerialized);
 
                 throw;
             }
