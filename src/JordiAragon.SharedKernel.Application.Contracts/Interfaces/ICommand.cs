@@ -3,8 +3,12 @@
     using Ardalis.Result;
     using MediatR;
 
-    // Using pure DDD, Commands will not use response with a Result<Response> check <see cref="ICommand"/>
-    public interface ICommand<TResponse> : IRequest<Result<TResponse>>
+    /// <summary>
+    /// Command with response operation. To see pure DDD commands check <see cref="ICommand"/>.
+    /// </summary>
+    /// <typeparam name="TResponse">The response operation.</typeparam>
+    public interface ICommand<TResponse> : IRequest<Result<TResponse>>, IBaseCommand
+        where TResponse : notnull
     {
     }
 }
