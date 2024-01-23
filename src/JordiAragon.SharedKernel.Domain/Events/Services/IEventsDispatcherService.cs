@@ -7,6 +7,6 @@
 
     public interface IEventsDispatcherService
     {
-        Task DispatchAndClearEventsAsync(IEnumerable<IEventsContainer<IEvent>> eventableEntities, CancellationToken cancellationToken = default);
+        Task DispatchEventsAsync(IEnumerable<IEventsContainer<IEvent>> eventableEntities, CancellationToken cancellationToken = default);
     }
 }

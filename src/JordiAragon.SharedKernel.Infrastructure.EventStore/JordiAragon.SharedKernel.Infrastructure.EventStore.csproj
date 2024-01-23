@@ -13,5 +13,6 @@
 	  <ProjectReference Include="..\JordiAragon.SharedKernel\JordiAragon.SharedKernel.csproj" />
 	  <ProjectReference Include="..\JordiAragon.SharedKernel.Domain\JordiAragon.SharedKernel.Domain.csproj" />
 	  <ProjectReference Include="..\JordiAragon.SharedKernel.Application.Contracts\JordiAragon.SharedKernel.Application.Contracts.csproj" />
+	  <ProjectReference Include="..\JordiAragon.SharedKernel.Infrastructure\JordiAragon.SharedKernel.Infrastructure.csproj" />
 	</ItemGroup>
 </Project>

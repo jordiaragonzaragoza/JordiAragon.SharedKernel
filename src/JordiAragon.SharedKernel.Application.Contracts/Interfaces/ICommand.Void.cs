@@ -3,7 +3,10 @@
     using Ardalis.Result;
     using MediatR;
 
-    public interface ICommand : IRequest<Result>
+    /// <summary>
+    /// Pure DDD command. Commands will not use response operation check impure alternative <see cref="ICommand{TResponse}"/>.
+    /// </summary>
+    public interface ICommand : IRequest<Result>, IBaseCommand
     {
     }
 }

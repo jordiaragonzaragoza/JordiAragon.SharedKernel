@@ -13,7 +13,7 @@
     /// </summary>
     /// <typeparam name="TEntity">The type of entity being operated on by this repository.</typeparam>
     /// <typeparam name="TId">The type of id entity being operated on by this repository.</typeparam>
-    public interface ISpecificationReadRepository<TEntity, TId> : IReadRepository<TEntity, TId>
+    public interface ISpecificationReadRepository<TEntity, TId> : IReadListRepository<TEntity, TId>
         where TEntity : class, IEntity<TId>
         where TId : class, IEntityId
     {

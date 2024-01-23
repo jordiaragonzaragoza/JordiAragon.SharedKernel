@@ -1,11 +1,11 @@
 ﻿namespace JordiAragon.SharedKernel.Domain.Entities
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
-    using JordiAragon.SharedKernel.Domain.ValueObjects;
 
-    public abstract class BaseEventSourcedAggregateRoot<TId, TIdType> : BaseAggregateRoot<TId, TIdType>, IEventSourcedAggregateRoot<TId>
-        where TId : BaseAggregateRootId<TIdType>
+    public abstract class BaseEventSourcedAggregateRoot<TId> : BaseAggregateRoot<TId>, IEventSourcedAggregateRoot<TId>
+        where TId : class, IEntityId
     {
         protected BaseEventSourcedAggregateRoot(TId id)
             : base(id)
@@ -16,6 +16,7 @@
         {
         }
 
+        [NotMapped]
         public int Version { get; private set; } = -1;
 
         public void Load(IEnumerable<IDomainEvent> history)

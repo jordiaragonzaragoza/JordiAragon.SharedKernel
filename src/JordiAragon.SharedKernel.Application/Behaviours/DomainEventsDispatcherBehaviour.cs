@@ -7,6 +7,7 @@
     using MediatR;
 
     /// <summary>
+    /// The deferred approach to raise and dispatch events
     /// Dispatch Domain Events collection in a unique atomic transaction.
     /// BEFORE committing data (EF SaveChanges) into the DB. This makes
     /// a single transaction including side effects from the domain event
@@ -19,7 +20,7 @@
     /// <typeparam name="TRequest">The command.</typeparam>
     /// <typeparam name="TResponse">The command response.</typeparam>
     public class DomainEventsDispatcherBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : IRequest<TResponse> // TODO: Review to restrict to ICommand<TResponse> and ICommand.
+        where TRequest : IRequest<TResponse>, IBaseCommand
         where TResponse : IResult
     {
         private readonly IDomainEventsDispatcher domainEventsDispatcher;
