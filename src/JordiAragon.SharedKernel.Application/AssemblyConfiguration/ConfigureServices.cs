@@ -9,8 +9,9 @@
     {
         public static IServiceCollection AddSharedKernelApplicationServices(this IServiceCollection serviceCollection)
         {
-            // Register pipeline behaviors for validations and other stuff.
+            // Register pipeline behaviors for cross cutting concerns.
             serviceCollection.AddTransient(typeof(IRequestPreProcessor<>), typeof(LoggerBehaviour<>));
+            serviceCollection.AddTransient(typeof(IPipelineBehavior<,>), typeof(ExceptionHandlerBehaviour<,>));
             serviceCollection.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnitOfWorkBehaviour<,>));
             serviceCollection.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
             serviceCollection.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));

@@ -8,7 +8,10 @@
     {
         protected BaseEntityId(TIdType value)
         {
-            this.Value = Guard.Against.Null(value, nameof(value));
+            Guard.Against.Default(value, nameof(value));
+            Guard.Against.Null(value, nameof(value));
+
+            this.Value = value;
         }
 
         // Required by EF.

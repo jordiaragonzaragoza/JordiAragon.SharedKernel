@@ -7,23 +7,26 @@
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using MediatR;
 
-    public class DomainEventsDispatcherNotificationHandlerDecorator<TDomainEvent> : INotificationHandler<TDomainEvent>
+    public class DomainEventsDispatcherNotificationHandlerDecorator<TDomainEvent> : INotificationHandlerDecorator<TDomainEvent>
         where TDomainEvent : IDomainEvent
     {
-        private readonly INotificationHandler<TDomainEvent> decorated;
+        private readonly INotificationHandler<TDomainEvent> decoratedHandler;
         private readonly IDomainEventsDispatcher domainEventsDispatcher;
 
         public DomainEventsDispatcherNotificationHandlerDecorator(
             IDomainEventsDispatcher domainEventsDispatcher,
-            INotificationHandler<TDomainEvent> decorated)
+            INotificationHandler<TDomainEvent> decoratedHandler)
         {
             this.domainEventsDispatcher = Guard.Against.Null(domainEventsDispatcher, nameof(domainEventsDispatcher));
-            this.decorated = Guard.Against.Null(decorated, nameof(decorated));
+            this.decoratedHandler = Guard.Against.Null(decoratedHandler, nameof(decoratedHandler));
         }
+
+        public INotificationHandler<TDomainEvent> DecoratedHandler
+            => this.decoratedHandler;
 
         public async Task Handle(TDomainEvent notification, CancellationToken cancellationToken)
         {
-            await this.decorated.Handle(notification, cancellationToken).ConfigureAwait(true);
+            await this.decoratedHandler.Handle(notification, cancellationToken).ConfigureAwait(true);
 
             await this.domainEventsDispatcher.DispatchDomainEventsAsync(cancellationToken);
         }

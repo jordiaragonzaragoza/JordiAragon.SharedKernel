@@ -1,23 +1,32 @@
 ﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework
 {
     using System;
-    using System.Threading;
-    using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Ardalis.GuardClauses;
     using JordiAragon.SharedKernel.Contracts.DependencyInjection;
+    using JordiAragon.SharedKernel.Contracts.Events;
+    using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
+    using JordiAragon.SharedKernel.Infrastructure.Interfaces;
     using Microsoft.EntityFrameworkCore.Storage;
 
-    public abstract class BaseUnitOfWork : IUnitOfWork, IScopedDependency
+    public abstract class BaseWriteStore : IWriteStore, IDisposable, IScopedDependency
     {
         private readonly BaseContext context;
         private IDbContextTransaction transaction;
 
-        protected BaseUnitOfWork(
-            BaseContext context)
+        protected BaseWriteStore(BaseContext context)
         {
-            this.context = context;
+            this.context = Guard.Against.Null(context, nameof(context));
         }
 
-        public virtual void BeginTransaction()
+        public IEnumerable<IEventsContainer<IEvent>> EventableEntities
+            => this.context.ChangeTracker.Entries<IEventsContainer<IDomainEvent>>()
+                            .Select(e => e.Entity)
+                            .Where(entity => entity.Events.Any());
+
+        public void BeginTransaction()
         {
             if (this.transaction != null)
             {
@@ -27,19 +36,21 @@
             this.transaction = this.context.Database.BeginTransaction();
         }
 
-        public virtual void CommitTransaction(CancellationToken cancellationToken = default)
+        public Task CommitTransactionAsync()
         {
             if (this.transaction == null)
             {
-                return;
+                return Task.CompletedTask;
             }
 
             this.transaction.Commit();
             this.transaction.Dispose();
             this.transaction = null;
+
+            return Task.CompletedTask;
         }
 
-        public virtual void RollbackTransaction()
+        public void RollbackTransaction()
         {
             if (this.transaction == null)
             {

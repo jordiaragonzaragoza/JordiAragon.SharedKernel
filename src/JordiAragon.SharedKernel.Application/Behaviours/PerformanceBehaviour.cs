@@ -46,6 +46,7 @@
 
             var elapsedMilliseconds = this.timer.ElapsedMilliseconds;
 
+            // TODO: Pass this '1500' through IConfiguration
             if (elapsedMilliseconds > 1500)
             {
                 this.logger.LogWarning(

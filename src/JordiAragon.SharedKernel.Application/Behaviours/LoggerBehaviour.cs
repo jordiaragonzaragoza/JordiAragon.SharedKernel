@@ -3,6 +3,7 @@
     using System.Text.Json;
     using System.Threading;
     using System.Threading.Tasks;
+    using Ardalis.GuardClauses;
     using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
     using MediatR.Pipeline;
     using Microsoft.Extensions.Logging;
@@ -21,8 +22,8 @@
             ILogger<TRequest> logger,
             ICurrentUserService currentUserService)
         {
-            this.logger = logger;
-            this.currentUserService = currentUserService;
+            this.logger = Guard.Against.Null(logger, nameof(logger));
+            this.currentUserService = Guard.Against.Null(currentUserService, nameof(currentUserService));
         }
 
         /// <summary>
