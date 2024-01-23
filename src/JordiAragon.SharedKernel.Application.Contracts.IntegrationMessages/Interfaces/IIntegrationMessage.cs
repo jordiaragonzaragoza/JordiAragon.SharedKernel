@@ -12,8 +12,8 @@
 
         public string UserId { get; } // TODO: Review if its required to audit changes.
 
-        public DateTime DateOccurredOnUtc { get; }
+        public DateTimeOffset DateOccurredOnUtc { get; }
 
-        public DateTime? DatePublishedOnUtc { get; set; }
+        public DateTimeOffset? DatePublishedOnUtc { get; set; }
     }
 }

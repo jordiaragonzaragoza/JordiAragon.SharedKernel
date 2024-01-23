@@ -1,13 +1,12 @@
 ﻿namespace JordiAragon.SharedKernel.Application.Contracts.Interfaces
 {
-    using System;
-    using System.Threading;
+    using System.Threading.Tasks;
 
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork
     {
         void BeginTransaction();
 
-        void CommitTransaction(CancellationToken cancellationToken = default);
+        Task CommitTransactionAsync();
 
         void RollbackTransaction();
     }

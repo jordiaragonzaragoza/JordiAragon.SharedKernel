@@ -2,9 +2,10 @@
 {
     using System;
     using System.Collections.Concurrent;
+    using JordiAragon.SharedKernel.Contracts.DependencyInjection;
     using JordiAragon.SharedKernel.Helpers;
 
-    public class EventTypeMapper
+    public class EventTypeMapper : ISingletonDependency
     {
         public static readonly EventTypeMapper Instance = new();
 

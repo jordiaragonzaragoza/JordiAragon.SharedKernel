@@ -24,5 +24,15 @@
         /// The task result contains a <see cref="List{T}" /> that contains elements from the input sequence.
         /// </returns>
         Task<List<TEntity>> ListAsync(CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Returns a boolean whether any entity exists or not.
+        /// </summary>
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
+        /// <returns>
+        /// A task that represents the asynchronous operation. The task result contains true if the
+        /// source sequence contains any elements; otherwise, false.
+        /// </returns>
+        Task<bool> AnyAsync(CancellationToken cancellationToken = default);
     }
 }

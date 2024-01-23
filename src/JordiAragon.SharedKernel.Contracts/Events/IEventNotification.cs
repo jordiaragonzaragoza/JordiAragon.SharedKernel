@@ -2,7 +2,7 @@
 {
     /// <summary>
     /// The Event Notification is an event that occurs within the problem (living inside a bounded context)
-    /// and is used to communicate a change in the state of the entity or aggregate.
+    /// and is used to communicate a change in the state of the aggregate outside from source transaction.
     /// This is a private event, persisted, part of Ubiquitous Language.
     /// </summary>
     /// <typeparam name="TEvent">Source domainEvent.</typeparam>

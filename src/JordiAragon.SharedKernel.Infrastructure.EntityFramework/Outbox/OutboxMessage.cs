@@ -13,7 +13,7 @@
 
         private OutboxMessage(
             OutboxMessageId id,
-            DateTime dateOccurredOnUtc,
+            DateTimeOffset dateOccurredOnUtc,
             string type,
             string content)
             : base(id)
@@ -23,13 +23,13 @@
             this.Content = content;
         }
 
-        public DateTime DateOccurredOnUtc { get; private init; }
+        public DateTimeOffset DateOccurredOnUtc { get; private init; }
 
         public string Type { get; private init; }
 
         public string Content { get; private init; }
 
-        public DateTime? DateProcessedOnUtc { get; set; }
+        public DateTimeOffset? DateProcessedOnUtc { get; set; }
 
         public string Error { get; set; }
 
@@ -38,7 +38,7 @@
 
         public static OutboxMessage Create(
             Guid id,
-            DateTime dateOccurredOnUtc,
+            DateTimeOffset dateOccurredOnUtc,
             string type,
             string content)
         {

@@ -35,7 +35,7 @@
 
             if (this.Events.Any())
             {
-                await this.eventsDispatcherService.DispatchAndClearEventsAsync(new List<IEventsContainer<IApplicationEvent>> { this }, cancellationToken);
+                await this.eventsDispatcherService.DispatchEventsAsync(new List<IEventsContainer<IApplicationEvent>> { this }, cancellationToken);
             }
 
             return result;

@@ -4,11 +4,11 @@
 
     public interface IAuditableEntity
     {
-        DateTime CreationDateOnUtc { get; }
+        DateTimeOffset CreationDateOnUtc { get; }
 
         string CreatedByUserId { get; }
 
-        DateTime ModificationDateOnUtc { get; }
+        DateTimeOffset ModificationDateOnUtc { get; }
 
         string LastModifiedByUserId { get; }
     }
