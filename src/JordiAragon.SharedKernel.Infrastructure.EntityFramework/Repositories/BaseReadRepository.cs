@@ -12,8 +12,8 @@
         where TEntity : class, IEntity<TId>
         where TId : class, IEntityId
     {
-        protected BaseReadRepository(BaseContext dbContext)
-            : base(dbContext)
+        protected BaseReadRepository(BaseReadContext readContext)
+            : base(readContext)
         {
         }
 

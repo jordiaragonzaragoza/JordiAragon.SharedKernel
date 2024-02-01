@@ -13,16 +13,16 @@
 
     public abstract class BaseWriteStore : IWriteStore, IDisposable, IScopedDependency
     {
-        private readonly BaseContext context;
+        private readonly BaseWriteContext writeContext;
         private IDbContextTransaction transaction;
 
-        protected BaseWriteStore(BaseContext context)
+        protected BaseWriteStore(BaseWriteContext writeContext)
         {
-            this.context = Guard.Against.Null(context, nameof(context));
+            this.writeContext = Guard.Against.Null(writeContext, nameof(writeContext));
         }
 
         public IEnumerable<IEventsContainer<IEvent>> EventableEntities
-            => this.context.ChangeTracker.Entries<IEventsContainer<IDomainEvent>>()
+            => this.writeContext.ChangeTracker.Entries<IEventsContainer<IDomainEvent>>()
                             .Select(e => e.Entity)
                             .Where(entity => entity.Events.Any());
 
@@ -33,7 +33,7 @@
                 return;
             }
 
-            this.transaction = this.context.Database.BeginTransaction();
+            this.transaction = this.writeContext.Database.BeginTransaction();
         }
 
         public Task CommitTransactionAsync()
