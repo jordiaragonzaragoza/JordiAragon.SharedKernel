@@ -1,10 +1,11 @@
-﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework.Repositories
+﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework.Repositories.BusinessModel
 {
     using System;
     using System.Threading;
     using System.Threading.Tasks;
     using Ardalis.Specification.EntityFrameworkCore;
     using JordiAragon.SharedKernel.Contracts.DependencyInjection;
+    using JordiAragon.SharedKernel.Contracts.Repositories;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Domain.Entities;
 
@@ -12,7 +13,7 @@
         where TEntity : class, IEntity<TId>
         where TId : class, IEntityId
     {
-        protected BaseReadRepository(BaseReadContext readContext)
+        protected BaseReadRepository(BaseWriteContext readContext)
             : base(readContext)
         {
         }

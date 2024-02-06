@@ -8,5 +8,6 @@
   </PropertyGroup>
   <ItemGroup>
       <PackageReference Include="MediatR" />
+      <PackageReference Include="Ardalis.Specification" />
   </ItemGroup>
 </Project>

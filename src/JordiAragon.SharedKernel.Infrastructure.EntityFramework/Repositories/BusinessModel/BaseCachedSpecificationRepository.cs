@@ -1,4 +1,4 @@
-﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework.Repositories
+﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework.Repositories.BusinessModel
 {
     using System.Collections.Generic;
     using System.Threading;
@@ -8,6 +8,7 @@
     using Ardalis.Specification;
     using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Contracts.DependencyInjection;
+    using JordiAragon.SharedKernel.Contracts.Repositories;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using Microsoft.Extensions.Logging;
 

@@ -5,7 +5,7 @@
     using System.Threading.Tasks;
     using JordiAragon.SharedKernel.Contracts.Events;
     using JordiAragon.SharedKernel.Contracts.Outbox;
-    using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
+    using JordiAragon.SharedKernel.Contracts.Repositories;
     using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
     using Volo.Abp.Guids;

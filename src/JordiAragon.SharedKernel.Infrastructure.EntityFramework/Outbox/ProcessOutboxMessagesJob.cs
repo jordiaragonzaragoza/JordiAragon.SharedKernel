@@ -8,6 +8,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using JordiAragon.SharedKernel.Contracts.Events;
+    using JordiAragon.SharedKernel.Contracts.Repositories;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using MediatR;
     using Microsoft.Extensions.Logging;

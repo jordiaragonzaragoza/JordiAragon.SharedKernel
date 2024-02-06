@@ -1,6 +1,7 @@
-﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework.Repositories
+﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework.Repositories.BusinessModel
 {
     using JordiAragon.SharedKernel.Contracts.DependencyInjection;
+    using JordiAragon.SharedKernel.Contracts.Repositories;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Domain.Entities;
 
