@@ -11,12 +11,12 @@
     using JordiAragon.SharedKernel.Infrastructure.Interfaces;
     using Microsoft.EntityFrameworkCore.Storage;
 
-    public abstract class BaseWriteStore : IWriteStore, IDisposable, IScopedDependency
+    public abstract class BaseBusinessModelStore : IBusinessModelStore, IDisposable, IScopedDependency
     {
-        private readonly BaseWriteContext writeContext;
+        private readonly BaseBusinessModelContext writeContext;
         private IDbContextTransaction transaction;
 
-        protected BaseWriteStore(BaseWriteContext writeContext)
+        protected BaseBusinessModelStore(BaseBusinessModelContext writeContext)
         {
             this.writeContext = Guard.Against.Null(writeContext, nameof(writeContext));
         }

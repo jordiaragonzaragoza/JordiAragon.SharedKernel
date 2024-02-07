@@ -11,7 +11,7 @@
     public abstract class BaseReadRepository<TReadModel> : RepositoryBase<TReadModel>,  ISpecificationReadRepository<TReadModel, Guid>, IScopedDependency
         where TReadModel : class, IReadModel
     {
-        protected BaseReadRepository(BaseReadContext readContext)
+        protected BaseReadRepository(BaseReadModelContext readContext)
             : base(readContext)
         {
         }

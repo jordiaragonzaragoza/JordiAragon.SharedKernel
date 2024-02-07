@@ -13,7 +13,7 @@
         where TEntity : class, IEntity<TId>
         where TId : class, IEntityId
     {
-        protected BaseReadRepository(BaseWriteContext readContext)
+        protected BaseReadRepository(BaseBusinessModelContext readContext)
             : base(readContext)
         {
         }

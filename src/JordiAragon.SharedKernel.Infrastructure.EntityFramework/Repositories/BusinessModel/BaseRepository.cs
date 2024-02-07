@@ -9,7 +9,7 @@
         where TAggregate : BaseAggregateRoot<TId>
         where TId : class, IEntityId
     {
-        protected BaseRepository(BaseWriteContext dbContext)
+        protected BaseRepository(BaseBusinessModelContext dbContext)
             : base(dbContext)
         {
         }

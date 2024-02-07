@@ -6,12 +6,12 @@
     using Microsoft.Extensions.Logging;
     using SmartEnum.EFCore;
 
-    public abstract class BaseReadContext : DbContext
+    public abstract class BaseReadModelContext : DbContext
     {
         private readonly ILoggerFactory loggerFactory;
         private readonly IHostEnvironment hostEnvironment;
 
-        protected BaseReadContext(
+        protected BaseReadModelContext(
             DbContextOptions options,
             ILoggerFactory loggerFactory,
             IHostEnvironment hostEnvironment)

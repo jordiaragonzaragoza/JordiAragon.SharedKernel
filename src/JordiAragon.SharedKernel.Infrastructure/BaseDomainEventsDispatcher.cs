@@ -12,26 +12,26 @@
     public abstract class BaseDomainEventsDispatcher : IDomainEventsDispatcher, IScopedDependency
     {
         private readonly IEventsDispatcherService eventDispatcherService;
-        private readonly IWriteStore writeStore;
+        private readonly IBusinessModelStore businessModelStore;
         private readonly IEventStore eventStore;
 
         protected BaseDomainEventsDispatcher(
-            IWriteStore writeStore,
+            IBusinessModelStore businessModelStore,
             IEventStore eventStore,
             IEventsDispatcherService domainEventDispatcherService)
         {
-            this.writeStore = Guard.Against.Null(writeStore, nameof(writeStore));
+            this.businessModelStore = Guard.Against.Null(businessModelStore, nameof(businessModelStore));
             this.eventStore = Guard.Against.Null(eventStore, nameof(eventStore));
             this.eventDispatcherService = Guard.Against.Null(domainEventDispatcherService, nameof(domainEventDispatcherService));
         }
 
         public async Task DispatchDomainEventsAsync(CancellationToken cancellationToken = default)
         {
-            var writeStoreEventableEntities = this.writeStore.EventableEntities;
+            var businessModelStoreEventableEntities = this.businessModelStore.EventableEntities;
 
             var eventStoreEventableEntities = this.eventStore.EventableEntities;
 
-            var eventableEntities = writeStoreEventableEntities.Concat(eventStoreEventableEntities);
+            var eventableEntities = businessModelStoreEventableEntities.Concat(eventStoreEventableEntities);
 
             if (!eventableEntities.Any())
             {

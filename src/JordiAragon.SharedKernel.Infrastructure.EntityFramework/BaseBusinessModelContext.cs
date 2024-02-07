@@ -7,11 +7,11 @@
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
 
-    public abstract class BaseWriteContext : BaseReadContext
+    public abstract class BaseBusinessModelContext : BaseReadModelContext
     {
         private readonly AuditableEntitySaveChangesInterceptor auditableEntitySaveChangesInterceptor;
 
-        protected BaseWriteContext(
+        protected BaseBusinessModelContext(
             DbContextOptions options,
             ILoggerFactory loggerFactory,
             IHostEnvironment hostEnvironment,

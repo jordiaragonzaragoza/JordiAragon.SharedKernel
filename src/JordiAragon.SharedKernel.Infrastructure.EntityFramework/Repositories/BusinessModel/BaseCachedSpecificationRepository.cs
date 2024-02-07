@@ -20,7 +20,7 @@
         private readonly ILogger<BaseCachedSpecificationRepository<TAggregate, TId>> logger;
 
         protected BaseCachedSpecificationRepository(
-            BaseWriteContext dbContext,
+            BaseBusinessModelContext dbContext,
             ILogger<BaseCachedSpecificationRepository<TAggregate, TId>> logger,
             ICacheService cacheService)
             : base(dbContext)

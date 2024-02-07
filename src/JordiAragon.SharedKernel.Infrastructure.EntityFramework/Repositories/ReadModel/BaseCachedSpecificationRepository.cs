@@ -19,7 +19,7 @@
         private readonly ILogger<BaseCachedSpecificationRepository<TReadModel>> logger;
 
         protected BaseCachedSpecificationRepository(
-            BaseReadContext dbContext,
+            BaseReadModelContext dbContext,
             ILogger<BaseCachedSpecificationRepository<TReadModel>> logger,
             ICacheService cacheService)
             : base(dbContext)

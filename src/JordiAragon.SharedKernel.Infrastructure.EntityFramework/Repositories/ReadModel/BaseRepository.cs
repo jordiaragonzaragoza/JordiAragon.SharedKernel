@@ -8,7 +8,7 @@
     public abstract class BaseRepository<TReadModel> : BaseReadRepository<TReadModel>, IRangeableRepository<TReadModel, Guid>, IScopedDependency
         where TReadModel : class, IReadModel
     {
-        protected BaseRepository(BaseReadContext dbContext)
+        protected BaseRepository(BaseReadModelContext dbContext)
             : base(dbContext)
         {
         }
