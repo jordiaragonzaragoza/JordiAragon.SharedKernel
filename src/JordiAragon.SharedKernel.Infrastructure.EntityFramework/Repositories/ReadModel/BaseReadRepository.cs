@@ -11,10 +11,9 @@
     using JordiAragon.SharedKernel.Application.Contracts;
     using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Contracts.DependencyInjection;
-    using JordiAragon.SharedKernel.Contracts.Repositories;
     using Microsoft.EntityFrameworkCore;
 
-    public abstract class BaseReadRepository<TReadModel> : RepositoryBase<TReadModel>, IPaginatedSpecificationReadRepository<TReadModel>, IRangeableRepository<TReadModel, Guid>, IScopedDependency
+    public abstract class BaseReadRepository<TReadModel> : RepositoryBase<TReadModel>, IPaginatedSpecificationReadRepository<TReadModel>, IScopedDependency
         where TReadModel : class, IReadModel
     {
         protected BaseReadRepository(BaseReadModelContext readContext)
