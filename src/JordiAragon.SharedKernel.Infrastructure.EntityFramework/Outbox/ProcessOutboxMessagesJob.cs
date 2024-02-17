@@ -20,13 +20,13 @@
         private readonly IDateTime dateTime;
         private readonly IPublisher mediator;
         private readonly ILogger<ProcessOutboxMessagesJob> logger;
-        private readonly ICachedSpecificationRepository<OutboxMessage, OutboxMessageId> repositoryOutboxMessages;
+        private readonly ICachedSpecificationRepository<OutboxMessage, Guid> repositoryOutboxMessages;
 
         protected ProcessOutboxMessagesJob(
             IDateTime dateTime,
             IPublisher mediator,
             ILogger<ProcessOutboxMessagesJob> logger,
-            ICachedSpecificationRepository<OutboxMessage, OutboxMessageId> repositoryOutboxMessages)
+            ICachedSpecificationRepository<OutboxMessage, Guid> repositoryOutboxMessages)
         {
             this.dateTime = dateTime ?? throw new ArgumentNullException(nameof(dateTime));
             this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));

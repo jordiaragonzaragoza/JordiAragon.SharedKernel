@@ -13,12 +13,12 @@
     public class OutboxService : IOutboxService
     {
         private readonly IGuidGenerator guidGenerator;
-        private readonly ICachedSpecificationRepository<OutboxMessage, OutboxMessageId> repositoryOutboxMessage;
+        private readonly ICachedSpecificationRepository<OutboxMessage, Guid> repositoryOutboxMessage;
         private readonly ILogger<OutboxService> logger;
 
         public OutboxService(
             IGuidGenerator guidGenerator,
-            ICachedSpecificationRepository<OutboxMessage, OutboxMessageId> repositoryOutboxMessage,
+            ICachedSpecificationRepository<OutboxMessage, Guid> repositoryOutboxMessage,
             ILogger<OutboxService> logger)
         {
             this.guidGenerator = guidGenerator ?? throw new ArgumentNullException(nameof(guidGenerator));
@@ -29,13 +29,13 @@
         public async Task AddMessageAsync(IEventNotification<IEvent> eventNotification, CancellationToken cancellationToken = default)
         {
             var type = eventNotification.GetType().FullName;
-            var data = JsonConvert.SerializeObject(eventNotification); // TODO: Change to System.Text.Json
+            var data = JsonConvert.SerializeObject(eventNotification); // TODO: Change to System.Text.Json when nested serialization is supported.
 
-            var outboxMessage = OutboxMessage.Create(
-                id: this.guidGenerator.Create(),
-                dateOccurredOnUtc: eventNotification.Event.DateOccurredOnUtc,
-                type: type,
-                content: data);
+            var outboxMessage = new OutboxMessage(
+                this.guidGenerator.Create(),
+                eventNotification.Event.DateOccurredOnUtc,
+                type,
+                data);
 
             await this.repositoryOutboxMessage.AddAsync(outboxMessage, cancellationToken);
 
