@@ -1,6 +1,7 @@
 ﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework
 {
     using Ardalis.GuardClauses;
+    using JordiAragon.SharedKernel.Infrastructure.EntityFramework.Idempotency;
     using JordiAragon.SharedKernel.Infrastructure.EntityFramework.Interceptors;
     using JordiAragon.SharedKernel.Infrastructure.EntityFramework.Outbox;
     using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,8 @@
         }
 
         public DbSet<OutboxMessage> OutboxMessages => this.Set<OutboxMessage>();
+
+        public DbSet<IdempotentConsumer> IdempotentConsumers => this.Set<IdempotentConsumer>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

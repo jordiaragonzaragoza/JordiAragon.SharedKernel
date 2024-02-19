@@ -10,13 +10,13 @@
     using JordiAragon.SharedKernel.Contracts.Events;
     using JordiAragon.SharedKernel.Domain.Events.Services;
 
-    public class ApplicationEventsDispatcherCommandHandlerDecorator<TCommand> : ICommandHandler<TCommand>
+    public class CommandHandlerDecorator<TCommand> : ICommandHandler<TCommand>
         where TCommand : ICommand
     {
         private readonly ICommandHandler<TCommand> decorated;
         private readonly IEventsDispatcherService eventsDispatcherService;
 
-        public ApplicationEventsDispatcherCommandHandlerDecorator(
+        public CommandHandlerDecorator(
             IEventsDispatcherService eventsDispatcherService,
             ICommandHandler<TCommand> decorated)
         {
