@@ -93,7 +93,7 @@
             {
                 this.logger.LogInformation("Dispatched: Event notification {EventNofification}", eventNotification.GetType().Name);
 
-                await this.mediator.Publish(eventNotification, cancellationToken);
+                await this.mediator.Publish(eventNotification, cancellationToken); // TODO: Add Polly retries.
 
                 outboxMessage.DateProcessedOnUtc = this.dateTime.UtcNow;
             }

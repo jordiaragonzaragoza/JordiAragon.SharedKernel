@@ -5,7 +5,7 @@
     using System.Threading.Tasks;
     using JordiAragon.SharedKernel.Application.Contracts.IntegrationMessages.Interfaces;
 
-    public interface IEventBus
+    public interface IExternalBus
     {
         Task PublishEventAsync<T>(T @event, CancellationToken cancellationToken = default)
             where T : class, IIntegrationEvent;

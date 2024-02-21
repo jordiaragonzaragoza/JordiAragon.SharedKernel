@@ -1,4 +1,4 @@
-﻿namespace JordiAragon.SharedKernel.Infrastructure.EventBus.MassTransit
+﻿namespace JordiAragon.SharedKernel.Infrastructure.ExternalBus.MassTransit
 {
     using System;
     using System.Threading;
@@ -10,17 +10,17 @@
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using Microsoft.Extensions.Logging;
 
-    public class MassTransitEventBus : IEventBus, ITransientDependency
+    public class MassTransitExternalBus : IExternalBus, ITransientDependency
     {
         private readonly IPublishEndpoint publishEndPoint;
         private readonly ISendEndpointProvider sendEndpointProvider;
-        private readonly ILogger<MassTransitEventBus> logger;
+        private readonly ILogger<MassTransitExternalBus> logger;
         private readonly IDateTime dateTime;
 
-        public MassTransitEventBus(
+        public MassTransitExternalBus(
             IPublishEndpoint publishEndPoint,
             ISendEndpointProvider sendEndpointProvider,
-            ILogger<MassTransitEventBus> logger,
+            ILogger<MassTransitExternalBus> logger,
             IDateTime dateTime)
         {
             this.publishEndPoint = publishEndPoint ?? throw new ArgumentNullException(nameof(publishEndPoint));
@@ -34,7 +34,7 @@
         {
             @event.DatePublishedOnUtc = this.dateTime.UtcNow;
 
-            await this.publishEndPoint.Publish(@event, cancellationToken); // TODO: See MassTransit Outbox EF.
+            await this.publishEndPoint.Publish(@event, cancellationToken);
 
             this.logger.LogInformation("Published Integration event {Event} {Id}", @event.GetType().Name, @event.Id);
         }
@@ -46,7 +46,7 @@
 
             command.DatePublishedOnUtc = this.dateTime.UtcNow;
 
-            await endpoint.Send(command, cancellationToken); // TODO: See MassTransit Outbox EF.
+            await endpoint.Send(command, cancellationToken);
 
             this.logger.LogInformation("Sent Integration command: {Command} {Id}", command.GetType().Name, command.Id);
         }

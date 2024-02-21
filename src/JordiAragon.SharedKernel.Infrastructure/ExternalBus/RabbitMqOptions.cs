@@ -1,8 +1,5 @@
-﻿namespace JordiAragon.SharedKernel.Infrastructure.EventBus
+﻿namespace JordiAragon.SharedKernel.Infrastructure.ExternalBus
 {
-    using System;
-    using System.Text;
-
     public class RabbitMqOptions
     {
         public const string Section = "MessageBroker:RabbitMQ";

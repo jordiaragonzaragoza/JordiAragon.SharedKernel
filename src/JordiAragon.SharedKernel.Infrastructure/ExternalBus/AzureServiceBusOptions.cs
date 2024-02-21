@@ -1,4 +1,4 @@
-﻿namespace JordiAragon.SharedKernel.Infrastructure.EventBus
+﻿namespace JordiAragon.SharedKernel.Infrastructure.ExternalBus
 {
     using System.Text;
 

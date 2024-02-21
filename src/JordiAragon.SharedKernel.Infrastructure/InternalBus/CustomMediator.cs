@@ -1,4 +1,4 @@
-﻿namespace JordiAragon.SharedKernel.Infrastructure.InMemoryBus
+﻿namespace JordiAragon.SharedKernel.Infrastructure.InternalBus
 {
     using System;
     using System.Collections.Generic;
