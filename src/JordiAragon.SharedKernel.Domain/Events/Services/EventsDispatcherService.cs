@@ -17,18 +17,18 @@
 
     public class EventsDispatcherService : IEventsDispatcherService, IScopedDependency
     {
-        private readonly IPublisher publisher;
+        private readonly IPublisher internalBus;
         private readonly ILifetimeScope scope;
         private readonly IOutboxService outboxService;
         private readonly ILogger<EventsDispatcherService> logger;
 
         public EventsDispatcherService(
-            IPublisher publisher,
+            IPublisher internalBus,
             ILifetimeScope scope,
             IOutboxService outboxService,
             ILogger<EventsDispatcherService> logger)
         {
-            this.publisher = Guard.Against.Null(publisher, nameof(publisher));
+            this.internalBus = Guard.Against.Null(internalBus, nameof(internalBus));
             this.scope = Guard.Against.Null(scope, nameof(scope));
             this.outboxService = Guard.Against.Null(outboxService, nameof(outboxService));
             this.logger = Guard.Against.Null(logger, nameof(logger));
@@ -82,7 +82,7 @@
 
                     this.logger.LogInformation("Dispatched Event {Event}", @event.GetType().Name);
 
-                    await this.publisher.Publish(@event, cancellationToken).ConfigureAwait(true);
+                    await this.internalBus.Publish(@event, cancellationToken).ConfigureAwait(true);
                 }
                 catch (Exception exception)
                 {

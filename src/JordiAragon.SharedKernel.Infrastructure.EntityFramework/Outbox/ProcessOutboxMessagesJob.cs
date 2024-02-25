@@ -18,18 +18,18 @@
     public abstract class ProcessOutboxMessagesJob : IJob
     {
         private readonly IDateTime dateTime;
-        private readonly IPublisher mediator;
+        private readonly IPublisher internalBus;
         private readonly ILogger<ProcessOutboxMessagesJob> logger;
         private readonly ICachedSpecificationRepository<OutboxMessage, Guid> repositoryOutboxMessages;
 
         protected ProcessOutboxMessagesJob(
             IDateTime dateTime,
-            IPublisher mediator,
+            IPublisher internalBus,
             ILogger<ProcessOutboxMessagesJob> logger,
             ICachedSpecificationRepository<OutboxMessage, Guid> repositoryOutboxMessages)
         {
             this.dateTime = dateTime ?? throw new ArgumentNullException(nameof(dateTime));
-            this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            this.internalBus = internalBus ?? throw new ArgumentNullException(nameof(internalBus));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.repositoryOutboxMessages = repositoryOutboxMessages ?? throw new ArgumentNullException(nameof(repositoryOutboxMessages));
         }
@@ -93,7 +93,7 @@
             {
                 this.logger.LogInformation("Dispatched: Event notification {EventNofification}", eventNotification.GetType().Name);
 
-                await this.mediator.Publish(eventNotification, cancellationToken); // TODO: Add Polly retries.
+                await this.internalBus.Publish(eventNotification, cancellationToken); // TODO: Add Polly retries.
 
                 outboxMessage.DateProcessedOnUtc = this.dateTime.UtcNow;
             }
