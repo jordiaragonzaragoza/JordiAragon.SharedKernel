@@ -1,12 +1,12 @@
-﻿namespace JordiAragon.SharedKernel.Infrastructure.InternalBus
+﻿namespace JordiAragon.SharedKernel.Infrastructure.InternalBus.MediatR
 {
     using System;
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
-    using MediatR;
-    using MediatR.NotificationPublishers;
+    using global::MediatR;
+    using global::MediatR.NotificationPublishers;
 
     /// <summary>
     /// This class is required due to an issue with Autofac, Decorators and .NET DI.

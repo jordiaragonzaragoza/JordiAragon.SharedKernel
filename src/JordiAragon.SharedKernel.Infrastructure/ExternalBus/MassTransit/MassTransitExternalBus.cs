@@ -10,7 +10,7 @@
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using Microsoft.Extensions.Logging;
 
-    public class MassTransitExternalBus : IExternalBus, ITransientDependency
+    public class MassTransitExternalBus : IExternalBus, IScopedDependency
     {
         private readonly IPublishEndpoint publishEndPoint;
         private readonly ISendEndpointProvider sendEndpointProvider;

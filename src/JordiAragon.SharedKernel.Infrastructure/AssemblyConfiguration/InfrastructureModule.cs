@@ -3,7 +3,7 @@
     using System.Reflection;
     using Autofac;
     using JordiAragon.SharedKernel;
-    using JordiAragon.SharedKernel.Infrastructure.InternalBus;
+    using JordiAragon.SharedKernel.Infrastructure.InternalBus.MediatR;
     using MediatR;
 
     public class InfrastructureModule : AssemblyModule

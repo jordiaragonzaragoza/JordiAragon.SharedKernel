@@ -11,6 +11,6 @@
             where T : class, IIntegrationEvent;
 
         Task SendCommandAsync<T>(T command, Uri endpointAddress, CancellationToken cancellationToken = default)
-            where T : class, IIntegrationCommand;
+            where T : class, IIntegrationCommand; // TODO: Add SendQueryAsync.
     }
 }
