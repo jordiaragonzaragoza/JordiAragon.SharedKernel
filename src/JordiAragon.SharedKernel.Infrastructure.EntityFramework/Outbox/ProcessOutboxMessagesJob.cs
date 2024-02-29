@@ -12,6 +12,8 @@
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using MediatR;
     using Microsoft.Extensions.Logging;
+    using Polly;
+    using Polly.Retry;
     using Quartz;
 
     [DisallowConcurrentExecution]
@@ -93,7 +95,26 @@
             {
                 this.logger.LogInformation("Dispatched: Event notification {EventNofification}", eventNotification.GetType().Name);
 
-                await this.internalBus.Publish(eventNotification, cancellationToken); // TODO: Add Polly retries.
+                var pipeline = new ResiliencePipelineBuilder()
+                    .AddRetry(new RetryStrategyOptions()
+                    {
+                        MaxRetryAttempts = 3,
+                        UseJitter = true,
+                        BackoffType = DelayBackoffType.Exponential,
+                        Delay = TimeSpan.FromMilliseconds(500),
+                        OnRetry = retryArguments =>
+                        {
+                            this.logger.LogError(
+                               retryArguments.Outcome.Exception,
+                               "Error trying to publish EventNotification: {@Name} Attempt: {AttemptNumber}.",
+                               eventNotification.GetType().Name,
+                               retryArguments.AttemptNumber + 1);
+
+                            return ValueTask.CompletedTask;
+                        },
+                    }).Build();
+
+                await pipeline.ExecuteAsync(async token => await this.internalBus.Publish(eventNotification, token), cancellationToken);
 
                 outboxMessage.DateProcessedOnUtc = this.dateTime.UtcNow;
             }
@@ -105,7 +126,7 @@
                    eventNotification.GetType().Name,
                    eventNotification);
 
-                outboxMessage.Error = exception.Message;
+                outboxMessage.Error = $"Message: {exception.Message}\nStackTrace: {exception.StackTrace}";
             }
         }
     }
