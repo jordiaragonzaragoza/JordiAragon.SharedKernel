@@ -9,6 +9,6 @@
 
         public bool IsPublished { get; set; }
 
-        public DateTimeOffset DateOccurredOnUtc { get; protected init; } = DateTime.UtcNow;
+        public DateTimeOffset DateOccurredOnUtc { get; protected init; } = DateTimeOffset.UtcNow;
     }
 }
