@@ -17,6 +17,12 @@
             switch (result.Status)
             {
                 case ResultStatus.Ok:
+                    if (result is Result)
+                    {
+                        await endpoint.HttpContext.Response.SendNoContentAsync(cancellationToken);
+                        break;
+                    }
+
                     await endpoint.HttpContext.Response.SendAsync(result.GetValue(), cancellation: cancellationToken);
                     break;
 
