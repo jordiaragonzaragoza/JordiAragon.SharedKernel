@@ -2,9 +2,8 @@
 {
     using FluentValidation;
     using JordiAragon.SharedKernel.Application.Contracts;
-    using JordiAragon.SharedKernel.Contracts.DependencyInjection;
 
-    public abstract class BasePaginatedQueryValidator<TQuery> : AbstractValidator<TQuery>, IIgnoreDependency
+    public abstract class BasePaginatedQueryValidator<TQuery> : BaseValidator<TQuery>
         where TQuery : IPaginatedQuery
     {
         protected BasePaginatedQueryValidator()
