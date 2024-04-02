@@ -1,20 +1,13 @@
 ﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework.Outbox
 {
-    using JordiAragon.SharedKernel.Infrastructure.EntityFramework.Configuration;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    public class OutboxMessageConfiguration : BaseEntityTypeConfiguration<OutboxMessage, OutboxMessageId>
+    public class OutboxMessageConfiguration : IEntityTypeConfiguration<OutboxMessage>
     {
-        public override void Configure(EntityTypeBuilder<OutboxMessage> builder)
+        public void Configure(EntityTypeBuilder<OutboxMessage> builder)
         {
-            base.Configure(builder);
-
-            builder.Property(x => x.Id)
-                .HasConversion(
-                    outboxMessageId => outboxMessageId.Value,
-                    value => OutboxMessageId.Create(value))
-                .IsRequired()
-                .ValueGeneratedNever();
+            builder.HasKey(outboxMessage => outboxMessage.Id);
         }
     }
 }

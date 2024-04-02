@@ -7,9 +7,6 @@
 		<AssemblyName>JordiAragon.SharedKernel.Domain.Contracts</AssemblyName>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Ardalis.Specification" />
-	</ItemGroup>
-	<ItemGroup>
 	  <ProjectReference Include="..\JordiAragon.SharedKernel.Contracts\JordiAragon.SharedKernel.Contracts.csproj" />
 	</ItemGroup>
 </Project>

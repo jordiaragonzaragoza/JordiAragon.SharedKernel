@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Text;
     using Ardalis.Result;
 
     public static class ResultHelper
@@ -34,6 +35,90 @@
                 default:
                     throw new NotSupportedException($"Result {result.Status} conversion is not supported.");
             }
+        }
+
+        public static string ResultDetails(this IResult result)
+        {
+            switch (result.Status)
+            {
+                case ResultStatus.Ok: return Success(result);
+                case ResultStatus.NotFound: return NotFoundEntity(result);
+                case ResultStatus.Unauthorized: return "Unauthorized.";
+                case ResultStatus.Forbidden: return "Forbidden.";
+                case ResultStatus.Invalid: return BadRequest(result);
+                case ResultStatus.Error: return UnprocessableEntity(result);
+                default:
+                    throw new NotSupportedException($"Result {result.Status} conversion is not supported.");
+            }
+        }
+
+        private static string Success(IResult result)
+        {
+            var details = new StringBuilder("Success. ");
+
+            if (result is Result)
+            {
+                return details.ToString();
+            }
+
+            details.Append(result.GetValue().ToString());
+
+            return details.ToString();
+        }
+
+        private static string NotFoundEntity(IResult result)
+        {
+            var details = new StringBuilder("Resource not found. ");
+
+            if (result.Errors.Any())
+            {
+                details.Append("Next error(s) occured: ");
+
+                foreach (var error in result.Errors)
+                {
+                    details.Append(error);
+                }
+            }
+
+            return details.ToString();
+        }
+
+        private static string BadRequest(IResult result)
+        {
+            var details = new StringBuilder("Bad Request. ");
+
+            var errors = result.ValidationErrors
+                .GroupBy(x => x.Identifier, x => x.ErrorMessage)
+                .ToDictionary(g => g.Key, g => g.ToArray());
+
+            if (errors.Any())
+            {
+                details.Append("Next validation error(s) occured: ");
+
+                foreach (var error in errors)
+                {
+                    details.Append($"Identifier: {error.Key}. Message: {error.Value}");
+                }
+            }
+
+            return details.ToString();
+        }
+
+        private static string UnprocessableEntity(IResult result)
+        {
+            var details = new StringBuilder("Error. Something went wrong. ");
+
+            if (result.Errors.Any())
+            {
+                details.Append("Next error(s) occured: ");
+
+                foreach (var error in result.Errors)
+                {
+                    details.Append(error);
+                }
+            }
+
+            return details.ToString();
         }
     }
 }

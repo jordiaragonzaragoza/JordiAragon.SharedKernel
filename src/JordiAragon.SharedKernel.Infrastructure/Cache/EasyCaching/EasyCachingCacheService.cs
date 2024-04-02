@@ -21,8 +21,6 @@
             this.cachingProvider = cachingFactory.GetCachingProvider(this.easyCachingOptions.DefaultName);
         }
 
-        public IOptions<CacheOptions> EasyCachingOptions { get; }
-
         public async Task<ICacheValue<T>> GetAsync<T>(string cacheKey, CancellationToken cancellationToken = default)
         {
             return new EasyCachingCacheValueAdapter<T>(await this.cachingProvider.GetAsync<T>(cacheKey, cancellationToken));
