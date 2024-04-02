@@ -16,19 +16,19 @@
             base.Load(builder);
 
             builder.RegisterGenericDecorator(
-                typeof(DomainEventsDispatcherNotificationHandlerDecorator<>),
+                typeof(DomainEventsHandlerDecorator<>),
                 typeof(INotificationHandler<>));
 
             builder.RegisterGenericDecorator(
-                typeof(EventNotificationDomainEventsDispatcherNotificationHandlerDecorator<>),
+                typeof(EventNotificationHandlerDecorator<>),
                 typeof(INotificationHandler<>));
 
             builder.RegisterGenericDecorator(
-                typeof(ApplicationEventsDispatcherCommandHandlerDecorator<>),
+                typeof(CommandHandlerDecorator<>),
                 typeof(IRequestHandler<,>));
 
             builder.RegisterGenericDecorator(
-                typeof(ApplicationEventsDispatcherCommandHandlerDecorator<,>),
+                typeof(CommandHandlerDecorator<,>),
                 typeof(IRequestHandler<,>));
         }
     }

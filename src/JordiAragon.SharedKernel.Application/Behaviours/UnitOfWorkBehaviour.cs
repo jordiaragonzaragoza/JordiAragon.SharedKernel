@@ -72,8 +72,8 @@
                     },
                 };
 
-                // Get Ardalis.Result.Invalid or Ardalis.Result<T>.Invalid method.
-                var resultInvalidMethod = typeof(TResponse).GetMethod("Invalid", BindingFlags.Static | BindingFlags.Public);
+                // Get Ardalis.Result.Invalid(List<ValidationError> validationErrors) or Ardalis.Result<T>.Invalid(List<ValidationError> validationErrors) method.
+                var resultInvalidMethod = typeof(TResponse).GetMethod("Invalid", BindingFlags.Static | BindingFlags.Public, null, new[] { typeof(List<ValidationError>) }, null);
 
                 return (TResponse)resultInvalidMethod.Invoke(null, new object[] { errors });
             }
