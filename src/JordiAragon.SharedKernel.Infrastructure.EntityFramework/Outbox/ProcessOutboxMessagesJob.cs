@@ -8,27 +8,30 @@
     using System.Threading;
     using System.Threading.Tasks;
     using JordiAragon.SharedKernel.Contracts.Events;
+    using JordiAragon.SharedKernel.Contracts.Repositories;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using MediatR;
     using Microsoft.Extensions.Logging;
+    using Polly;
+    using Polly.Retry;
     using Quartz;
 
     [DisallowConcurrentExecution]
     public abstract class ProcessOutboxMessagesJob : IJob
     {
         private readonly IDateTime dateTime;
-        private readonly IPublisher mediator;
+        private readonly IPublisher internalBus;
         private readonly ILogger<ProcessOutboxMessagesJob> logger;
-        private readonly ICachedSpecificationRepository<OutboxMessage, OutboxMessageId> repositoryOutboxMessages;
+        private readonly ICachedSpecificationRepository<OutboxMessage, Guid> repositoryOutboxMessages;
 
         protected ProcessOutboxMessagesJob(
             IDateTime dateTime,
-            IPublisher mediator,
+            IPublisher internalBus,
             ILogger<ProcessOutboxMessagesJob> logger,
-            ICachedSpecificationRepository<OutboxMessage, OutboxMessageId> repositoryOutboxMessages)
+            ICachedSpecificationRepository<OutboxMessage, Guid> repositoryOutboxMessages)
         {
             this.dateTime = dateTime ?? throw new ArgumentNullException(nameof(dateTime));
-            this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            this.internalBus = internalBus ?? throw new ArgumentNullException(nameof(internalBus));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.repositoryOutboxMessages = repositoryOutboxMessages ?? throw new ArgumentNullException(nameof(repositoryOutboxMessages));
         }
@@ -92,7 +95,26 @@
             {
                 this.logger.LogInformation("Dispatched: Event notification {EventNofification}", eventNotification.GetType().Name);
 
-                await this.mediator.Publish(eventNotification, cancellationToken);
+                var pipeline = new ResiliencePipelineBuilder()
+                    .AddRetry(new RetryStrategyOptions()
+                    {
+                        MaxRetryAttempts = 3,
+                        UseJitter = true,
+                        BackoffType = DelayBackoffType.Exponential,
+                        Delay = TimeSpan.FromMilliseconds(500),
+                        OnRetry = retryArguments =>
+                        {
+                            this.logger.LogError(
+                               retryArguments.Outcome.Exception,
+                               "Error trying to publish EventNotification: {@Name} Attempt: {AttemptNumber}.",
+                               eventNotification.GetType().Name,
+                               retryArguments.AttemptNumber + 1);
+
+                            return ValueTask.CompletedTask;
+                        },
+                    }).Build();
+
+                await pipeline.ExecuteAsync(async token => await this.internalBus.Publish(eventNotification, token), cancellationToken);
 
                 outboxMessage.DateProcessedOnUtc = this.dateTime.UtcNow;
             }
@@ -104,7 +126,7 @@
                    eventNotification.GetType().Name,
                    eventNotification);
 
-                outboxMessage.Error = exception.Message;
+                outboxMessage.Error = $"Message: {exception.Message}\nStackTrace: {exception.StackTrace}";
             }
         }
     }

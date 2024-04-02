@@ -6,6 +6,6 @@
 
     public class DateTimeService : IDateTime, ISingletonDependency
     {
-        public DateTimeOffset UtcNow => DateTime.UtcNow;
+        public DateTimeOffset UtcNow => DateTimeOffset.UtcNow;
     }
 }

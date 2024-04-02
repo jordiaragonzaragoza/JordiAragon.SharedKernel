@@ -14,7 +14,7 @@
         public string LastModifiedByUserId { get; set; }
 
         // TODO: Implement SoftDelete
-        ////public DateTime? DeletionDate { get; set; }
+        ////public DateTimeOffset? DeletionDate { get; set; }
         ////public string DeletedByUserId { get; set; }
     }
 }

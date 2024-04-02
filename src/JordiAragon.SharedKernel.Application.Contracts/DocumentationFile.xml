@@ -27,5 +27,10 @@
             Pure DDD command. Commands will not use response operation check impure alternative <see cref="T:JordiAragon.SharedKernel.Application.Contracts.Interfaces.ICommand`1"/>.
             </summary>
         </member>
+        <member name="T:JordiAragon.SharedKernel.Application.Contracts.Interfaces.IReadModel">
+            <summary>
+            Generic abstraction for a application read model.
+            </summary>
+        </member>
     </members>
 </doc>

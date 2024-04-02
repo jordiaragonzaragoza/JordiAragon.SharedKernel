@@ -11,10 +11,10 @@
     [Route("api/v{version:apiVersion}/[controller]")]
     public abstract class BaseApiController : ControllerBase
     {
-        private ISender sender = null!;
+        private ISender internalBus = null!;
         private IMapper mapper = null!;
 
-        protected ISender Sender => this.sender ??= this.HttpContext.RequestServices.GetRequiredService<ISender>();
+        protected ISender InternalBus => this.internalBus ??= this.HttpContext.RequestServices.GetRequiredService<ISender>();
 
         protected IMapper Mapper => this.mapper ??= this.HttpContext.RequestServices.GetRequiredService<IMapper>();
     }
