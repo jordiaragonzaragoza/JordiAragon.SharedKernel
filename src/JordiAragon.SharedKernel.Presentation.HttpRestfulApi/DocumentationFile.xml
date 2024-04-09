@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>JordiAragon.SharedKernel.Presentation.WebApi</name>
+        <name>JordiAragon.SharedKernel.Presentation.HttpRestfulApi</name>
     </assembly>
     <members>
-        <member name="T:JordiAragon.SharedKernel.Presentation.WebApi.Helpers.ResultExtensions">
+        <member name="T:JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Helpers.ResultExtensions">
             <summary>
             Extensions to support converting Result to an ActionResult.
             Based on <see href="https://github.com/ardalis/Result/blob/main/src/Ardalis.Result.AspNetCore/ResultExtensions.cs">Ardalis.Result.AspNetCore</see>.
             </summary>
         </member>
-        <member name="M:JordiAragon.SharedKernel.Presentation.WebApi.Helpers.ResultExtensions.ToActionResult``1(Ardalis.Result.Result{``0},Microsoft.AspNetCore.Mvc.ControllerBase)">
+        <member name="M:JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Helpers.ResultExtensions.ToActionResult``1(Ardalis.Result.Result{``0},Microsoft.AspNetCore.Mvc.ControllerBase)">
             <summary>
             Convert a <see cref="T:Ardalis.Result.Result`1"/> to a <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult"/>.
             </summary>
@@ -19,7 +19,7 @@
             <param name="controller">The controller this is called from.</param>
             <returns>The <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult`1"/> converted.</returns>
         </member>
-        <member name="M:JordiAragon.SharedKernel.Presentation.WebApi.Helpers.ResultExtensions.ToActionResult(Ardalis.Result.Result,Microsoft.AspNetCore.Mvc.ControllerBase)">
+        <member name="M:JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Helpers.ResultExtensions.ToActionResult(Ardalis.Result.Result,Microsoft.AspNetCore.Mvc.ControllerBase)">
             <summary>
             Convert a <see cref="T:Ardalis.Result.Result"/> to a <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult"/>.
             </summary>
@@ -27,7 +27,7 @@
             <param name="controller">The controller this is called from.</param>
             <returns>The <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult"/> converted.</returns>
         </member>
-        <member name="M:JordiAragon.SharedKernel.Presentation.WebApi.Helpers.ResultExtensions.ToActionResult``1(Microsoft.AspNetCore.Mvc.ControllerBase,Ardalis.Result.Result{``0})">
+        <member name="M:JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Helpers.ResultExtensions.ToActionResult``1(Microsoft.AspNetCore.Mvc.ControllerBase,Ardalis.Result.Result{``0})">
             <summary>
             Convert a <see cref="T:Ardalis.Result.Result`1"/> to a <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult"/>.
             </summary>
@@ -36,7 +36,7 @@
             <param name="result">The Result to convert to an ActionResult.</param>
             <returns>The <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult`1"/> converted.</returns>
         </member>
-        <member name="M:JordiAragon.SharedKernel.Presentation.WebApi.Helpers.ResultExtensions.ToActionResult(Microsoft.AspNetCore.Mvc.ControllerBase,Ardalis.Result.Result)">
+        <member name="M:JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Helpers.ResultExtensions.ToActionResult(Microsoft.AspNetCore.Mvc.ControllerBase,Ardalis.Result.Result)">
             <summary>
             Convert a <see cref="T:Ardalis.Result.Result"/> to a <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult"/>.
             </summary>
@@ -44,7 +44,7 @@
             <param name="result">The Result to convert to an ActionResult.</param>
             <returns>The <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult"/> converted.</returns>
         </member>
-        <member name="M:JordiAragon.SharedKernel.Presentation.WebApi.Helpers.ResultExtensions.ToFileResult(Ardalis.Result.Result{JordiAragon.SharedKernel.Presentation.WebApi.Contracts.FileResponse},Microsoft.AspNetCore.Mvc.ControllerBase)">
+        <member name="M:JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Helpers.ResultExtensions.ToFileResult(Ardalis.Result.Result{JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts.FileResponse},Microsoft.AspNetCore.Mvc.ControllerBase)">
             <summary>
             Convert a <see cref="T:Ardalis.Result.Result`1"/> to a <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult"/>.
             </summary>
@@ -52,7 +52,7 @@
             <param name="controller">The controller this is called from.</param>
             <returns>The <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult"/> converted.</returns>
         </member>
-        <member name="M:JordiAragon.SharedKernel.Presentation.WebApi.Helpers.ResultExtensions.ToFileResult(Microsoft.AspNetCore.Mvc.ControllerBase,Ardalis.Result.Result{JordiAragon.SharedKernel.Presentation.WebApi.Contracts.FileResponse})">
+        <member name="M:JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Helpers.ResultExtensions.ToFileResult(Microsoft.AspNetCore.Mvc.ControllerBase,Ardalis.Result.Result{JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts.FileResponse})">
             <summary>
             Convert a <see cref="T:Ardalis.Result.Result"/> to a <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult"/>.
             </summary>

@@ -1,4 +1,4 @@
-﻿namespace JordiAragon.SharedKernel.Presentation.WebApi.Controllers
+﻿namespace JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Controllers
 {
     using AutoMapper;
     using MediatR;
