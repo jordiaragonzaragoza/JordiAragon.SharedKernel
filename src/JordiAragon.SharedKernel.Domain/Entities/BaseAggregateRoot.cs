@@ -19,6 +19,9 @@
         {
         }
 
+        // This allows optiministic concurrency
+        public byte[] Version { get; protected set; }
+
         [NotMapped]
         public IEnumerable<IDomainEvent> Events => this.domainEvents.AsReadOnly();
 

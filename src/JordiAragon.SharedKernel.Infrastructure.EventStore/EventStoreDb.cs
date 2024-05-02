@@ -106,7 +106,7 @@
             }
 
             var streamName = StreamNameMapper.ToStreamId(aggregate.GetType(), aggregate.Id);
-            var nextVersion = StreamRevision.FromInt64(aggregate.Version); // TODO: Review if its correct.
+            var nextVersion = StreamRevision.FromInt64(BitConverter.ToInt64(aggregate.Version, 0));
 
             foreach (var @event in events)
             {
