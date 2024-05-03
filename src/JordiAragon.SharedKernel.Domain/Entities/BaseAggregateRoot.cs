@@ -19,7 +19,7 @@
         {
         }
 
-        // This allows optiministic concurrency
+        // This allows manage optiministic concurrency
         public byte[] Version { get; protected set; }
 
         [NotMapped]

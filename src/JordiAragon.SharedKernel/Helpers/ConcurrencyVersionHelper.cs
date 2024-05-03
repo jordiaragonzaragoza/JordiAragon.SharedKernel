@@ -1,10 +1,11 @@
 ﻿namespace JordiAragon.SharedKernel.Helpers
 {
     using System;
+    using System.Linq;
 
     public static class ConcurrencyVersionHelper
     {
-        public static void IncrementVersion(byte[] version)
+        public static void IncrementByteVersion(byte[] version)
         {
             for (int i = version.Length - 1; i >= 0; i--)
             {
@@ -21,6 +22,11 @@
             // If all bytes overflow, handle it somehow
             // For example, you could throw an exception or truncate additional bytes
             throw new OverflowException("The counter has reached its maximum value");
+        }
+
+        public static byte[] InitializeEmptyByteVersion()
+        {
+            return Enumerable.Repeat((byte)0, 8).ToArray();
         }
     }
 }
