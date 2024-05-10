@@ -28,7 +28,7 @@
 		</Compile>
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\..\..\src\JordiAragon.SharedKernel.Presentation.WebApi\JordiAragon.SharedKernel.Presentation.WebApi.csproj" />
+	  <ProjectReference Include="..\..\..\src\JordiAragon.SharedKernel.Presentation.HttpRestfulApi\JordiAragon.SharedKernel.Presentation.HttpRestfulApi.csproj" />
 	  <ProjectReference Include="..\..\..\src\JordiAragon.SharedKernel.Application\JordiAragon.SharedKernel.Application.csproj" />
 	  <ProjectReference Include="..\..\..\src\JordiAragon.SharedKernel.Infrastructure\JordiAragon.SharedKernel.Infrastructure.csproj" />
 	  <ProjectReference Include="..\..\..\src\JordiAragon.SharedKernel.Infrastructure.EntityFramework\JordiAragon.SharedKernel.Infrastructure.EntityFramework.csproj" />

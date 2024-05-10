@@ -21,7 +21,18 @@
 
         public static string ToStreamPrefix(Type streamType) => Instance.typeNameMap.GetOrAdd(streamType, type =>
         {
-            var modulePrefix = type.Namespace!.Split(".")[0];
+            var modulePrefix = type.Namespace!;
+
+            var namespaceParts = modulePrefix.Split(".");
+            if (namespaceParts.Length > 2)
+            {
+                modulePrefix = namespaceParts[2];
+            }
+            else if (namespaceParts.Length >= 1)
+            {
+                modulePrefix = namespaceParts[0];
+            }
+
             return $"{modulePrefix}_{type.Name}";
         });
 

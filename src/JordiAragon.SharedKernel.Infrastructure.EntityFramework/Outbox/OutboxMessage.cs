@@ -12,5 +12,8 @@
         public DateTimeOffset? DateProcessedOnUtc { get; set; }
 
         public string Error { get; set; }
+
+        // This allows manage optiministic concurrency
+        public byte[] Version { get; protected set; }
     }
 }

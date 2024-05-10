@@ -1,4 +1,4 @@
-﻿namespace JordiAragon.SharedKernel.Presentation.WebApi.Services
+﻿namespace JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Services
 {
     using System.Security.Claims;
     using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
