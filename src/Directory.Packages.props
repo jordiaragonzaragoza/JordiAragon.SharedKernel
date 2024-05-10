@@ -10,7 +10,7 @@
 		<RepositoryUrl>https://github.com/jordiaragonzaragoza/JordiAragon.SharedKernel</RepositoryUrl>
 		<Authors>Jordi Aragon Zaragoza</Authors>
 		<PackageProjectUrl>https://github.com/jordiaragonzaragoza/JordiAragon.SharedKernel</PackageProjectUrl>
-		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageTags>DDD, SharedKernel, Clean Architecture, Onion Architecture, CQRS, ES</PackageTags>
