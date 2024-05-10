@@ -10,6 +10,7 @@
     using JordiAragon.SharedKernel.Contracts.DependencyInjection;
     using JordiAragon.SharedKernel.Contracts.Events;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
+    using JordiAragon.SharedKernel.Helpers;
     using JordiAragon.SharedKernel.Infrastructure.EventStore.Serialization;
     using Microsoft.Extensions.Logging;
 
@@ -106,7 +107,9 @@
             }
 
             var streamName = StreamNameMapper.ToStreamId(aggregate.GetType(), aggregate.Id);
-            var nextVersion = StreamRevision.FromInt64(BitConverter.ToInt64(aggregate.Version, 0));
+
+            var version = aggregate.Version is null ? ConcurrencyVersionHelper.InitializeMinusOneByteVersion() : aggregate.Version;
+            var nextVersion = StreamRevision.FromInt64(BitConverter.ToInt64(version, 0));
 
             foreach (var @event in events)
             {

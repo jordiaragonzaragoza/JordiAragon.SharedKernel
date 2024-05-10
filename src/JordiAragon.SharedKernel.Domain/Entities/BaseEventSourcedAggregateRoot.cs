@@ -18,7 +18,7 @@
 
         public void Load(IEnumerable<IDomainEvent> history)
         {
-            this.Version = ConcurrencyVersionHelper.InitializeEmptyByteVersion();
+            this.Version = ConcurrencyVersionHelper.InitializeMinusOneByteVersion();
 
             foreach (var @event in history)
             {

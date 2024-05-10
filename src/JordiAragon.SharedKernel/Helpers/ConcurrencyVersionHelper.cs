@@ -24,9 +24,9 @@
             throw new OverflowException("The counter has reached its maximum value");
         }
 
-        public static byte[] InitializeEmptyByteVersion()
+        public static byte[] InitializeMinusOneByteVersion()
         {
-            return Enumerable.Repeat((byte)0, 8).ToArray();
+            return Enumerable.Repeat((byte)255, 8).ToArray();
         }
     }
 }
