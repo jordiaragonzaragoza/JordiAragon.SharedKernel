@@ -1,17 +1,17 @@
 ﻿namespace JordiAragon.SharedKernel.ArchitectureTests
 {
     using FluentAssertions;
-    using JordiAragon.SharedKernel.Presentation.WebApi;
+    using JordiAragon.SharedKernel.Presentation.HttpRestfulApi;
     using NetArchTest.Rules;
     using Xunit;
 
-    public class WebApiTests
+    public class HttpRestfulApiTests
     {
         [Fact]
         public void ControllerBase_Should_HaveDependencyOnMediatR()
         {
             // Arrange.
-            var assembly = WebApiAssemblyReference.Assembly;
+            var assembly = HttpRestfulApiAssemblyReference.Assembly;
 
             // Act.
             var testResult = Types

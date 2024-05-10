@@ -1,10 +1,10 @@
-﻿namespace JordiAragon.SharedKernel.Presentation.WebApi.Helpers
+﻿namespace JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Helpers
 {
     using System;
     using System.Linq;
     using System.Text;
     using Ardalis.Result;
-    using JordiAragon.SharedKernel.Presentation.WebApi.Contracts;
+    using JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>

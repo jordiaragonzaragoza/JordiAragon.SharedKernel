@@ -7,8 +7,6 @@
     public interface IEventSourcedAggregateRoot<out TId> : IAggregateRoot<TId>
          where TId : class, IEntityId
     {
-        public int Version { get; }
-
         void Load(IEnumerable<IDomainEvent> history);
     }
 }

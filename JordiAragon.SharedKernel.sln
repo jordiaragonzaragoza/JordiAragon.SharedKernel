@@ -24,11 +24,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JordiAragon.SharedKernel.Do
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JordiAragon.SharedKernel.Application.Contracts", "src\JordiAragon.SharedKernel.Application.Contracts\JordiAragon.SharedKernel.Application.Contracts.csproj", "{CB260800-3D5C-4A29-8135-B3F6F821FEB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JordiAragon.SharedKernel.Presentation.WebApi.Contracts", "src\JordiAragon.SharedKernel.Presentation.WebApi.Contracts\JordiAragon.SharedKernel.Presentation.WebApi.Contracts.csproj", "{E5B0D876-9986-4543-81FB-D073D82B0268}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts", "src\JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts\JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts.csproj", "{E5B0D876-9986-4543-81FB-D073D82B0268}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JordiAragon.SharedKernel.Application", "src\JordiAragon.SharedKernel.Application\JordiAragon.SharedKernel.Application.csproj", "{4DC27A5E-2099-471D-B712-027B4FAA9E42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JordiAragon.SharedKernel.Presentation.WebApi", "src\JordiAragon.SharedKernel.Presentation.WebApi\JordiAragon.SharedKernel.Presentation.WebApi.csproj", "{1A7B23A4-F0F8-4179-874F-FFE8C33A31E0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JordiAragon.SharedKernel.Presentation.HttpRestfulApi", "src\JordiAragon.SharedKernel.Presentation.HttpRestfulApi\JordiAragon.SharedKernel.Presentation.HttpRestfulApi.csproj", "{1A7B23A4-F0F8-4179-874F-FFE8C33A31E0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JordiAragon.SharedKernel.Infrastructure.EntityFramework", "src\JordiAragon.SharedKernel.Infrastructure.EntityFramework\JordiAragon.SharedKernel.Infrastructure.EntityFramework.csproj", "{A8114961-847C-4BC9-BED6-5C6A3E8D4F3F}"
 EndProject

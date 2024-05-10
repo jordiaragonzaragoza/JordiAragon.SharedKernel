@@ -1,4 +1,4 @@
-﻿namespace JordiAragon.SharedKernel.Presentation.WebApi.Middlewares
+﻿namespace JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Middlewares
 {
     using System;
     using System.Net;

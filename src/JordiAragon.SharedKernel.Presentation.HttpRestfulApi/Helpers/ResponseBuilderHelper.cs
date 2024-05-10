@@ -1,4 +1,4 @@
-﻿namespace JordiAragon.SharedKernel.Presentation.WebApi.Helpers
+﻿namespace JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Helpers
 {
     using System.Collections.Generic;
     using System.Linq;
