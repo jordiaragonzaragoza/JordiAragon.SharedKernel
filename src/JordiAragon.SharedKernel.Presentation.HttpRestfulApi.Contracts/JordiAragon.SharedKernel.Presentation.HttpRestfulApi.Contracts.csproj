@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+	<Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.1.3" />
+	<PropertyGroup>
+		<PackageId>JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts</PackageId>
+		<Title>JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts</Title>
+		<AssemblyName>JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts</AssemblyName>
+	</PropertyGroup>
+</Project>

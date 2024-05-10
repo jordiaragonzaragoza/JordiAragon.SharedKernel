@@ -10,10 +10,10 @@
 		<RepositoryUrl>https://github.com/jordiaragonzaragoza/JordiAragon.SharedKernel</RepositoryUrl>
 		<Authors>Jordi Aragon Zaragoza</Authors>
 		<PackageProjectUrl>https://github.com/jordiaragonzaragoza/JordiAragon.SharedKernel</PackageProjectUrl>
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageIcon>icon.png</PackageIcon>
-		<PackageTags>DDD, SharedKernel, Clean Architecture, Onion Architecture</PackageTags>
+		<PackageTags>DDD, SharedKernel, Clean Architecture, Onion Architecture, CQRS, ES</PackageTags>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="..\..\icon.png" Pack="true" Visible="false" PackagePath="" />

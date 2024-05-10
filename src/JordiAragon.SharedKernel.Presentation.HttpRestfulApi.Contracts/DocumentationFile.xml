@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>JordiAragon.SharedKernel.Presentation.WebApi.Contracts</name>
+        <name>JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts</name>
     </assembly>
     <members>
     </members>

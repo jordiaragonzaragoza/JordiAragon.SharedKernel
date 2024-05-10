@@ -13,8 +13,8 @@ The goal of this project is create the building blocks to follow DDD principles 
 [![JordiAragon.SharedKernel.Application.Contracts.IntegrationMessages - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Application.Contracts.IntegrationMessages.svg?label=JordiAragon.SharedKernel.Application.Contracts.IntegrationMessages%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Application.Contracts.IntegrationMessages)
 - [![JordiAragon.SharedKernel.Infrastructure - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Infrastructure.svg?label=JordiAragon.SharedKernel.Infrastructure%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Infrastructure)
 [![JordiAragon.SharedKernel.Infrastructure.EntityFramework - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Infrastructure.EntityFramework.svg?label=JordiAragon.SharedKernel.Infrastructure.EntityFramework%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Infrastructure.EntityFramework)
-- [![JordiAragon.SharedKernel.Presentation.WebApi - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Presentation.WebApi.svg?label=JordiAragon.SharedKernel.Presentation.WebApi%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Presentation.WebApi)
-[![JordiAragon.SharedKernel.Presentation.WebApi.Contracts - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Presentation.WebApi.Contracts.svg?label=JordiAragon.SharedKernel.Presentation.WebApi.Contracts%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Presentation.WebApi.Contracts)
+- [![JordiAragon.SharedKernel.Presentation.HttpRestfulApi - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Presentation.HttpRestfulApi.svg?label=JordiAragon.SharedKernel.Presentation.HttpRestfulApi%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Presentation.HttpRestfulApi)
+[![JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts.svg?label=JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts)
 
 ## Dependency graph:
 
@@ -63,7 +63,7 @@ The goal of this project is create the building blocks to follow DDD principles 
 - MassTransitEventBus base implementation.
 
 **Presentation and Contracts**
-- WebApi building blocks. Like BaseApiController, ExceptionMiddleware, CurrentUserService and ResponseBuilder for ProblemDetails.
+- HttpRestfulApi building blocks. Like BaseApiController, ExceptionMiddleware, CurrentUserService and ResponseBuilder for ProblemDetails.
 
 ## Testing
 
@@ -96,4 +96,10 @@ Special thanks to all these authors for sharing their knowledge and expertise:
 
 ## About:
 
-The SharedKernel Project was developed by <a href="https://www.linkedin.com/in/jordiaragonzaragoza/" target="_blank">Jordi Aragón Zaragoza</a> 
+The SharedKernel Project was developed by <a href="https://www.linkedin.com/in/jordiaragonzaragoza/" target="_blank">Jordi Aragón Zaragoza</a>
+
+## License:
+
+[Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/).
+
+[![Creative Commons License](https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-nd/4.0/)

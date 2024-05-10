@@ -1,8 +1,8 @@
 ﻿namespace JordiAragon.SharedKernel.Domain.Entities
 {
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
+    using JordiAragon.SharedKernel.Helpers;
 
     public abstract class BaseEventSourcedAggregateRoot<TId> : BaseAggregateRoot<TId>, IEventSourcedAggregateRoot<TId>
         where TId : class, IEntityId
@@ -16,15 +16,14 @@
         {
         }
 
-        [NotMapped]
-        public int Version { get; private set; } = -1;
-
         public void Load(IEnumerable<IDomainEvent> history)
         {
+            this.Version = ConcurrencyVersionHelper.InitializeEmptyByteVersion();
+
             foreach (var @event in history)
             {
                 this.When(@event);
-                this.Version++;
+                ConcurrencyVersionHelper.IncrementByteVersion(this.Version);
             }
         }
     }

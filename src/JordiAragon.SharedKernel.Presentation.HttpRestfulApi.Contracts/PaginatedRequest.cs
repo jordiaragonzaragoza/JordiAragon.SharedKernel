@@ -1,4 +1,4 @@
-﻿namespace JordiAragon.SharedKernel.Presentation.WebApi.Contracts
+﻿namespace JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts
 {
     using System.ComponentModel;
 
