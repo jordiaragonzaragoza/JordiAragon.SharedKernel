@@ -11,10 +11,6 @@
 		<PackageReference Include="Ardalis.Specification.EntityFrameworkCore" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" />
-		<PackageReference Include="Newtonsoft.Json" />
-		<PackageReference Include="Polly" />
-		<PackageReference Include="Quartz" />
-		<PackageReference Include="Volo.Abp.Guids" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\JordiAragon.SharedKernel\JordiAragon.SharedKernel.csproj" />

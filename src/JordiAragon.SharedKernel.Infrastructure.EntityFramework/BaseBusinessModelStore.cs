@@ -8,6 +8,7 @@
     using JordiAragon.SharedKernel.Contracts.DependencyInjection;
     using JordiAragon.SharedKernel.Contracts.Events;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
+    using JordiAragon.SharedKernel.Infrastructure.EntityFramework.Context;
     using JordiAragon.SharedKernel.Infrastructure.Interfaces;
     using Microsoft.EntityFrameworkCore.Storage;
 
