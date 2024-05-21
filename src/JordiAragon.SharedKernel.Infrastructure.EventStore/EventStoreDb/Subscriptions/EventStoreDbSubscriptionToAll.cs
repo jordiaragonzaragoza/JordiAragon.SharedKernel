@@ -1,12 +1,16 @@
 namespace JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb.Subscriptions
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Ardalis.GuardClauses;
+    using Autofac;
+    using Autofac.Core;
     using global::EventStore.Client;
     using Grpc.Core;
     using JordiAragon.SharedKernel.Contracts.DependencyInjection;
+    using JordiAragon.SharedKernel.Contracts.Events;
     using JordiAragon.SharedKernel.Contracts.Repositories;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Helpers;
@@ -25,18 +29,20 @@ namespace JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb.Subscr
         private readonly IDateTime datetime;
 
         private readonly object resubscribeLock = new();
-
+        private readonly ILifetimeScope lifetimeScope;
         private IServiceScopeFactory serviceScopeFactory;
         private EventStoreDbSubscriptionToAllOptions subscriptionOptions;
         private CancellationToken cancellationToken;
 
         public EventStoreDbSubscriptionToAll(
+            ILifetimeScope lifetimeScope,
             EventStoreClient eventStoreClient,
             EventTypeMapper eventTypeMapper,
             IPublisher internalBus,
             ILogger<EventStoreDbSubscriptionToAll> logger,
             IDateTime datetime)
         {
+            this.lifetimeScope = Guard.Against.Null(lifetimeScope, nameof(lifetimeScope));
             this.internalBus = Guard.Against.Null(internalBus, nameof(internalBus));
             this.eventStoreClient = Guard.Against.Null(eventStoreClient, nameof(eventStoreClient));
             this.eventTypeMapper = Guard.Against.Null(eventTypeMapper, nameof(eventTypeMapper));
@@ -87,7 +93,7 @@ namespace JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb.Subscr
                 var domainEvent = SerializerHelper.Deserialize(resolvedEvent);
 
                 // publish event to internal event bus
-                await this.internalBus.Publish(domainEvent, cancellationToken).ConfigureAwait(false);
+                await this.internalBus.Publish(this.CreateEventNotification(domainEvent), cancellationToken).ConfigureAwait(false);
 
                 // Required to get scoped services on a background service.
                 using var scope = this.serviceScopeFactory.CreateScope();
@@ -197,6 +203,19 @@ namespace JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb.Subscr
             this.logger.LogInformation("Checkpoint event - ignoring");
 
             return true;
+        }
+
+        private IEventNotification<IEvent> CreateEventNotification(IEvent @event)
+        {
+            // Instanciate the event notification.
+            Type eventNotificationType = typeof(IEventNotification<>);
+            var notificationWithGenericType = eventNotificationType.MakeGenericType(@event.GetType());
+            var notification = this.lifetimeScope.ResolveOptional(notificationWithGenericType, new List<Parameter>
+                {
+                    new NamedParameter("Event", @event),
+                });
+
+            return notification as IEventNotification<IEvent>;
         }
     }
 }
