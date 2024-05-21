@@ -1,4 +1,4 @@
-﻿namespace JordiAragon.SharedKernel.Infrastructure.EventStore.Subscriptions
+﻿namespace JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb.Subscriptions
 {
     using System;
     using global::EventStore.Client;

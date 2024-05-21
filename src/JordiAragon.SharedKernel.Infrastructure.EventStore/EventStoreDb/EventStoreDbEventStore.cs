@@ -1,4 +1,4 @@
-﻿namespace JordiAragon.SharedKernel.Infrastructure.EventStore
+﻿namespace JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb
 {
     using System;
     using System.Collections.Generic;
@@ -11,18 +11,18 @@
     using JordiAragon.SharedKernel.Contracts.Events;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Helpers;
-    using JordiAragon.SharedKernel.Infrastructure.EventStore.Serialization;
+    using JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb.Serialization;
     using Microsoft.Extensions.Logging;
 
-    public class EventStoreDb : IEventStore, IScopedDependency
+    public class EventStoreDbEventStore : IEventStore, IScopedDependency
     {
         private readonly List<IEventSourcedAggregateRoot<IEntityId>> pendingChanges = new();
         private readonly EventStoreClient eventStoreClient;
-        private readonly ILogger<EventStoreDb> logger;
+        private readonly ILogger<EventStoreDbEventStore> logger;
 
-        public EventStoreDb(
+        public EventStoreDbEventStore(
             EventStoreClient eventStoreClient,
-            ILogger<EventStoreDb> logger)
+            ILogger<EventStoreDbEventStore> logger)
         {
             this.eventStoreClient = Guard.Against.Null(eventStoreClient, nameof(eventStoreClient));
             this.logger = Guard.Against.Null(logger, nameof(logger));
@@ -99,7 +99,7 @@
 
         private async Task StoreAsync(IEventSourcedAggregateRoot<IEntityId> aggregate, CancellationToken cancellationToken)
         {
-            var events = aggregate.Events.AsEnumerable().Select(SerializerHelper.Serialize).ToArray();
+            var events = aggregate.Events.AsEnumerable().Select(@event => SerializerHelper.Serialize(@event)).ToArray();
 
             if (!events.Any())
             {

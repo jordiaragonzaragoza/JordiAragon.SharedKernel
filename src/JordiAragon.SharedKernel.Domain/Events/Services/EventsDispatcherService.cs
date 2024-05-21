@@ -39,7 +39,7 @@
             var events = eventableEntities.SelectMany(x => x.Events).Where(e => !e.IsPublished).OrderBy(e => e.DateOccurredOnUtc).ToList();
 
             // Filter to not include IEventSourcedAggregateRoot events.
-            // This events will come from event store subscription.
+            // This event notifications will come from event store subscription.
             var aggregateEvents = eventableEntities.Where(entity => entity is not IEventSourcedAggregateRoot<IEntityId>)
                 .SelectMany(x => x.Events).Where(e => !e.IsPublished).OrderBy(e => e.DateOccurredOnUtc).ToList();
 
@@ -55,7 +55,7 @@
             var eventNotifications = new List<IEventNotification<IEvent>>();
             foreach (var @event in events)
             {
-                // Instanciate the notification.
+                // Instanciate the event notification.
                 Type eventNotificationType = typeof(IEventNotification<>);
                 var notificationWithGenericType = eventNotificationType.MakeGenericType(@event.GetType());
                 var notification = this.scope.ResolveOptional(notificationWithGenericType, new List<Parameter>

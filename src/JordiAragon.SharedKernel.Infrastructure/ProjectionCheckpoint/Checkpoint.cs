@@ -1,7 +1,7 @@
 ﻿namespace JordiAragon.SharedKernel.Infrastructure.ProjectionCheckpoint
 {
     using System;
-    using JordiAragon.SharedKernel.Infrastructure.Interfaces;
+    using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
 
-    public sealed record class Checkpoint(Guid Id, ulong Position) : IDataEntity;
+    public sealed record class Checkpoint(Guid Id, ulong Position, DateTimeOffset CheckpointedAtOnUtc) : IReadModel;
 }
