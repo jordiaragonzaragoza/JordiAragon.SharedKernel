@@ -19,6 +19,8 @@ namespace JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb.Subscr
     using MediatR;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using Polly;
+    using Polly.Retry;
 
     public class EventStoreDbSubscriptionToAll : ITransientDependency
     {
@@ -91,16 +93,19 @@ namespace JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb.Subscr
                 }
 
                 var domainEvent = SerializerHelper.Deserialize(resolvedEvent);
+                var eventNotification = this.CreateEventNotification(domainEvent);
 
                 // publish event to internal event bus
-                await this.internalBus.Publish(this.CreateEventNotification(domainEvent), cancellationToken).ConfigureAwait(false);
+                await this.PublishAsync(eventNotification, cancellationToken).ConfigureAwait(false);
 
                 // Required to get scoped services on a background service.
                 using var scope = this.serviceScopeFactory.CreateScope();
                 var checkpointRepository = scope.ServiceProvider.GetRequiredService<IRepository<Checkpoint, Guid>>();
-
-                await checkpointRepository.AddAsync(new Checkpoint(this.SubscriptionId, resolvedEvent.Event.Position.CommitPosition, this.datetime.UtcNow), cancellationToken)
+                var checkpoint = new Checkpoint(this.SubscriptionId, resolvedEvent.Event.Position.CommitPosition, this.datetime.UtcNow);
+                await checkpointRepository.AddAsync(checkpoint, cancellationToken)
                     .ConfigureAwait(false);
+
+                this.logger.LogInformation("Added checkpoint: {Checkpoint}", checkpoint);
             }
             catch (Exception e)
             {
@@ -216,6 +221,45 @@ namespace JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb.Subscr
                 });
 
             return notification as IEventNotification<IEvent>;
+        }
+
+        private async Task PublishAsync(IEventNotification eventNotification, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                this.logger.LogInformation("Dispatched: Event notification {EventNofification}", eventNotification.GetType().Name);
+
+                var pipeline = new ResiliencePipelineBuilder()
+                    .AddRetry(new RetryStrategyOptions()
+                    {
+                        MaxRetryAttempts = 3,
+                        UseJitter = true,
+                        BackoffType = DelayBackoffType.Exponential,
+                        Delay = TimeSpan.FromMilliseconds(500),
+                        OnRetry = retryArguments =>
+                        {
+                            this.logger.LogError(
+                               retryArguments.Outcome.Exception,
+                               "Error trying to publish EventNotification: {@Name} Attempt: {AttemptNumber}.",
+                               eventNotification.GetType().Name,
+                               retryArguments.AttemptNumber + 1);
+
+                            return ValueTask.CompletedTask;
+                        },
+                    }).Build();
+
+                await pipeline.ExecuteAsync(async token => await this.internalBus.Publish(eventNotification, token), cancellationToken);
+            }
+            catch (Exception exception)
+            {
+                this.logger.LogError(
+                   exception,
+                   "Error publishing EventNotification: {@Name} {Content}.",
+                   eventNotification.GetType().Name,
+                   eventNotification);
+
+                throw;
+            }
         }
     }
 }
