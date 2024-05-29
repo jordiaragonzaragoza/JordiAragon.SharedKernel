@@ -109,7 +109,7 @@
             var streamName = StreamNameMapper.ToStreamId(aggregate.GetType(), aggregate.Id);
 
             var version = aggregate.Version is null ? ConcurrencyVersionHelper.InitializeMinusOneByteVersion() : aggregate.Version;
-            var nextVersion = StreamRevision.FromInt64(BitConverter.ToInt64(version, 0));
+            var nextVersion = StreamRevision.FromInt64(ConcurrencyVersionHelper.ByteArrayToLong(version));
 
             foreach (var @event in events)
             {
