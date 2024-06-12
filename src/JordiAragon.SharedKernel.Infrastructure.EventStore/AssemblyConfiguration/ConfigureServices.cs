@@ -1,5 +1,6 @@
 ﻿namespace JordiAragon.SharedKernel.Infrastructure.EventStore.AssemblyConfiguration
 {
+    using System.Threading;
     using global::EventStore.Client;
     using JordiAragon.SharedKernel.Helpers;
     using JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb;
@@ -23,7 +24,8 @@
             => serviceCollection
                 .AddSingleton(EventTypeMapper.Instance) // TODO: Register with autofac.
                 .AddSingleton(new EventStoreClient(EventStoreClientSettings.Create(eventStoreDBConfig.ConnectionString)))
-                .AddTransient<EventStoreDbSubscriptionToAll, EventStoreDbSubscriptionToAll>(); // TODO: Register with autofac.
+                .AddTransient<EventStoreDbSubscriptionToAll, EventStoreDbSubscriptionToAll>()
+                .AddSingleton(new CancellationTokenSource());
 
         private static IServiceCollection AddEventStoreDBSubscriptionToAll(
             this IServiceCollection serviceCollection,
@@ -34,6 +36,7 @@
                 var serviceScopeFactory = serviceProvider.GetRequiredService<IServiceScopeFactory>();
                 var logger = serviceProvider.GetRequiredService<ILogger<BackgroundWorker>>();
                 var eventStoreDBSubscriptionToAll = serviceProvider.GetRequiredService<EventStoreDbSubscriptionToAll>();
+                var cancellationTokenSource = serviceProvider.GetRequiredService<CancellationTokenSource>();
 
                 return new BackgroundWorker(
                     logger,
@@ -41,7 +44,7 @@
                         eventStoreDBSubscriptionToAll.SubscribeToAllAsync(
                             serviceScopeFactory,
                             subscriptionOptions ?? new EventStoreDbSubscriptionToAllOptions(),
-                            cancellationToken));
+                            cancellationTokenSource.Token));
             });
         }
     }
