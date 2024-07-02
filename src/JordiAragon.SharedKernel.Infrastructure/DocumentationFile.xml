@@ -4,11 +4,6 @@
         <name>JordiAragon.SharedKernel.Infrastructure</name>
     </assembly>
     <members>
-        <member name="T:JordiAragon.SharedKernel.Infrastructure.Interfaces.ISoftDelete">
-            <summary>
-            It indicates whether is logically deleted.
-            </summary>
-        </member>
         <member name="T:JordiAragon.SharedKernel.Infrastructure.InternalBus.MediatR.CustomMediator">
             <summary>
             This class is required due to an issue with Autofac, Decorators and .NET DI.

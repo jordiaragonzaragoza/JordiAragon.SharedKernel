@@ -3,9 +3,7 @@
     using System.Reflection;
     using Autofac;
     using JordiAragon.SharedKernel;
-    using JordiAragon.SharedKernel.Contracts.Repositories;
     using JordiAragon.SharedKernel.Infrastructure.EntityFramework.Interceptors;
-    using JordiAragon.SharedKernel.Infrastructure.EntityFramework.Repositories.DataModel;
     using Volo.Abp.Guids;
 
     public class EntityFrameworkModule : AssemblyModule
@@ -21,7 +19,7 @@
                 .As(typeof(IGuidGenerator))
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<AuditableEntitySaveChangesInterceptor>()
+            builder.RegisterType<SoftDeleteEntitySaveChangesInterceptor>()
                 .InstancePerLifetimeScope();
         }
     }

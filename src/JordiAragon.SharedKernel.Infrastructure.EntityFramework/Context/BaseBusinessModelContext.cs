@@ -11,16 +11,16 @@
 
     public abstract class BaseBusinessModelContext : BaseContext
     {
-        private readonly AuditableEntitySaveChangesInterceptor auditableEntitySaveChangesInterceptor;
+        private readonly SoftDeleteEntitySaveChangesInterceptor softDeleteEntitySaveChangesInterceptor;
 
         protected BaseBusinessModelContext(
             DbContextOptions options,
             ILoggerFactory loggerFactory,
             IHostEnvironment hostEnvironment,
-            AuditableEntitySaveChangesInterceptor auditableEntitySaveChangesInterceptor)
+            SoftDeleteEntitySaveChangesInterceptor softDeleteEntitySaveChangesInterceptor)
             : base(options, loggerFactory, hostEnvironment)
         {
-            this.auditableEntitySaveChangesInterceptor = Guard.Against.Null(auditableEntitySaveChangesInterceptor, nameof(auditableEntitySaveChangesInterceptor));
+            this.softDeleteEntitySaveChangesInterceptor = Guard.Against.Null(softDeleteEntitySaveChangesInterceptor, nameof(softDeleteEntitySaveChangesInterceptor));
         }
 
         public DbSet<OutboxMessage> OutboxMessages => this.Set<OutboxMessage>();
@@ -37,7 +37,7 @@
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.AddInterceptors(this.auditableEntitySaveChangesInterceptor);
+            optionsBuilder.AddInterceptors(this.softDeleteEntitySaveChangesInterceptor);
 
             base.OnConfiguring(optionsBuilder);
         }
