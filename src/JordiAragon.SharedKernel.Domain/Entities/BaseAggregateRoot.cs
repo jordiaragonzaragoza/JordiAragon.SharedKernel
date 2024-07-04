@@ -19,8 +19,6 @@
         {
         }
 
-        // TODO: Move Version to infrastructure layer using shadow property.
-        // This allows manage optiministic concurrency
         public uint Version { get; protected set; }
 
         [NotMapped]
