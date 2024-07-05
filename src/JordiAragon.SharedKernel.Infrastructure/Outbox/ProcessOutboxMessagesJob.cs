@@ -7,10 +7,10 @@
     using System.Text.Json;
     using System.Threading;
     using System.Threading.Tasks;
+    using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Contracts.Events;
     using JordiAragon.SharedKernel.Contracts.Repositories;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
-    using MediatR;
     using Microsoft.Extensions.Logging;
     using Polly;
     using Polly.Retry;
@@ -20,18 +20,18 @@
     public abstract class ProcessOutboxMessagesJob : IJob
     {
         private readonly IDateTime dateTime;
-        private readonly IPublisher internalBus;
+        private readonly IEventBus eventBus;
         private readonly ILogger<ProcessOutboxMessagesJob> logger;
         private readonly ICachedSpecificationRepository<OutboxMessage, Guid> repositoryOutboxMessages;
 
         protected ProcessOutboxMessagesJob(
             IDateTime dateTime,
-            IPublisher internalBus,
+            IEventBus eventBus,
             ILogger<ProcessOutboxMessagesJob> logger,
             ICachedSpecificationRepository<OutboxMessage, Guid> repositoryOutboxMessages)
         {
             this.dateTime = dateTime ?? throw new ArgumentNullException(nameof(dateTime));
-            this.internalBus = internalBus ?? throw new ArgumentNullException(nameof(internalBus));
+            this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.repositoryOutboxMessages = repositoryOutboxMessages ?? throw new ArgumentNullException(nameof(repositoryOutboxMessages));
         }
@@ -114,7 +114,7 @@
                         },
                     }).Build();
 
-                await pipeline.ExecuteAsync(async token => await this.internalBus.Publish(eventNotification, token), cancellationToken);
+                await pipeline.ExecuteAsync(async token => await this.eventBus.PublishAsync(eventNotification, token), cancellationToken);
 
                 outboxMessage.DateProcessedOnUtc = this.dateTime.UtcNow;
             }

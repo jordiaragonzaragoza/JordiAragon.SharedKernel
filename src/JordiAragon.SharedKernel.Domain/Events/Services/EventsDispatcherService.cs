@@ -12,23 +12,22 @@
     using JordiAragon.SharedKernel.Contracts.Events;
     using JordiAragon.SharedKernel.Contracts.Outbox;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
-    using MediatR;
     using Microsoft.Extensions.Logging;
 
     public class EventsDispatcherService : IEventsDispatcherService, IScopedDependency
     {
-        private readonly IPublisher internalBus;
+        private readonly IEventBus eventBus;
         private readonly ILifetimeScope scope;
         private readonly IOutboxService outboxService;
         private readonly ILogger<EventsDispatcherService> logger;
 
         public EventsDispatcherService(
-            IPublisher internalBus,
+            IEventBus eventBus,
             ILifetimeScope scope,
             IOutboxService outboxService,
             ILogger<EventsDispatcherService> logger)
         {
-            this.internalBus = Guard.Against.Null(internalBus, nameof(internalBus));
+            this.eventBus = Guard.Against.Null(eventBus, nameof(eventBus));
             this.scope = Guard.Against.Null(scope, nameof(scope));
             this.outboxService = Guard.Against.Null(outboxService, nameof(outboxService));
             this.logger = Guard.Against.Null(logger, nameof(logger));
@@ -82,7 +81,7 @@
 
                     this.logger.LogInformation("Dispatched Event {Event}", @event.GetType().Name);
 
-                    await this.internalBus.Publish(@event, cancellationToken).ConfigureAwait(true);
+                    await this.eventBus.PublishAsync(@event, cancellationToken).ConfigureAwait(true);
                 }
                 catch (Exception exception)
                 {

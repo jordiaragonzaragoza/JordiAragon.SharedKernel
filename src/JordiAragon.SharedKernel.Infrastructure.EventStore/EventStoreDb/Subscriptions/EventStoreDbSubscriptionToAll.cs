@@ -9,6 +9,7 @@ namespace JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb.Subscr
     using Autofac.Core;
     using global::EventStore.Client;
     using Grpc.Core;
+    using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Contracts.DependencyInjection;
     using JordiAragon.SharedKernel.Contracts.Events;
     using JordiAragon.SharedKernel.Contracts.Repositories;
@@ -93,11 +94,11 @@ namespace JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb.Subscr
                 // Required to get scoped services on a background service.
                 using var scope = this.serviceScopeFactory.CreateScope();
 
-                var internalBus = scope.ServiceProvider.GetRequiredService<IPublisher>();
+                var eventBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
                 var checkpointRepository = scope.ServiceProvider.GetRequiredService<IRepository<Checkpoint, Guid>>();
 
                 // publish event to internal event bus
-                await internalBus.Publish(eventNotification, cancellationToken);
+                await eventBus.PublishAsync(eventNotification, cancellationToken);
 
                 var existingCheckpoint = await checkpointRepository.GetByIdAsync(this.SubscriptionId, cancellationToken);
                 if (existingCheckpoint is not null)
