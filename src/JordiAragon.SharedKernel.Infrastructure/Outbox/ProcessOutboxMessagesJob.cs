@@ -7,13 +7,10 @@
     using System.Text.Json;
     using System.Threading;
     using System.Threading.Tasks;
-    using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Contracts.Events;
     using JordiAragon.SharedKernel.Contracts.Repositories;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using Microsoft.Extensions.Logging;
-    using Polly;
-    using Polly.Retry;
     using Quartz;
 
     [DisallowConcurrentExecution]
@@ -93,39 +90,12 @@
         {
             try
             {
-                this.logger.LogInformation("Dispatched: Event notification {EventNofification}", eventNotification.GetType().Name);
-
-                var pipeline = new ResiliencePipelineBuilder()
-                    .AddRetry(new RetryStrategyOptions()
-                    {
-                        MaxRetryAttempts = 3,
-                        UseJitter = true,
-                        BackoffType = DelayBackoffType.Exponential,
-                        Delay = TimeSpan.FromMilliseconds(500),
-                        OnRetry = retryArguments =>
-                        {
-                            this.logger.LogError(
-                               retryArguments.Outcome.Exception,
-                               "Error trying to publish EventNotification: {@Name} Attempt: {AttemptNumber}.",
-                               eventNotification.GetType().Name,
-                               retryArguments.AttemptNumber + 1);
-
-                            return ValueTask.CompletedTask;
-                        },
-                    }).Build();
-
-                await pipeline.ExecuteAsync(async token => await this.eventBus.PublishAsync(eventNotification, token), cancellationToken);
+                await this.eventBus.PublishAsync(eventNotification, cancellationToken);
 
                 outboxMessage.DateProcessedOnUtc = this.dateTime.UtcNow;
             }
             catch (Exception exception)
             {
-                this.logger.LogError(
-                   exception,
-                   "Error publishing EventNotification: {@Name} {Content}.",
-                   eventNotification.GetType().Name,
-                   eventNotification);
-
                 outboxMessage.Error = $"Message: {exception.Message}\nStackTrace: {exception.StackTrace}";
             }
         }

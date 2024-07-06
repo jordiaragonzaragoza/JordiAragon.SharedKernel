@@ -12,25 +12,21 @@
     using JordiAragon.SharedKernel.Contracts.Events;
     using JordiAragon.SharedKernel.Contracts.Outbox;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
-    using Microsoft.Extensions.Logging;
 
     public class EventsDispatcherService : IEventsDispatcherService, IScopedDependency
     {
         private readonly IEventBus eventBus;
         private readonly ILifetimeScope scope;
         private readonly IOutboxService outboxService;
-        private readonly ILogger<EventsDispatcherService> logger;
 
         public EventsDispatcherService(
             IEventBus eventBus,
             ILifetimeScope scope,
-            IOutboxService outboxService,
-            ILogger<EventsDispatcherService> logger)
+            IOutboxService outboxService)
         {
             this.eventBus = Guard.Against.Null(eventBus, nameof(eventBus));
             this.scope = Guard.Against.Null(scope, nameof(scope));
             this.outboxService = Guard.Against.Null(outboxService, nameof(outboxService));
-            this.logger = Guard.Against.Null(logger, nameof(logger));
         }
 
         public async Task DispatchEventsAsync(IEnumerable<IEventsContainer<IEvent>> eventableEntities, CancellationToken cancellationToken = default)
@@ -75,24 +71,7 @@
         {
             foreach (var @event in events)
             {
-                try
-                {
-                    @event.IsPublished = true;
-
-                    this.logger.LogInformation("Dispatched Event {Event}", @event.GetType().Name);
-
-                    await this.eventBus.PublishAsync(@event, cancellationToken).ConfigureAwait(true);
-                }
-                catch (Exception exception)
-                {
-                    this.logger.LogError(
-                       exception,
-                       "Error publishing event: {@Name} {Content}.",
-                       @event.GetType().Name,
-                       @event);
-
-                    throw;
-                }
+                await this.eventBus.PublishAsync(@event, cancellationToken);
             }
         }
 

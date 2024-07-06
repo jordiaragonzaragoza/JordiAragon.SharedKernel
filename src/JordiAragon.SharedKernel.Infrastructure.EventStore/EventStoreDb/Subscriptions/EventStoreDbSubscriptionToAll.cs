@@ -9,7 +9,6 @@ namespace JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb.Subscr
     using Autofac.Core;
     using global::EventStore.Client;
     using Grpc.Core;
-    using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Contracts.DependencyInjection;
     using JordiAragon.SharedKernel.Contracts.Events;
     using JordiAragon.SharedKernel.Contracts.Repositories;
@@ -17,7 +16,6 @@ namespace JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb.Subscr
     using JordiAragon.SharedKernel.Helpers;
     using JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb.Serialization;
     using JordiAragon.SharedKernel.Infrastructure.ProjectionCheckpoint;
-    using MediatR;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
