@@ -1,23 +1,23 @@
-﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework.Outbox
+﻿namespace JordiAragon.SharedKernel.Infrastructure.Outbox
 {
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+    using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Contracts.Events;
     using JordiAragon.SharedKernel.Contracts.Outbox;
     using JordiAragon.SharedKernel.Contracts.Repositories;
     using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
-    using Volo.Abp.Guids;
 
     public class OutboxService : IOutboxService
     {
-        private readonly IGuidGenerator guidGenerator;
+        private readonly IIdGenerator guidGenerator;
         private readonly ICachedSpecificationRepository<OutboxMessage, Guid> repositoryOutboxMessage;
         private readonly ILogger<OutboxService> logger;
 
         public OutboxService(
-            IGuidGenerator guidGenerator,
+            IIdGenerator guidGenerator,
             ICachedSpecificationRepository<OutboxMessage, Guid> repositoryOutboxMessage,
             ILogger<OutboxService> logger)
         {

@@ -12,9 +12,5 @@
         public DateTimeOffset ModificationDateOnUtc { get; set; }
 
         public string LastModifiedByUserId { get; set; }
-
-        // TODO: Implement SoftDelete
-        ////public DateTimeOffset? DeletionDate { get; set; }
-        ////public string DeletedByUserId { get; set; }
     }
 }

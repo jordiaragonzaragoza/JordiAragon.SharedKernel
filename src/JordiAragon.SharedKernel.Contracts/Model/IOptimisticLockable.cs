@@ -2,6 +2,6 @@
 {
     public interface IOptimisticLockable
     {
-        byte[] Version { get; }
+        uint Version { get; }
     }
 }

@@ -12,26 +12,21 @@
     using JordiAragon.SharedKernel.Contracts.Events;
     using JordiAragon.SharedKernel.Contracts.Outbox;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
-    using MediatR;
-    using Microsoft.Extensions.Logging;
 
     public class EventsDispatcherService : IEventsDispatcherService, IScopedDependency
     {
-        private readonly IPublisher internalBus;
+        private readonly IEventBus eventBus;
         private readonly ILifetimeScope scope;
         private readonly IOutboxService outboxService;
-        private readonly ILogger<EventsDispatcherService> logger;
 
         public EventsDispatcherService(
-            IPublisher internalBus,
+            IEventBus eventBus,
             ILifetimeScope scope,
-            IOutboxService outboxService,
-            ILogger<EventsDispatcherService> logger)
+            IOutboxService outboxService)
         {
-            this.internalBus = Guard.Against.Null(internalBus, nameof(internalBus));
+            this.eventBus = Guard.Against.Null(eventBus, nameof(eventBus));
             this.scope = Guard.Against.Null(scope, nameof(scope));
             this.outboxService = Guard.Against.Null(outboxService, nameof(outboxService));
-            this.logger = Guard.Against.Null(logger, nameof(logger));
         }
 
         public async Task DispatchEventsAsync(IEnumerable<IEventsContainer<IEvent>> eventableEntities, CancellationToken cancellationToken = default)
@@ -39,7 +34,7 @@
             var events = eventableEntities.SelectMany(x => x.Events).Where(e => !e.IsPublished).OrderBy(e => e.DateOccurredOnUtc).ToList();
 
             // Filter to not include IEventSourcedAggregateRoot events.
-            // This events will come from event store subscription.
+            // This event notifications will come from event store subscription.
             var aggregateEvents = eventableEntities.Where(entity => entity is not IEventSourcedAggregateRoot<IEntityId>)
                 .SelectMany(x => x.Events).Where(e => !e.IsPublished).OrderBy(e => e.DateOccurredOnUtc).ToList();
 
@@ -55,7 +50,7 @@
             var eventNotifications = new List<IEventNotification<IEvent>>();
             foreach (var @event in events)
             {
-                // Instanciate the notification.
+                // Instanciate the event notification.
                 Type eventNotificationType = typeof(IEventNotification<>);
                 var notificationWithGenericType = eventNotificationType.MakeGenericType(@event.GetType());
                 var notification = this.scope.ResolveOptional(notificationWithGenericType, new List<Parameter>
@@ -76,24 +71,7 @@
         {
             foreach (var @event in events)
             {
-                try
-                {
-                    @event.IsPublished = true;
-
-                    this.logger.LogInformation("Dispatched Event {Event}", @event.GetType().Name);
-
-                    await this.internalBus.Publish(@event, cancellationToken).ConfigureAwait(true);
-                }
-                catch (Exception exception)
-                {
-                    this.logger.LogError(
-                       exception,
-                       "Error publishing event: {@Name} {Content}.",
-                       @event.GetType().Name,
-                       @event);
-
-                    throw;
-                }
+                await this.eventBus.PublishAsync(@event, cancellationToken);
             }
         }
 

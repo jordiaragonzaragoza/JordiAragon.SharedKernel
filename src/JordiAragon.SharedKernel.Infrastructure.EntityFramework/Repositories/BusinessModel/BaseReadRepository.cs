@@ -8,6 +8,7 @@
     using JordiAragon.SharedKernel.Contracts.Repositories;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Domain.Entities;
+    using JordiAragon.SharedKernel.Infrastructure.EntityFramework.Context;
 
     public abstract class BaseReadRepository<TEntity, TId> : RepositoryBase<TEntity>,  ISpecificationReadRepository<TEntity, TId>, IScopedDependency
         where TEntity : class, IEntity<TId>

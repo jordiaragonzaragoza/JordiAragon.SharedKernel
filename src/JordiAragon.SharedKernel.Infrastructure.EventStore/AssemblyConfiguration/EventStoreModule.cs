@@ -3,7 +3,7 @@
     using System.Reflection;
     using JordiAragon.SharedKernel;
 
-    public class EventStoreModule : AssemblyModule
+    public sealed class EventStoreModule : AssemblyModule
     {
         protected override Assembly CurrentAssembly => InfrastructureEventStoreAssemblyReference.Assembly;
     }

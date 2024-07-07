@@ -1,4 +1,4 @@
-﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework.Idempotency
+﻿namespace JordiAragon.SharedKernel.Infrastructure.Idempotency
 {
     using System;
     using System.Threading;

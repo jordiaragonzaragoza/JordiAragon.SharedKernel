@@ -10,7 +10,6 @@
 		<PackageReference Include="Ardalis.GuardClauses" />
 		<PackageReference Include="Ardalis.SmartEnum" />
 		<PackageReference Include="Microsoft.Extensions.Logging" />
-		<PackageReference Include="MediatR" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\JordiAragon.SharedKernel\JordiAragon.SharedKernel.csproj" />

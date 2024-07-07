@@ -10,6 +10,7 @@
     using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Contracts.DependencyInjection;
     using JordiAragon.SharedKernel.Contracts.Repositories;
+    using JordiAragon.SharedKernel.Infrastructure.EntityFramework.Context;
     using Microsoft.Extensions.Logging;
 
     public abstract class BaseCachedSpecificationRepository<TReadModel> : BaseReadRepository<TReadModel>, ICachedSpecificationRepository<TReadModel, Guid>, IScopedDependency
