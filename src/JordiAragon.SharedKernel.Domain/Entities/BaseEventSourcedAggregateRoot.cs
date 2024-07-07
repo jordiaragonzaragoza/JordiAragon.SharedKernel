@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
-    using JordiAragon.SharedKernel.Helpers;
 
     public abstract class BaseEventSourcedAggregateRoot<TId> : BaseAggregateRoot<TId>, IEventSourcedAggregateRoot<TId>
         where TId : class, IEntityId
@@ -18,12 +17,12 @@
 
         public void Load(IEnumerable<IDomainEvent> history)
         {
-            this.Version = ConcurrencyVersionHelper.InitializeEmptyByteVersion();
+            this.Version = uint.MaxValue;
 
             foreach (var @event in history)
             {
                 this.When(@event);
-                ConcurrencyVersionHelper.IncrementByteVersion(this.Version);
+                this.Version++;
             }
         }
     }

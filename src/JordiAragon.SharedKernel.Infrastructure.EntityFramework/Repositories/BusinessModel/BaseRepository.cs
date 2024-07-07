@@ -4,6 +4,7 @@
     using JordiAragon.SharedKernel.Contracts.Repositories;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Domain.Entities;
+    using JordiAragon.SharedKernel.Infrastructure.EntityFramework.Context;
 
     public abstract class BaseRepository<TAggregate, TId> : BaseReadRepository<TAggregate, TId>, IRangeableRepository<TAggregate, TId>, IScopedDependency
         where TAggregate : BaseAggregateRoot<TId>

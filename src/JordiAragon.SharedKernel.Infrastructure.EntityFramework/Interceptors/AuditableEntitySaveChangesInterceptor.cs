@@ -10,6 +10,9 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Diagnostics;
 
+    /// <summary>
+    /// Its conserved as future reference. Audit is not yet implemented.
+    /// </summary>
     public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
     {
         private readonly ICurrentUserService currentUserService;

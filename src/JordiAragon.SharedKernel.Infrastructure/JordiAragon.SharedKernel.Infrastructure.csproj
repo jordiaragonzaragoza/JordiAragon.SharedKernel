@@ -10,6 +10,10 @@
 		<PackageReference Include="EasyCaching.Core" />
 		<PackageReference Include="EasyCaching.InMemory" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" />
+		<PackageReference Include="Newtonsoft.Json" />
+		<PackageReference Include="Polly" />
+		<PackageReference Include="Quartz" />
+		<PackageReference Include="Volo.Abp.Guids" />
     </ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\JordiAragon.SharedKernel\JordiAragon.SharedKernel.csproj" />

@@ -1,7 +1,7 @@
 ﻿namespace JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Controllers
 {
     using AutoMapper;
-    using MediatR;
+    using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.DependencyInjection;
@@ -11,10 +11,13 @@
     [Route("api/v{version:apiVersion}/[controller]")]
     public abstract class BaseApiController : ControllerBase
     {
-        private ISender internalBus = null!;
+        private ICommandBus commandBus = null!;
+        private IQueryBus queryBus = null!;
         private IMapper mapper = null!;
 
-        protected ISender InternalBus => this.internalBus ??= this.HttpContext.RequestServices.GetRequiredService<ISender>();
+        protected ICommandBus CommandBus => this.commandBus ??= this.HttpContext.RequestServices.GetRequiredService<ICommandBus>();
+
+        protected IQueryBus QueryBus => this.queryBus ??= this.HttpContext.RequestServices.GetRequiredService<IQueryBus>();
 
         protected IMapper Mapper => this.mapper ??= this.HttpContext.RequestServices.GetRequiredService<IMapper>();
     }

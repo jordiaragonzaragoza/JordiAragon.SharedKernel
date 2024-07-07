@@ -6,6 +6,7 @@
     using Ardalis.Specification.EntityFrameworkCore;
     using JordiAragon.SharedKernel.Contracts.DependencyInjection;
     using JordiAragon.SharedKernel.Contracts.Repositories;
+    using JordiAragon.SharedKernel.Infrastructure.EntityFramework.Context;
     using JordiAragon.SharedKernel.Infrastructure.Interfaces;
 
     public abstract class BaseReadRepository<TDataEntity> : RepositoryBase<TDataEntity>, ISpecificationReadRepository<TDataEntity, Guid>, IScopedDependency

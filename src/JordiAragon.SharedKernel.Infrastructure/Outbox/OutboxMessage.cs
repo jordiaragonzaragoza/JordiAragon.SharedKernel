@@ -1,4 +1,4 @@
-﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework.Outbox
+﻿namespace JordiAragon.SharedKernel.Infrastructure.Outbox
 {
     using System;
     using JordiAragon.SharedKernel.Infrastructure.Interfaces;
