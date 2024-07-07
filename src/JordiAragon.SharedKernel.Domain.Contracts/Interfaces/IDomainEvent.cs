@@ -10,6 +10,6 @@
     /// </summary>
     public interface IDomainEvent : IEvent
     {
-        public Guid AggregateId { get; } // TODO: Review if it's required.
+        public Guid AggregateId { get; }
     }
 }

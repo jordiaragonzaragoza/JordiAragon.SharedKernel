@@ -19,14 +19,40 @@
                 version[i] = 0;
             }
 
-            // If all bytes overflow, handle it somehow
-            // For example, you could throw an exception or truncate additional bytes
-            throw new OverflowException("The counter has reached its maximum value");
+            // If all bytes overflow, just continue (do nothing special)
+            ////throw new OverflowException("The counter has reached its maximum value");
         }
 
-        public static byte[] InitializeEmptyByteVersion()
+        public static byte[] InitializeMinusOneByteVersion()
         {
-            return Enumerable.Repeat((byte)0, 8).ToArray();
+            return Enumerable.Repeat((byte)255, 8).ToArray();
+        }
+
+        public static long ByteArrayToLong(byte[] version)
+        {
+            // Make a copy of the array to avoid modifying the original
+            byte[] copy = (byte[])version.Clone();
+
+            // If the system is Little Endian, reverse the byte array
+            if (BitConverter.IsLittleEndian)
+            {
+                Array.Reverse(copy);
+            }
+
+            return BitConverter.ToInt64(copy, 0);
+        }
+
+        public static byte[] LongToByteArray(long version)
+        {
+            byte[] bytes = BitConverter.GetBytes(version);
+
+            // If the system is Little Endian, reverse the byte array
+            if (BitConverter.IsLittleEndian)
+            {
+                Array.Reverse(bytes);
+            }
+
+            return bytes;
         }
     }
 }

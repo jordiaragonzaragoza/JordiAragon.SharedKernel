@@ -5,6 +5,7 @@
     using JordiAragon.SharedKernel;
     using JordiAragon.SharedKernel.Infrastructure.InternalBus.MediatR;
     using MediatR;
+    using Volo.Abp.Guids;
 
     public class InfrastructureModule : AssemblyModule
     {
@@ -16,6 +17,10 @@
 
             builder.RegisterType(typeof(CustomMediator))
                 .As(typeof(IMediator))
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType(typeof(SequentialGuidGenerator))
+                .As(typeof(IGuidGenerator))
                 .InstancePerLifetimeScope();
         }
     }

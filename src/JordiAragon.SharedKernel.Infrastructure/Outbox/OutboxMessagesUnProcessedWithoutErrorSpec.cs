@@ -1,4 +1,4 @@
-﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework.Outbox
+﻿namespace JordiAragon.SharedKernel.Infrastructure.Outbox
 {
     using System.Linq;
     using Ardalis.Specification;

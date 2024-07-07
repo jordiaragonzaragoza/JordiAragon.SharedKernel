@@ -1,4 +1,4 @@
-﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework
+﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework.Context
 {
     using Ardalis.GuardClauses;
     using Microsoft.EntityFrameworkCore;
@@ -6,12 +6,12 @@
     using Microsoft.Extensions.Logging;
     using SmartEnum.EFCore;
 
-    public abstract class BaseReadModelContext : DbContext
+    public abstract class BaseContext : DbContext
     {
         private readonly ILoggerFactory loggerFactory;
         private readonly IHostEnvironment hostEnvironment;
 
-        protected BaseReadModelContext(
+        protected BaseContext(
             DbContextOptions options,
             ILoggerFactory loggerFactory,
             IHostEnvironment hostEnvironment)

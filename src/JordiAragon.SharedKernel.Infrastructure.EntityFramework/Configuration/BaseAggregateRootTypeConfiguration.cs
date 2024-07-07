@@ -1,6 +1,7 @@
 ﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework.Configuration
 {
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     public abstract class BaseAggregateRootTypeConfiguration<TAggregateRoot, TId> : BaseModelTypeConfiguration<TAggregateRoot, TId>
@@ -13,6 +14,9 @@
 
             builder.Property(aggregateRoot => aggregateRoot.Version)
                 .IsRowVersion();
+
+            builder.Property<bool>("IsDeleted");
+            builder.HasQueryFilter(b => !EF.Property<bool>(b, "IsDeleted"));
         }
     }
 }
