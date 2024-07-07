@@ -118,9 +118,9 @@ namespace JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb.Subscr
 
                 this.logger.LogInformation("Added checkpoint: {Checkpoint}", checkpoint);
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                this.logger.LogError("Error consuming message: {ExceptionMessage}{ExceptionStackTrace}", e.Message, e.StackTrace);
+                this.logger.LogError(exception, "Error consuming message: {ExceptionMessage}{ExceptionStackTrace}", exception.Message, exception.StackTrace);
 
                 // if you're fine with dropping some events instead of stopping subscription
                 // then you can add some logic if error should be ignored
