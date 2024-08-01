@@ -14,9 +14,9 @@
 
         public readonly struct Disposable : IDisposable
         {
-            private readonly SynchronizationContext synchronizationContext;
+            private readonly SynchronizationContext? synchronizationContext;
 
-            public Disposable(SynchronizationContext synchronizationContext)
+            public Disposable(SynchronizationContext? synchronizationContext)
             {
                 this.synchronizationContext = synchronizationContext;
             }

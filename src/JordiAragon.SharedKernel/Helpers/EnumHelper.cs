@@ -13,7 +13,7 @@
             var type = typeof(TEnum);
             var memberInfo = type.GetMember(value.ToString()).FirstOrDefault();
             var attribute = memberInfo?.GetCustomAttribute<EnumMemberAttribute>();
-            return attribute?.Value;
+            return attribute?.Value ?? string.Empty;
         }
     }
 }

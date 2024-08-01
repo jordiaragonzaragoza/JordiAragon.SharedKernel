@@ -9,7 +9,7 @@
         where TAggregate : class, IAggregateRoot<TId>
         where TId : class, IEntityId
     {
-        public InvalidAggregateStateException(TAggregate aggregate, string message = null)
+        public InvalidAggregateStateException(TAggregate aggregate, string? message = null)
                 : base($"Aggregate {aggregate.GetType().Name} - {aggregate.Id} state change rejected. {message}")
         {
         }

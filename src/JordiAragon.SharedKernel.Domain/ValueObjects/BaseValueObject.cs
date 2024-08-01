@@ -35,7 +35,7 @@
             return !(a == b);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj == null)
             {
@@ -70,7 +70,7 @@
             return this.cachedHashCode.Value;
         }
 
-        public int CompareTo(object obj)
+        public int CompareTo(object? obj)
         {
             if (obj == null)
             {
@@ -102,7 +102,7 @@
             return 0;
         }
 
-        public int CompareTo(BaseValueObject other)
+        public int CompareTo(BaseValueObject? other)
         {
             return this.CompareTo(other as object);
         }

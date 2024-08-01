@@ -19,9 +19,9 @@
         {
         }
 
-        public TId Id { get; protected set; }
+        public TId Id { get; protected set; } = default!;
 
-        public bool Equals(BaseEntity<TId> x, BaseEntity<TId> y)
+        public bool Equals(BaseEntity<TId>? x, BaseEntity<TId>? y)
         {
             if (ReferenceEquals(x, y))
             {

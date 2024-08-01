@@ -2,6 +2,7 @@
 {
     using System;
     using System.Runtime.Serialization;
+    using Ardalis.GuardClauses;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
 
     [Serializable]
@@ -10,8 +11,7 @@
         public BusinessRuleValidationException(IBusinessRule brokenRule)
             : base(brokenRule.Message)
         {
-            this.BrokenRule = brokenRule;
-            this.Details = brokenRule.Message;
+            this.BrokenRule = Guard.Against.Null(brokenRule, nameof(brokenRule));
         }
 
         protected BusinessRuleValidationException(SerializationInfo info, StreamingContext context)
@@ -19,9 +19,7 @@
         {
         }
 
-        public IBusinessRule BrokenRule { get; init; }
-
-        public string Details { get; init; }
+        public IBusinessRule BrokenRule { get; } = default!;
 
         public override string ToString()
         {
