@@ -1,5 +1,6 @@
 ﻿namespace JordiAragon.SharedKernel.Application.Events.Decorators
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using Ardalis.GuardClauses;
@@ -35,7 +36,8 @@
         public async Task Handle(TEventNotification notification, CancellationToken cancellationToken)
         {
             var messageId = notification.Id;
-            var consumerFullName = this.decoratedHandler.GetType().FullName;
+            var consumerFullName = this.decoratedHandler.GetType().FullName
+                ?? throw new InvalidOperationException("The full name of the consumer handler is null.");
 
             var processed = await this.idempotencyService.IsProcessedAsync(messageId, consumerFullName, cancellationToken);
             if (processed)
