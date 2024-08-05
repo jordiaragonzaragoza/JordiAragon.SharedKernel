@@ -27,7 +27,7 @@
         /// A task that represents the asynchronous operation.
         /// The task result contains the <typeparamref name="TModel" />, or <see langword="null"/>.
         /// </returns>
-        Task<TModel> FirstOrDefaultAsync(ISpecification<TModel> specification, CancellationToken cancellationToken = default);
+        Task<TModel?> FirstOrDefaultAsync(ISpecification<TModel> specification, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Returns the first element of a sequence, or a default value if the sequence contains no elements.
@@ -39,7 +39,7 @@
         /// A task that represents the asynchronous operation.
         /// The task result contains the <typeparamref name="TResult" />, or <see langword="null"/>.
         /// </returns>
-        Task<TResult> FirstOrDefaultAsync<TResult>(ISpecification<TModel, TResult> specification, CancellationToken cancellationToken = default);
+        Task<TResult?> FirstOrDefaultAsync<TResult>(ISpecification<TModel, TResult> specification, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Returns the only element of a sequence, or a default value if the sequence is empty; this method throws an exception if there is more than one element in the sequence.
@@ -50,7 +50,7 @@
         /// A task that represents the asynchronous operation.
         /// The task result contains the <typeparamref name="TModel" />, or <see langword="null"/>.
         /// </returns>
-        Task<TModel> SingleOrDefaultAsync(ISingleResultSpecification<TModel> specification, CancellationToken cancellationToken = default);
+        Task<TModel?> SingleOrDefaultAsync(ISingleResultSpecification<TModel> specification, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Returns the only element of a sequence, or a default value if the sequence is empty; this method throws an exception if there is more than one element in the sequence.
@@ -62,7 +62,7 @@
         /// A task that represents the asynchronous operation.
         /// The task result contains the <typeparamref name="TResult" />, or <see langword="null"/>.
         /// </returns>
-        Task<TResult> SingleOrDefaultAsync<TResult>(ISingleResultSpecification<TModel, TResult> specification, CancellationToken cancellationToken = default);
+        Task<TResult?> SingleOrDefaultAsync<TResult>(ISingleResultSpecification<TModel, TResult> specification, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Finds all entities of <typeparamref name="TModel" />, that matches the encapsulated query logic of the

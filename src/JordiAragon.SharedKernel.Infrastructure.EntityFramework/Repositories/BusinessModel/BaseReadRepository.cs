@@ -19,13 +19,13 @@
         {
         }
 
-        public virtual Task<TEntity> GetByIdAsync(TId id, CancellationToken cancellationToken = default)
+        public virtual Task<TEntity?> GetByIdAsync(TId id, CancellationToken cancellationToken = default)
         {
             return this.FirstOrDefaultAsync(new EntityByIdSpec<TEntity, TId>(id), cancellationToken);
         }
 
         [Obsolete("This method is obsolete. Use GetByIdAsync instead.")]
-        public new Task<TEntity> GetByIdAsync<TIdx>(TIdx id, CancellationToken cancellationToken = default)
+        public new Task<TEntity?> GetByIdAsync<TIdx>(TIdx id, CancellationToken cancellationToken = default)
         {
             throw new NotSupportedException("This method is obsolete. Use GetByIdAsync instead.");
         }
