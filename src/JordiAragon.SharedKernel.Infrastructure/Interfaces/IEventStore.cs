@@ -11,7 +11,7 @@
             where TAggregate : class, IEventSourcedAggregateRoot<TId>
             where TId : class, IEntityId;
 
-        Task<TAggregate> LoadAggregateAsync<TAggregate, TId>(TId aggregateId, CancellationToken cancellationToken = default)
+        Task<TAggregate?> LoadAggregateAsync<TAggregate, TId>(TId aggregateId, CancellationToken cancellationToken = default)
             where TAggregate : class, IEventSourcedAggregateRoot<TId>
             where TId : class, IEntityId;
 
