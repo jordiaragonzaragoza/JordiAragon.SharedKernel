@@ -4,10 +4,5 @@
         <name>JordiAragon.SharedKernel.Infrastructure.EntityFramework</name>
     </assembly>
     <members>
-        <member name="T:JordiAragon.SharedKernel.Infrastructure.EntityFramework.Interceptors.AuditableEntitySaveChangesInterceptor">
-            <summary>
-            Its conserved as future reference. Audit is not yet implemented.
-            </summary>
-        </member>
     </members>
 </doc>
