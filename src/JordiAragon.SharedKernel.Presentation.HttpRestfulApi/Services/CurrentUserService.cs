@@ -9,8 +9,8 @@
     {
         public CurrentUserService(IHttpContextAccessor httpContextAccessor)
         {
-            this.UserId = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
-            this.IsAuthenticated = this.UserId != null;
+            this.UserId = httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+            this.IsAuthenticated = !string.IsNullOrEmpty(this.UserId);
         }
 
         public string UserId { get; set; } // Temporal. Only a init is required.

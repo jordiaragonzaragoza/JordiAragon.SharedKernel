@@ -4,6 +4,6 @@
     {
         public const string Section = "EventStore";
 
-        public string ConnectionString { get; set; }
+        public string ConnectionString { get; set; } = default!;
     }
 }

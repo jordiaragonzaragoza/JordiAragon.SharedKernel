@@ -1,5 +1,6 @@
 ﻿namespace JordiAragon.SharedKernel.Application.Behaviours
 {
+    using System;
     using System.Linq;
     using System.Reflection;
     using System.Threading;
@@ -34,8 +35,13 @@
                 if (this.currentUserService.UserId == null)
                 {
                     // Get Ardalis.Result.Unauthorized or Ardalis.Result<T>.Unauthorized method.
-                    var resultUnauthorizedMethod = typeof(TResponse).GetMethod("Unauthorized", BindingFlags.Static | BindingFlags.Public);
-                    return (TResponse)resultUnauthorizedMethod.Invoke(null, null);
+                    var resultUnauthorizedMethod = typeof(TResponse).GetMethod("Unauthorized", BindingFlags.Static | BindingFlags.Public)
+                        ?? throw new InvalidOperationException("The 'Unauthorized' method was not found on type " + typeof(TResponse).FullName);
+
+                    var result = resultUnauthorizedMethod.Invoke(null, null)
+                        ?? throw new InvalidOperationException("The 'Unauthorized' method returned null.");
+
+                    return (TResponse)result;
 
                     ////throw new UnauthorizedAccessException();
                 }
@@ -64,8 +70,13 @@
                     if (!authorized)
                     {
                         // Get Ardalis.Result.Forbidden or Ardalis.Result<T>.Forbidden method.
-                        var resultForbiddenMethod = typeof(TResponse).GetMethod("Forbidden", BindingFlags.Static | BindingFlags.Public);
-                        return (TResponse)resultForbiddenMethod.Invoke(null, null);
+                        var resultForbiddenMethod = typeof(TResponse).GetMethod("Forbidden", BindingFlags.Static | BindingFlags.Public)
+                            ?? throw new InvalidOperationException("The 'Forbidden' method was not found on type " + typeof(TResponse).FullName);
+
+                        var result = resultForbiddenMethod.Invoke(null, null)
+                            ?? throw new InvalidOperationException("The 'Forbidden' method returned null.");
+
+                        return (TResponse)result;
                     }
                 }
 
@@ -80,8 +91,13 @@
                         if (!authorized)
                         {
                             // Get Ardalis.Result.Forbidden or Ardalis.Result<T>.Forbidden method.
-                            var resultForbiddenMethod = typeof(TResponse).GetMethod("Forbidden", BindingFlags.Static | BindingFlags.Public);
-                            return (TResponse)resultForbiddenMethod.Invoke(null, null);
+                            var resultForbiddenMethod = typeof(TResponse).GetMethod("Forbidden", BindingFlags.Static | BindingFlags.Public)
+                            ?? throw new InvalidOperationException("The 'Forbidden' method was not found on type " + typeof(TResponse).FullName);
+
+                            var result = resultForbiddenMethod.Invoke(null, null)
+                            ?? throw new InvalidOperationException("The 'Forbidden' method returned null.");
+
+                            return (TResponse)result;
                         }
                     }
                 }

@@ -4,6 +4,7 @@
 
     public abstract class BaseEventSourcedAggregateRoot<TId, TIdType> : BaseEventSourcedAggregateRoot<TId>
         where TId : BaseAggregateRootId<TIdType>
+        where TIdType : notnull
     {
         protected BaseEventSourcedAggregateRoot(TId id)
             : base(id)

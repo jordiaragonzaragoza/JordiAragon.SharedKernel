@@ -7,7 +7,7 @@
     {
         public OutboxMessagesUnProcessedWithoutErrorSpec()
         {
-            this.Query.Where(outboxMessage => outboxMessage.DateProcessedOnUtc == null && outboxMessage.Error == null);
+            this.Query.Where(outboxMessage => outboxMessage.DateProcessedOnUtc == null && outboxMessage.Error == string.Empty);
         }
     }
 }

@@ -28,7 +28,9 @@
 
         public async Task AddMessageAsync(IEventNotification<IEvent> eventNotification, CancellationToken cancellationToken = default)
         {
-            var type = eventNotification.GetType().FullName;
+            var type = eventNotification.GetType().FullName
+                ?? throw new InvalidOperationException("The full name of the eventNotification is null.");
+
             var data = JsonConvert.SerializeObject(eventNotification); // TODO: Change to System.Text.Json when nested serialization is supported.
 
             var outboxMessage = new OutboxMessage(

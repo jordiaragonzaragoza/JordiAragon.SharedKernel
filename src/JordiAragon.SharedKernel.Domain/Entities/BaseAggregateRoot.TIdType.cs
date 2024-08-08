@@ -5,6 +5,7 @@
 
     public abstract class BaseAggregateRoot<TId, TIdType> : BaseAggregateRoot<TId>
         where TId : BaseAggregateRootId<TIdType>
+        where TIdType : notnull
     {
         protected BaseAggregateRoot(TId id)
             : base(id)
@@ -19,6 +20,6 @@
 
         // TODO: Remove this workaround when EF supports ValueObjects collections.
         // https://github.com/dotnet/efcore/issues/31237
-        public new BaseAggregateRootId<TIdType> Id { get; protected set; }
+        public new BaseAggregateRootId<TIdType> Id { get; protected set; } = default!;
     }
 }

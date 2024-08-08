@@ -8,6 +8,8 @@
     {
         public void Configure(EntityTypeBuilder<Checkpoint> builder)
         {
+            builder.ToTable("__Checkpoints");
+
             builder.HasKey(ckeckpoint => ckeckpoint.Id);
         }
     }

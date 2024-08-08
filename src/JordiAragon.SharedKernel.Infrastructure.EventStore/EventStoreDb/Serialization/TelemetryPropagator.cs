@@ -51,7 +51,7 @@ namespace JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb.Serial
             return propagationContext;
         }
 
-        public static PropagationContext? GetPropagationContext(Activity activity = null)
+        public static PropagationContext? GetPropagationContext(Activity? activity = null)
         {
             var activityContext = (activity ?? Activity.Current)?.Context;
             if (!activityContext.HasValue)

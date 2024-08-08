@@ -4,7 +4,7 @@
     {
         public const string Section = "Cache";
 
-        public string DefaultName { get; set; }
+        public string DefaultName { get; set; } = default!;
 
         public int DefaultExpirationInSeconds { get; set; }
     }

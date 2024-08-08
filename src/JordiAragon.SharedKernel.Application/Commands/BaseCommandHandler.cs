@@ -8,6 +8,7 @@
 
     public abstract class BaseCommandHandler<TCommand, TResponse> : ICommandHandler<TCommand, TResponse>
         where TCommand : ICommand<TResponse>
+        where TResponse : notnull
     {
         private readonly List<IApplicationEvent> applicationEvents = new();
 

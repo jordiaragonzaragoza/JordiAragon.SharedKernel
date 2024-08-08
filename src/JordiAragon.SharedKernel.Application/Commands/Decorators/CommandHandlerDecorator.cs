@@ -17,6 +17,7 @@
     /// <typeparam name="TResponse">The command response from the handler.</typeparam>
     public class CommandHandlerDecorator<TCommand, TResponse> : ICommandHandler<TCommand, TResponse>
         where TCommand : ICommand<TResponse>
+        where TResponse : notnull
     {
         private readonly ICommandHandler<TCommand, TResponse> decorated;
         private readonly IEventsDispatcherService eventsDispatcherService;

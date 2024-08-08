@@ -30,7 +30,7 @@
                 var response = await next();
 
                 // Get Ardalis.Result.IsSuccess or Ardalis.Result<T>.IsSuccess
-                var isSuccessResponse = typeof(TResponse).GetProperty("IsSuccess").GetValue(response, null);
+                var isSuccessResponse = typeof(TResponse).GetProperty("IsSuccess")?.GetValue(response, null) ?? false;
                 if ((bool)isSuccessResponse)
                 {
                     await this.unitOfWork.CommitTransactionAsync();
@@ -53,8 +53,11 @@
                 }
 
                 // Get Ardalis.Result.NotFound or Ardalis.Result<T>.NotFound method.
-                var notFoundMethod = resultType.GetMethod("NotFound", BindingFlags.Public | BindingFlags.Static, null, new[] { typeof(string[]) }, null);
-                var result = notFoundMethod.Invoke(resultType, new[] { new[] { notFoundException.Message } });
+                var notFoundMethod = resultType.GetMethod("NotFound", BindingFlags.Public | BindingFlags.Static, null, new[] { typeof(string[]) }, null)
+                    ?? throw new InvalidOperationException("The 'NotFound' method was not found on type " + typeof(TResponse).FullName);
+
+                var result = notFoundMethod.Invoke(resultType, new[] { new[] { notFoundException.Message } })
+                    ?? throw new InvalidOperationException("The 'NotFound' method returned null.");
 
                 return (TResponse)result;
             }
@@ -73,9 +76,13 @@
                 };
 
                 // Get Ardalis.Result.Invalid(List<ValidationError> validationErrors) or Ardalis.Result<T>.Invalid(List<ValidationError> validationErrors) method.
-                var resultInvalidMethod = typeof(TResponse).GetMethod("Invalid", BindingFlags.Static | BindingFlags.Public, null, new[] { typeof(List<ValidationError>) }, null);
+                var resultInvalidMethod = typeof(TResponse).GetMethod("Invalid", BindingFlags.Static | BindingFlags.Public, null, new[] { typeof(List<ValidationError>) }, null)
+                    ?? throw new InvalidOperationException("The 'Invalid' method was not found on type " + typeof(TResponse).FullName);
 
-                return (TResponse)resultInvalidMethod.Invoke(null, new object[] { errors });
+                var result = resultInvalidMethod.Invoke(null, new object[] { errors })
+                    ?? throw new InvalidOperationException("The 'Invalid' method returned null.");
+
+                return (TResponse)result;
             }
             catch (Exception)
             {

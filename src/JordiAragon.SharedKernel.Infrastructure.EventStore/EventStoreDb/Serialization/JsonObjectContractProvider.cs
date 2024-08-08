@@ -54,7 +54,7 @@
             return a => c.Invoke(a);
         }
 
-        private static ConstructorInfo GetNonDefaultConstructor(Type objectType)
+        private static ConstructorInfo? GetNonDefaultConstructor(Type objectType)
         {
             // Use default contract for non-object types.
             if (objectType.IsPrimitive || objectType.IsEnum)
@@ -66,7 +66,7 @@
                    ?? GetTheMostSpecificConstructor(objectType);
         }
 
-        private static ConstructorInfo GetAttributeConstructor(Type objectType)
+        private static ConstructorInfo? GetAttributeConstructor(Type objectType)
         {
             // Use default contract for non-object types.
             if (objectType.IsPrimitive || objectType.IsEnum)
@@ -86,7 +86,7 @@
             };
         }
 
-        private static ConstructorInfo GetTheMostSpecificConstructor(Type objectType) =>
+        private static ConstructorInfo? GetTheMostSpecificConstructor(Type objectType) =>
             objectType
                 .GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
                 .OrderByDescending(e => e.GetParameters().Length)

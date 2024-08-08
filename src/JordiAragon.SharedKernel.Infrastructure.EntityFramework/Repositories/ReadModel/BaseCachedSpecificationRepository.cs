@@ -5,7 +5,6 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Ardalis.GuardClauses;
-    using Ardalis.Result;
     using Ardalis.Specification;
     using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Contracts.DependencyInjection;
@@ -36,7 +35,6 @@
             var response = await base.AddAsync(entity, cancellationToken);
 
             await this.CacheServiceRemoveByPrefixAsync(cancellationToken);
-
             return response;
         }
 
@@ -45,7 +43,6 @@
             var response = await base.AddRangeAsync(entities, cancellationToken);
 
             await this.CacheServiceRemoveByPrefixAsync(cancellationToken);
-
             return response;
         }
 
@@ -77,29 +74,28 @@
             await this.CacheServiceRemoveByPrefixAsync(cancellationToken);
         }
 
-        public override async Task<TReadModel> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        public override async Task<TReadModel?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
             var cacheKeyId = $"{this.CacheKey}_{id}";
 
-            var cachedResponse = await this.CacheGetAsync<TReadModel>(cacheKeyId, cancellationToken);
-            if (cachedResponse.IsSuccess)
+            var cacheResponse = await this.CacheGetAsync<TReadModel>(cacheKeyId, cancellationToken);
+            if (cacheResponse != null)
             {
-                return cachedResponse;
+                return cacheResponse;
             }
 
             var response = await base.GetByIdAsync(id, cancellationToken);
 
             await this.CacheSetAsync(cacheKeyId, response, cancellationToken);
-
             return response;
         }
 
-        public override async Task<TReadModel> FirstOrDefaultAsync(ISpecification<TReadModel> specification, CancellationToken cancellationToken = default)
+        public override async Task<TReadModel?> FirstOrDefaultAsync(ISpecification<TReadModel> specification, CancellationToken cancellationToken = default)
         {
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
 
             var cachedResponse = await this.CacheGetAsync<TReadModel>(cacheKeySpecification, cancellationToken);
-            if (cachedResponse.IsSuccess)
+            if (cachedResponse != null)
             {
                 return cachedResponse;
             }
@@ -111,27 +107,30 @@
             return response;
         }
 
-        public override async Task<TResult> FirstOrDefaultAsync<TResult>(ISpecification<TReadModel, TResult> specification, CancellationToken cancellationToken = default)
+        public override async Task<TResult?> FirstOrDefaultAsync<TResult>(ISpecification<TReadModel, TResult> specification, CancellationToken cancellationToken = default)
+            where TResult : default
         {
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
-            var cachedResponse = await this.CacheGetResultAsync<TResult>(cacheKeySpecification, cancellationToken);
-            if (cachedResponse.IsSuccess)
+            var cachedResponse = await this.cacheService.GetAsync<TResult>(cacheKeySpecification, cancellationToken);
+            if (!cachedResponse.IsNull && cachedResponse.HasValue)
             {
-                return cachedResponse;
+                this.logger.LogInformation("Fetch data from cache with cacheKey: {cacheKey}", cacheKeySpecification);
+
+                return cachedResponse.Value;
             }
 
             var response = await base.FirstOrDefaultAsync(specification, cancellationToken);
 
-            await this.CacheSetResultAsync(cacheKeySpecification, response, cancellationToken);
+            await this.CacheSetAsync(cacheKeySpecification, response, cancellationToken);
 
             return response;
         }
 
-        public override async Task<TReadModel> SingleOrDefaultAsync(ISingleResultSpecification<TReadModel> specification, CancellationToken cancellationToken = default)
+        public override async Task<TReadModel?> SingleOrDefaultAsync(ISingleResultSpecification<TReadModel> specification, CancellationToken cancellationToken = default)
         {
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
             var cachedResponse = await this.CacheGetAsync<TReadModel>(cacheKeySpecification, cancellationToken);
-            if (cachedResponse.IsSuccess)
+            if (cachedResponse != null)
             {
                 return cachedResponse;
             }
@@ -143,26 +142,30 @@
             return response;
         }
 
-        public override async Task<TResult> SingleOrDefaultAsync<TResult>(ISingleResultSpecification<TReadModel, TResult> specification, CancellationToken cancellationToken = default)
+        public override async Task<TResult?> SingleOrDefaultAsync<TResult>(ISingleResultSpecification<TReadModel, TResult> specification, CancellationToken cancellationToken = default)
+            where TResult : default
         {
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
-            var cachedResponse = await this.CacheGetResultAsync<TResult>(cacheKeySpecification, cancellationToken);
-            if (cachedResponse.IsSuccess)
+
+            var cachedResponse = await this.cacheService.GetAsync<TResult>(cacheKeySpecification, cancellationToken);
+            if (!cachedResponse.IsNull && cachedResponse.HasValue)
             {
-                return cachedResponse;
+                this.logger.LogInformation("Fetch data from cache with cacheKey: {cacheKey}", cacheKeySpecification);
+
+                return cachedResponse.Value;
             }
 
             var response = await base.SingleOrDefaultAsync(specification, cancellationToken);
 
-            await this.CacheSetResultAsync(cacheKeySpecification, response, cancellationToken);
+            await this.CacheSetAsync(cacheKeySpecification, response, cancellationToken);
 
             return response;
         }
 
         public override async Task<List<TReadModel>> ListAsync(CancellationToken cancellationToken = default)
         {
-            var cachedResponse = await this.CacheGetListAsync(this.CacheKey, cancellationToken);
-            if (cachedResponse.IsSuccess)
+            var cachedResponse = await this.CacheGetListAsync<TReadModel>(this.CacheKey, cancellationToken);
+            if (cachedResponse != null)
             {
                 return cachedResponse;
             }
@@ -170,16 +173,14 @@
             var response = await base.ListAsync(cancellationToken);
 
             await this.CacheSetListAsync(this.CacheKey, response, cancellationToken);
-
             return response;
         }
 
         public override async Task<List<TReadModel>> ListAsync(ISpecification<TReadModel> specification, CancellationToken cancellationToken = default)
         {
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
-
-            var cachedResponse = await this.CacheGetListAsync(cacheKeySpecification, cancellationToken);
-            if (cachedResponse.IsSuccess)
+            var cachedResponse = await this.CacheGetListAsync<TReadModel>(cacheKeySpecification, cancellationToken);
+            if (cachedResponse != null)
             {
                 return cachedResponse;
             }
@@ -187,23 +188,21 @@
             var response = await base.ListAsync(specification, cancellationToken);
 
             await this.CacheSetListAsync(cacheKeySpecification, response, cancellationToken);
-
             return response;
         }
 
         public override async Task<List<TResult>> ListAsync<TResult>(ISpecification<TReadModel, TResult> specification, CancellationToken cancellationToken = default)
         {
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
-            var cachedResponse = await this.CacheGetListResultAsync<TResult>(cacheKeySpecification, cancellationToken);
-            if (cachedResponse.IsSuccess)
+            var cachedResponse = await this.CacheGetListAsync<TResult>(cacheKeySpecification, cancellationToken);
+            if (cachedResponse != null)
             {
                 return cachedResponse;
             }
 
             var response = await base.ListAsync(specification, cancellationToken);
 
-            await this.CacheSetListResultAsync(cacheKeySpecification, response, cancellationToken);
-
+            await this.CacheSetListAsync(cacheKeySpecification, response, cancellationToken);
             return response;
         }
 
@@ -211,10 +210,12 @@
         {
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
 
-            var cachedResponse = await this.CacheGetAsync<int>(cacheKeySpecification, cancellationToken);
-            if (cachedResponse.IsSuccess)
+            var cachedResponse = await this.cacheService.GetAsync<int>(cacheKeySpecification, cancellationToken);
+            if (!cachedResponse.IsNull && cachedResponse.HasValue)
             {
-                return cachedResponse;
+                this.logger.LogInformation("Fetch data from cache with cacheKey: {cacheKey}", cacheKeySpecification);
+
+                return cachedResponse.Value;
             }
 
             var response = await base.CountAsync(specification, cancellationToken);
@@ -226,26 +227,29 @@
 
         public override async Task<int> CountAsync(CancellationToken cancellationToken = default)
         {
-            var cachedResponse = await this.CacheGetAsync<int>(this.CacheKey, cancellationToken);
-            if (cachedResponse.IsSuccess)
+            var cachedResponse = await this.cacheService.GetAsync<int>(this.CacheKey, cancellationToken);
+            if (!cachedResponse.IsNull && cachedResponse.HasValue)
             {
-                return cachedResponse;
+                this.logger.LogInformation("Fetch data from cache with cacheKey: {cacheKey}", this.CacheKey);
+
+                return cachedResponse.Value;
             }
 
             var response = await base.CountAsync(cancellationToken);
 
             await this.CacheSetAsync(this.CacheKey, response, cancellationToken);
-
             return response;
         }
 
         public override async Task<bool> AnyAsync(ISpecification<TReadModel> specification, CancellationToken cancellationToken = default)
         {
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
-            var cachedResponse = await this.CacheGetAsync<bool>(cacheKeySpecification, cancellationToken);
-            if (cachedResponse.IsSuccess)
+            var cachedResponse = await this.cacheService.GetAsync<bool>(cacheKeySpecification, cancellationToken);
+            if (!cachedResponse.IsNull && cachedResponse.HasValue)
             {
-                return cachedResponse;
+                this.logger.LogInformation("Fetch data from cache with cacheKey: {cacheKey}", cacheKeySpecification);
+
+                return cachedResponse.Value;
             }
 
             var response = await base.AnyAsync(specification, cancellationToken);
@@ -257,10 +261,12 @@
 
         public override async Task<bool> AnyAsync(CancellationToken cancellationToken = default)
         {
-            var cachedResponse = await this.CacheGetAsync<bool>(this.CacheKey, cancellationToken);
-            if (cachedResponse.IsSuccess)
+            var cachedResponse = await this.cacheService.GetAsync<bool>(this.CacheKey, cancellationToken);
+            if (!cachedResponse.IsNull && cachedResponse.HasValue)
             {
-                return cachedResponse;
+                this.logger.LogInformation("Fetch data from cache with cacheKey: {cacheKey}", this.CacheKey);
+
+                return cachedResponse.Value;
             }
 
             var response = await base.AnyAsync(cancellationToken);
@@ -270,81 +276,44 @@
             return response;
         }
 
-        private async Task<Result<TIn>> CacheGetAsync<TIn>(string cacheKey, CancellationToken cancellationToken)
+        private async Task<T?> CacheGetAsync<T>(string cacheKey, CancellationToken cancellationToken)
+            where T : class
         {
-            var cachedResponse = await this.cacheService.GetAsync<TIn>(cacheKey, cancellationToken);
+            var cachedResponse = await this.cacheService.GetAsync<T>(cacheKey, cancellationToken);
             if (!cachedResponse.IsNull && cachedResponse.HasValue)
             {
                 this.logger.LogInformation("Fetch data from cache with cacheKey: {cacheKey}", cacheKey);
 
-                return Result.Success(cachedResponse.Value);
+                return cachedResponse.Value;
             }
 
-            return Result.NotFound();
+            return default;
         }
 
-        private async Task<Result<List<TReadModel>>> CacheGetListAsync(string cacheKey, CancellationToken cancellationToken)
+        private async Task<List<TIn>?> CacheGetListAsync<TIn>(string cacheKey, CancellationToken cancellationToken)
         {
-            var cachedResponse = await this.cacheService.GetAsync<List<TReadModel>>(cacheKey, cancellationToken);
+            var cachedResponse = await this.cacheService.GetAsync<List<TIn>>(cacheKey, cancellationToken);
             if (!cachedResponse.IsNull && cachedResponse.HasValue)
             {
                 this.logger.LogInformation("Fetch data from cache with cacheKey: {cacheKey}", cacheKey);
 
-                return Result.Success(cachedResponse.Value);
+                return cachedResponse.Value;
             }
 
-            return Result.NotFound();
+            return default;
         }
 
-        private async Task<Result<TResult>> CacheGetResultAsync<TResult>(string cacheKey, CancellationToken cancellationToken)
-        {
-            var cachedResponse = await this.cacheService.GetAsync<TResult>(cacheKey, cancellationToken);
-            if (!cachedResponse.IsNull && cachedResponse.HasValue)
-            {
-                this.logger.LogInformation("Fetch data from cache with cacheKey: {cacheKey}", cacheKey);
-
-                return Result.Success(cachedResponse.Value);
-            }
-
-            return Result.NotFound();
-        }
-
-        private async Task<Result<List<TResult>>> CacheGetListResultAsync<TResult>(string cacheKey, CancellationToken cancellationToken)
-        {
-            var cachedResponse = await this.cacheService.GetAsync<List<TResult>>(cacheKey, cancellationToken);
-            if (!cachedResponse.IsNull && cachedResponse.HasValue)
-            {
-                this.logger.LogInformation("Fetch data from cache with cacheKey: {cacheKey}", cacheKey);
-
-                return Result.Success(cachedResponse.Value);
-            }
-
-            return Result.NotFound();
-        }
-
-        private async Task CacheSetAsync<TIn>(string cacheKey, TIn response, CancellationToken cancellationToken)
+        private async Task CacheSetAsync<TIn>(string cacheKey, TIn? response, CancellationToken cancellationToken)
         {
             await this.cacheService.SetAsync(cacheKey, response, cancellationToken: cancellationToken);
 
             this.logger.LogInformation("Set data to cache with  cacheKey: {cacheKey}", cacheKey);
         }
 
-        private async Task CacheSetListAsync(string cacheKey, List<TReadModel> response, CancellationToken cancellationToken)
+        private async Task CacheSetListAsync<TIn>(string cacheKey, List<TIn> response, CancellationToken cancellationToken)
         {
             await this.cacheService.SetAsync(cacheKey, response, cancellationToken: cancellationToken);
 
-            this.logger.LogInformation("Set data to cache with  cacheKey: {cacheKey}", cacheKey);
-        }
-
-        private async Task CacheSetResultAsync<TResult>(string cacheKey, TResult response, CancellationToken cancellationToken)
-        {
-            await this.cacheService.SetAsync(cacheKey, response, cancellationToken: cancellationToken);
-            this.logger.LogInformation("Set data to cache with  cacheKey: {cacheKey}", cacheKey);
-        }
-
-        private async Task CacheSetListResultAsync<TResult>(string cacheKey, List<TResult> response, CancellationToken cancellationToken)
-        {
-            await this.cacheService.SetAsync(cacheKey, response, cancellationToken: cancellationToken);
             this.logger.LogInformation("Set data to cache with  cacheKey: {cacheKey}", cacheKey);
         }
 

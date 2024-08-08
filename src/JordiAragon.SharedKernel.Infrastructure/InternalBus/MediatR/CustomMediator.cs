@@ -35,7 +35,7 @@
                 {
                     if (!newHandlerExecutors.Exists(n =>
                         n.HandlerInstance.GetType() == handler.HandlerInstance.GetType() &&
-                        FindDecoratedHandler(n.HandlerInstance).GetType() == decoratedHander.GetType()))
+                        FindDecoratedHandler(n.HandlerInstance)?.GetType() == decoratedHander.GetType()))
                     {
                         newHandlerExecutors.Add(handler);
                     }
@@ -52,7 +52,7 @@
             await base.PublishCore(newHandlerExecutors, notification, cancellationToken);
         }
 
-        private static object FindDecoratedHandler(object handlerInstance)
+        private static object? FindDecoratedHandler(object handlerInstance)
         {
             var handlerType = handlerInstance.GetType();
 
@@ -74,11 +74,7 @@
                     var decoratorType = typeof(INotificationHandlerDecorator<>).MakeGenericType(eventType);
 
                     // Get the Decorated property using reflection
-                    var decoratedHandler = decoratorType
-                        .GetProperty("DecoratedHandler")
-                        .GetValue(handlerInstance);
-
-                    return decoratedHandler;
+                    return decoratorType.GetProperty("DecoratedHandler")?.GetValue(handlerInstance);
                 }
             }
 
