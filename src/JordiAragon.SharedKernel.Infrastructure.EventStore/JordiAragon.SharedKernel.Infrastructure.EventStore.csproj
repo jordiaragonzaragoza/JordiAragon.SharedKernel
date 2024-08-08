@@ -8,6 +8,7 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="EventStore.Client.Grpc.Streams" />
+		<PackageReference Include="FluentValidation" />
 		<PackageReference Include="OpenTelemetry" />
 	</ItemGroup>
 	<ItemGroup>

@@ -1,5 +1,6 @@
 ﻿namespace JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb.Serialization
 {
+    using System;
     using System.Text;
     using global::EventStore.Client;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
@@ -13,7 +14,7 @@
             Converters = { new EventStoreDBEventMetadataJsonConverter() },
         };
 
-        public static EventData Serialize(IDomainEvent @event, object metadata = null)
+        public static EventData Serialize(IDomainEvent @event, object? metadata = null)
             => new(
                 eventId: Uuid.FromGuid(@event.Id),
                 type: EventTypeMapper.Instance.ToName(@event.GetType()),
@@ -23,13 +24,10 @@
         public static IDomainEvent Deserialize(ResolvedEvent resolvedEvent)
         {
             var dataType = EventTypeMapper.Instance.ToType(resolvedEvent.Event.EventType);
-            if (dataType == null)
-            {
-                return null;
-            }
 
             var data = Encoding.UTF8.GetString(resolvedEvent.Event.Data.Span);
-            var domainEvent = JsonConvert.DeserializeObject(data, dataType, SerializerSettings);
+            var domainEvent = JsonConvert.DeserializeObject(data, dataType, SerializerSettings)
+                ?? throw new InvalidOperationException($"Deserialization failed for event type '{resolvedEvent.Event.EventType}'.");
 
             return (IDomainEvent)domainEvent;
         }

@@ -20,7 +20,7 @@
             return objectType == typeof(PropagationContext) || objectType == typeof(PropagationContext?);
         }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
             if (value is not PropagationContext propagationContext)
             {
@@ -38,12 +38,12 @@
             propagationContext.Inject(writer, SerializePropagationContext);
         }
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
         {
             var jObject = JObject.Load(reader);
 
             var parentContext = TelemetryPropagator.Extract(
-                new Dictionary<string, string>
+                new Dictionary<string, string?>
                 {
                     { TraceParentPropertyName, jObject[TraceParentPropertyName]?.Value<string>() },
                     { TraceStatePropertyName, jObject[TraceStatePropertyName]?.Value<string>() },
@@ -59,7 +59,7 @@
             writer.WriteValue(value);
         }
 
-        private static IEnumerable<string> ExtractTraceContextFromEventMetadata(Dictionary<string, string> headers, string key)
+        private static IEnumerable<string> ExtractTraceContextFromEventMetadata(Dictionary<string, string?> headers, string key)
         {
             try
             {

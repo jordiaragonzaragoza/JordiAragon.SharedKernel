@@ -30,7 +30,7 @@
         public IEnumerable<IEventsContainer<IEvent>> EventableEntities
             => this.pendingChanges.AsReadOnly();
 
-        public async Task<TAggregate> LoadAggregateAsync<TAggregate, TId>(TId aggregateId, CancellationToken cancellationToken = default)
+        public async Task<TAggregate?> LoadAggregateAsync<TAggregate, TId>(TId aggregateId, CancellationToken cancellationToken = default)
             where TAggregate : class, IEventSourcedAggregateRoot<TId>
             where TId : class, IEntityId
         {
@@ -48,7 +48,7 @@
             }
 
             // If this reflection causes performance issues, use a public constructors on aggregates if its required.
-            var aggregate = (TAggregate)Activator.CreateInstance(typeof(TAggregate), true);
+            var aggregate = Activator.CreateInstance(typeof(TAggregate), true) as TAggregate;
 
             var domainEvents = new List<IDomainEvent>();
             await foreach (var resolvedEvent in readResult)
@@ -57,9 +57,12 @@
                 domainEvents.Add(domainEvent);
             }
 
-            this.logger.LogInformation("Loading events for the aggregate: {Aggregate}", aggregate.ToString());
+            if (aggregate != null)
+            {
+                this.logger.LogInformation("Loading events for the aggregate: {Aggregate}", aggregate.ToString());
 
-            aggregate.Load(domainEvents);
+                aggregate.Load(domainEvents);
+            }
 
             return aggregate;
         }

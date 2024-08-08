@@ -22,7 +22,7 @@
         {
         }
 
-        public virtual Task<TReadModel> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        public virtual Task<TReadModel?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
             return this.GetByIdAsync<Guid>(id, cancellationToken);
         }

@@ -15,7 +15,7 @@
     public abstract class BaseBusinessModelStore : IBusinessModelStore, IDisposable, IScopedDependency
     {
         private readonly BaseBusinessModelContext writeContext;
-        private IDbContextTransaction transaction;
+        private IDbContextTransaction transaction = default!;
 
         protected BaseBusinessModelStore(BaseBusinessModelContext writeContext)
         {
@@ -46,7 +46,7 @@
 
             this.transaction.Commit();
             this.transaction.Dispose();
-            this.transaction = null;
+            this.transaction = null!;
 
             return Task.CompletedTask;
         }
@@ -60,7 +60,7 @@
 
             this.transaction.Rollback();
             this.transaction.Dispose();
-            this.transaction = null;
+            this.transaction = null!;
         }
 
         public void Dispose()
@@ -77,7 +77,7 @@
             }
 
             this.transaction.Dispose();
-            this.transaction = null;
+            this.transaction = null!;
         }
     }
 }

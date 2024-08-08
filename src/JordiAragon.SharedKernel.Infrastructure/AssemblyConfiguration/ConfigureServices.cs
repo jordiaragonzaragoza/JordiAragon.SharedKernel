@@ -1,6 +1,8 @@
 ﻿namespace JordiAragon.SharedKernel.Infrastructure.AssemblyConfiguration
 {
+    using Autofac.Core;
     using EasyCaching.InMemory;
+    using EasyCaching.Redis;
     using JordiAragon.SharedKernel.Infrastructure.Cache;
     using JordiAragon.SharedKernel.Infrastructure.Cache.EasyCaching;
     using Microsoft.Extensions.Configuration;
@@ -53,6 +55,35 @@
                 },
                     cacheOptions.DefaultName);
             });
+
+            /*serviceCollection.AddEasyCaching(option =>
+            {
+                option.UseRedis(
+                    config =>
+                    {
+                        config.DBConfig = new RedisDBOptions
+                        {
+                            // Database
+                            // AsyncTimeout
+                            // SyncTimeout
+                            // KeyPrefix
+                            // ConfigurationOptions
+                        };
+
+                        // the max random second will be added to cache's expiration, default value is 120
+                        config.MaxRdSecond = easyCachingInMemoryOptions.MaxRdSecond;
+
+                        // whether enable logging, default is false
+                        config.EnableLogging = easyCachingInMemoryOptions.EnableLogging;
+
+                        // mutex key's alive time(ms), default is 5000
+                        config.LockMs = easyCachingInMemoryOptions.LockMs;
+
+                        // when mutex key alive, it will sleep some time, default is 300
+                        config.SleepMs = easyCachingInMemoryOptions.SleepMs;
+                    },
+                    cacheOptions.DefaultName);
+            });*/
 
             return serviceCollection;
         }
