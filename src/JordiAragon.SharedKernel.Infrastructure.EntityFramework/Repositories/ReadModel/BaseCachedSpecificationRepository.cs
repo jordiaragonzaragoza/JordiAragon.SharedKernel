@@ -107,8 +107,8 @@
             return response;
         }
 
-        // TODO: Review.
-        /*public override async Task<TResult?> FirstOrDefaultAsync<TResult>(ISpecification<TReadModel, TResult> specification, CancellationToken cancellationToken = default)
+        public override async Task<TResult?> FirstOrDefaultAsync<TResult>(ISpecification<TReadModel, TResult> specification, CancellationToken cancellationToken = default)
+            where TResult : default
         {
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
             var cachedResponse = await this.cacheService.GetAsync<TResult>(cacheKeySpecification, cancellationToken);
@@ -124,7 +124,7 @@
             await this.CacheSetAsync(cacheKeySpecification, response, cancellationToken);
 
             return response;
-        }*/
+        }
 
         public override async Task<TReadModel?> SingleOrDefaultAsync(ISingleResultSpecification<TReadModel> specification, CancellationToken cancellationToken = default)
         {
@@ -142,8 +142,8 @@
             return response;
         }
 
-        // TODO: Review.
-        /*public override async Task<TResult?> SingleOrDefaultAsync<TResult>(ISingleResultSpecification<TReadModel, TResult> specification, CancellationToken cancellationToken = default)
+        public override async Task<TResult?> SingleOrDefaultAsync<TResult>(ISingleResultSpecification<TReadModel, TResult> specification, CancellationToken cancellationToken = default)
+            where TResult : default
         {
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
 
@@ -160,7 +160,7 @@
             await this.CacheSetAsync(cacheKeySpecification, response, cancellationToken);
 
             return response;
-        }*/
+        }
 
         public override async Task<List<TReadModel>> ListAsync(CancellationToken cancellationToken = default)
         {
