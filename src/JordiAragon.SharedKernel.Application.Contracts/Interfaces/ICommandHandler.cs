@@ -6,6 +6,7 @@
 
     public interface ICommandHandler<TCommand, TResponse> : IRequestHandler<TCommand, Result<TResponse>>, IEventsContainer<IApplicationEvent>
         where TCommand : ICommand<TResponse>
+        where TResponse : notnull
     {
     }
 }

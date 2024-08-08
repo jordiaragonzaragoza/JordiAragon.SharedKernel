@@ -41,7 +41,7 @@
             var requestSerialized = JsonSerializer.Serialize(request);
 
             // Get Ardalis.Result.Value or Ardalis.Result<T>.Value property.
-            var responseValue = typeof(TResponse).GetProperty("Value").GetValue(response, null);
+            var responseValue = typeof(TResponse).GetProperty("Value")?.GetValue(response, null);
             var responseSerialized = JsonSerializer.Serialize(responseValue);
 
             var elapsedMilliseconds = this.timer.ElapsedMilliseconds;

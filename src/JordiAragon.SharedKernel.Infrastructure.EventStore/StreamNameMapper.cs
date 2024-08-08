@@ -36,7 +36,7 @@
             return $"{modulePrefix}_{type.Name}";
         });
 
-        public static string ToStreamId<TStream>(object aggregateId, object tenantId = null)
+        public static string ToStreamId<TStream>(object aggregateId, object? tenantId = null)
             => ToStreamId(typeof(TStream), aggregateId, tenantId);
 
         /// <summary>
@@ -47,7 +47,7 @@
         /// <param name="aggregateId">The aggregate Id.</param>
         /// <param name="tenantId">The Tenant Id.</param>
         /// <returns>The Stream Id.</returns>
-        public static string ToStreamId(Type streamType, object aggregateId, object tenantId = null)
+        public static string ToStreamId(Type streamType, object aggregateId, object? tenantId = null)
         {
             var tenantPrefix = tenantId != null ? $"{tenantId}_" : string.Empty;
             var streamCategory = ToStreamPrefix(streamType);

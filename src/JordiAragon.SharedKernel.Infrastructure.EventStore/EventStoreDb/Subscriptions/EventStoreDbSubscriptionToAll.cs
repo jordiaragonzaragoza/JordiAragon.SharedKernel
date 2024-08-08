@@ -28,8 +28,8 @@ namespace JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb.Subscr
         private readonly object resubscribeLock = new();
         private readonly ILifetimeScope lifetimeScope;
 
-        private IServiceScopeFactory serviceScopeFactory;
-        private EventStoreDbSubscriptionToAllOptions subscriptionOptions;
+        private IServiceScopeFactory serviceScopeFactory = default!;
+        private EventStoreDbSubscriptionToAllOptions subscriptionOptions = default!;
         private CancellationToken cancellationToken;
 
         public EventStoreDbSubscriptionToAll(
@@ -128,7 +128,7 @@ namespace JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb.Subscr
             }
         }
 
-        private void HandleDrop(StreamSubscription subscription, SubscriptionDroppedReason reason, Exception exception)
+        private void HandleDrop(StreamSubscription subscription, SubscriptionDroppedReason reason, Exception? exception)
         {
             if (exception is RpcException { StatusCode: StatusCode.Cancelled })
             {
@@ -229,9 +229,9 @@ namespace JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb.Subscr
             var notification = this.lifetimeScope.ResolveOptional(notificationWithGenericType, new List<Parameter>
                 {
                     new NamedParameter("Event", @event),
-                });
+                }) ?? throw new InvalidOperationException($"Failed to resolve event notification for event type '{@event.GetType().Name}'.");
 
-            return notification as IEventNotification<IEvent>;
+            return (IEventNotification<IEvent>)notification;
         }
     }
 }

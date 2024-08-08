@@ -4,10 +4,10 @@
     {
         public const string Section = "MessageBroker:RabbitMQ";
 
-        public string Host { get; init; }
+        public string Host { get; init; } = default!;
 
-        public string Username { get; init; }
+        public string Username { get; init; } = default!;
 
-        public string Password { get; init; }
+        public string Password { get; init; } = default!;
     }
 }

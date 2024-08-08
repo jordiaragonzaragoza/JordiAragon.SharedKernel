@@ -5,6 +5,7 @@
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
 
     public abstract class BaseEntityId<TIdType> : BaseValueObject, IEntityId<TIdType>
+        where TIdType : notnull
     {
         protected BaseEntityId(TIdType value)
         {
@@ -19,7 +20,7 @@
         {
         }
 
-        public TIdType Value { get; init; }
+        public TIdType Value { get; init; } = default!;
 
         public static implicit operator TIdType(BaseEntityId<TIdType> self)
         {
@@ -28,7 +29,8 @@
             return self.Value;
         }
 
-        public override string ToString() => this.Value?.ToString() ?? base.ToString();
+        public override string? ToString()
+            => this.Value.ToString();
 
         protected override IEnumerable<object> GetEqualityComponents()
         {

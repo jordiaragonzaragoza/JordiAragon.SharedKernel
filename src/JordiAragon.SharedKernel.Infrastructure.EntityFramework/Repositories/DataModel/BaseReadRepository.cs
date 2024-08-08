@@ -17,7 +17,7 @@
         {
         }
 
-        public virtual Task<TDataEntity> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        public virtual Task<TDataEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
             return this.GetByIdAsync<Guid>(id, cancellationToken);
         }

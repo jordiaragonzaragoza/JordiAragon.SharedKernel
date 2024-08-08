@@ -9,7 +9,7 @@
         {
             return AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(a => a.GetTypes().Where(x => x.FullName == typeName || x.Name == typeName))
-                .FirstOrDefault();
+                .FirstOrDefault() ?? throw new InvalidOperationException($"No type found with the name '{typeName}' in the current application domain.");
         }
     }
 }

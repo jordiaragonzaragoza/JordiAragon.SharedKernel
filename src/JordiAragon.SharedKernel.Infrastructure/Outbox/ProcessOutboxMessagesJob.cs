@@ -45,11 +45,22 @@
 
             foreach (var outboxMessage in outboxMessages)
             {
-                Type type = this.CurrentAssemblies
-                                .Select(a => a.GetType(outboxMessage.Type))
-                                .FirstOrDefault(t => t != null);
+                Type? type = this.CurrentAssemblies
+                                .Select(assembly => assembly.GetType(outboxMessage.Type))
+                                .FirstOrDefault(type => type != null);
 
-                object messageDeserialized;
+                if (type is null)
+                {
+                    this.logger.LogError(
+                        "Error finding type for Outbox Message. Id: {@Id}  Type: {Type} Content:{Content}",
+                        outboxMessage.Id,
+                        outboxMessage.Type,
+                        outboxMessage.Content);
+
+                    continue;
+                }
+
+                object? messageDeserialized;
                 try
                 {
                     messageDeserialized = JsonSerializer.Deserialize(outboxMessage.Content, type);

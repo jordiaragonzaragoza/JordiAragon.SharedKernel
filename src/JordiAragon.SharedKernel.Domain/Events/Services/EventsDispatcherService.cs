@@ -60,7 +60,7 @@
 
                 if (notification != null)
                 {
-                    eventNotifications.Add(notification as IEventNotification<IEvent>);
+                    eventNotifications.Add((IEventNotification<IEvent>)notification);
                 }
             }
 

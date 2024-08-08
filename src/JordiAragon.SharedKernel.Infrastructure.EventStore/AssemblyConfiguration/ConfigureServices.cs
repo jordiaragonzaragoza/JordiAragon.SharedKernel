@@ -29,7 +29,7 @@
 
         private static IServiceCollection AddEventStoreDBSubscriptionToAll(
             this IServiceCollection serviceCollection,
-            EventStoreDbSubscriptionToAllOptions subscriptionOptions = null)
+            EventStoreDbSubscriptionToAllOptions? subscriptionOptions = null)
         {
             return serviceCollection.AddHostedService(serviceProvider =>
             {

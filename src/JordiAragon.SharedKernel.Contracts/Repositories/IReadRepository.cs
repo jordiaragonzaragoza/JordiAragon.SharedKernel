@@ -24,6 +24,6 @@
         /// A task that represents the asynchronous operation.
         /// The task result contains the <typeparamref name="TModel" />, or <see langword="null"/>.
         /// </returns>
-        Task<TModel> GetByIdAsync(TId id, CancellationToken cancellationToken = default);
+        Task<TModel?> GetByIdAsync(TId id, CancellationToken cancellationToken = default);
     }
 }

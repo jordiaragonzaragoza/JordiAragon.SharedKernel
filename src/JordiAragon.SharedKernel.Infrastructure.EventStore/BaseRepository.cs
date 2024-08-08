@@ -13,14 +13,14 @@
         where TId : class, IEntityId
     {
         private readonly IEventStore eventStore;
-        private TAggregate currentAggregate;
+        private TAggregate? currentAggregate;
 
         protected BaseRepository(IEventStore eventStore)
         {
             this.eventStore = Guard.Against.Null(eventStore, nameof(eventStore));
         }
 
-        public async Task<TAggregate> GetByIdAsync(TId id, CancellationToken cancellationToken = default)
+        public async Task<TAggregate?> GetByIdAsync(TId id, CancellationToken cancellationToken = default)
         {
             Guard.Against.Null(id, nameof(id));
 

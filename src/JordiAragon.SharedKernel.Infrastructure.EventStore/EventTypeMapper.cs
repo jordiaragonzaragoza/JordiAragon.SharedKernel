@@ -38,11 +38,6 @@
         {
             var type = TypeHelper.GetFirstMatchingTypeFromCurrentDomainAssembly(typeName);
 
-            if (type == null)
-            {
-                return null;
-            }
-
             this.typeNameMap.TryAdd(type, typeName);
 
             return type;
