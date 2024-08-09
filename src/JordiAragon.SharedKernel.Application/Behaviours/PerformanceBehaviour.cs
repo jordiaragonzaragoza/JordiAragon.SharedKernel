@@ -15,11 +15,11 @@
         where TResponse : IResult
     {
         private readonly Stopwatch timer;
-        private readonly ILogger<TRequest> logger;
+        private readonly ILogger<PerformanceBehaviour<TRequest, TResponse>> logger;
         private readonly ICurrentUserService currentUserService;
 
         public PerformanceBehaviour(
-            ILogger<TRequest> logger,
+            ILogger<PerformanceBehaviour<TRequest, TResponse>> logger,
             ICurrentUserService currentUserService)
         {
             this.timer = new Stopwatch();

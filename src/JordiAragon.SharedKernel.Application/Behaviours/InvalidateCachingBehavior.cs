@@ -12,12 +12,12 @@
         where TRequest : IInvalidateCacheRequest
         where TResponse : IResult
     {
-        private readonly ILogger<TRequest> logger;
+        private readonly ILogger<InvalidateCachingBehavior<TRequest, TResponse>> logger;
         private readonly ICacheService cacheService;
 
         public InvalidateCachingBehavior(
             ICacheService cacheService,
-            ILogger<TRequest> logger)
+            ILogger<InvalidateCachingBehavior<TRequest, TResponse>> logger)
         {
             this.logger = Guard.Against.Null(logger, nameof(logger));
             this.cacheService = Guard.Against.Null(cacheService, nameof(cacheService));
@@ -27,9 +27,10 @@
         {
             var response = await next();
 
-            await this.cacheService.RemoveByPrefixAsync(request.PrefixCacheKey, cancellationToken);
+            var cacheKey = request.PrefixCacheKey;
+            await this.cacheService.RemoveByPrefixAsync(cacheKey, cancellationToken);
 
-            this.logger.LogInformation("Cache data with cacheKey: {cacheKey} removed.", request.PrefixCacheKey);
+            this.logger.LogInformation("Cache data with cacheKey: {CacheKey} removed.", cacheKey);
 
             return response;
         }

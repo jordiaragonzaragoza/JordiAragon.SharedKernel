@@ -17,12 +17,18 @@
 
         public void Load(IEnumerable<IDomainEvent> history)
         {
-            this.Version = uint.MaxValue;
+            this.Version = 0;
 
             foreach (var @event in history)
             {
                 this.When(@event);
                 this.Version++;
+            }
+
+            // Adjust the version to match the number of events applied. Starting from zero.
+            if (this.Version > 0)
+            {
+                this.Version--;
             }
         }
     }

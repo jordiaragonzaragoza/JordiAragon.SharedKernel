@@ -5,7 +5,6 @@
     using Ardalis.GuardClauses;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
 
-    [Serializable]
     public class BusinessRuleValidationException : Exception
     {
         public BusinessRuleValidationException(IBusinessRule brokenRule)
@@ -14,12 +13,7 @@
             this.BrokenRule = Guard.Against.Null(brokenRule, nameof(brokenRule));
         }
 
-        protected BusinessRuleValidationException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-        }
-
-        public IBusinessRule BrokenRule { get; } = default!;
+        public IBusinessRule BrokenRule { get; }
 
         public override string ToString()
         {

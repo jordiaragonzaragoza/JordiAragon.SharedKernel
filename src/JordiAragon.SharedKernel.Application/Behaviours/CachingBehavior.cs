@@ -13,11 +13,11 @@
         where TResponse : IResult
     {
         private readonly ICacheService cacheService;
-        private readonly ILogger<TRequest> logger;
+        private readonly ILogger<CachingBehavior<TRequest, TResponse>> logger;
 
         public CachingBehavior(
             ICacheService cacheService,
-            ILogger<TRequest> logger)
+            ILogger<CachingBehavior<TRequest, TResponse>> logger)
         {
             this.cacheService = Guard.Against.Null(cacheService, nameof(cacheService));
             this.logger = Guard.Against.Null(logger, nameof(logger));
@@ -29,7 +29,7 @@
             var cachedResponse = await this.cacheService.GetAsync<TResponse>(cacheKey, cancellationToken);
             if (cachedResponse.HasValue && !cachedResponse.IsNull)
             {
-                this.logger.LogInformation("Fetch data from cache with cacheKey: {cacheKey}", cacheKey);
+                this.logger.LogInformation("Fetch data from cache with cacheKey: {CacheKey}", cacheKey);
                 return cachedResponse.Value;
             }
 
@@ -37,7 +37,7 @@
 
             await this.cacheService.SetAsync(cacheKey, response, request.AbsoluteExpirationInSeconds, cancellationToken);
 
-            this.logger.LogInformation("Set data to cache with cacheKey: {cacheKey}", cacheKey);
+            this.logger.LogInformation("Set data to cache with cacheKey: {CacheKey}", cacheKey);
 
             return response;
         }

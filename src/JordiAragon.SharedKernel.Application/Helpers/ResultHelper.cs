@@ -16,7 +16,7 @@
                 case ResultStatus.Unauthorized: return Result<TDestination>.Unauthorized();
                 case ResultStatus.Forbidden: return Result<TDestination>.Forbidden();
                 case ResultStatus.Invalid: return Result<TDestination>.Invalid(result.ValidationErrors);
-                case ResultStatus.Error: return Result<TDestination>.Error(result.Errors.ToArray());
+                case ResultStatus.Error: return Result<TDestination>.Error(new ErrorList(result.Errors));
                 default:
                     throw new NotSupportedException($"Result {result.Status} conversion is not supported.");
             }
@@ -31,7 +31,7 @@
                 case ResultStatus.Unauthorized: return Result.Unauthorized();
                 case ResultStatus.Forbidden: return Result.Forbidden();
                 case ResultStatus.Invalid: return Result.Invalid(result.ValidationErrors);
-                case ResultStatus.Error: return Result.Error(result.Errors.ToArray());
+                case ResultStatus.Error: return Result.Error(new ErrorList(result.Errors));
                 default:
                     throw new NotSupportedException($"Result {result.Status} conversion is not supported.");
             }

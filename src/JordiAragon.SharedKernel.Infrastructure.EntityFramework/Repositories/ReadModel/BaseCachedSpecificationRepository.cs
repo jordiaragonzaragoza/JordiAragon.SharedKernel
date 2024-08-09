@@ -114,7 +114,7 @@
             var cachedResponse = await this.cacheService.GetAsync<TResult>(cacheKeySpecification, cancellationToken);
             if (!cachedResponse.IsNull && cachedResponse.HasValue)
             {
-                this.logger.LogInformation("Fetch data from cache with cacheKey: {cacheKey}", cacheKeySpecification);
+                this.logger.LogInformation("Fetch data from cache with cacheKey: {CacheKeySpecification}", cacheKeySpecification);
 
                 return cachedResponse.Value;
             }
@@ -150,7 +150,7 @@
             var cachedResponse = await this.cacheService.GetAsync<TResult>(cacheKeySpecification, cancellationToken);
             if (!cachedResponse.IsNull && cachedResponse.HasValue)
             {
-                this.logger.LogInformation("Fetch data from cache with cacheKey: {cacheKey}", cacheKeySpecification);
+                this.logger.LogInformation("Fetch data from cache with cacheKey: {CacheKeySpecification}", cacheKeySpecification);
 
                 return cachedResponse.Value;
             }
@@ -213,7 +213,7 @@
             var cachedResponse = await this.cacheService.GetAsync<int>(cacheKeySpecification, cancellationToken);
             if (!cachedResponse.IsNull && cachedResponse.HasValue)
             {
-                this.logger.LogInformation("Fetch data from cache with cacheKey: {cacheKey}", cacheKeySpecification);
+                this.logger.LogInformation("Fetch data from cache with cacheKey: {CacheKeySpecification}", cacheKeySpecification);
 
                 return cachedResponse.Value;
             }
@@ -230,7 +230,7 @@
             var cachedResponse = await this.cacheService.GetAsync<int>(this.CacheKey, cancellationToken);
             if (!cachedResponse.IsNull && cachedResponse.HasValue)
             {
-                this.logger.LogInformation("Fetch data from cache with cacheKey: {cacheKey}", this.CacheKey);
+                this.logger.LogInformation("Fetch data from cache with cacheKey: {CacheKey}", this.CacheKey);
 
                 return cachedResponse.Value;
             }
@@ -247,7 +247,7 @@
             var cachedResponse = await this.cacheService.GetAsync<bool>(cacheKeySpecification, cancellationToken);
             if (!cachedResponse.IsNull && cachedResponse.HasValue)
             {
-                this.logger.LogInformation("Fetch data from cache with cacheKey: {cacheKey}", cacheKeySpecification);
+                this.logger.LogInformation("Fetch data from cache with cacheKey: {CacheKeySpecification}", cacheKeySpecification);
 
                 return cachedResponse.Value;
             }
@@ -264,7 +264,7 @@
             var cachedResponse = await this.cacheService.GetAsync<bool>(this.CacheKey, cancellationToken);
             if (!cachedResponse.IsNull && cachedResponse.HasValue)
             {
-                this.logger.LogInformation("Fetch data from cache with cacheKey: {cacheKey}", this.CacheKey);
+                this.logger.LogInformation("Fetch data from cache with cacheKey: {CacheKey}", this.CacheKey);
 
                 return cachedResponse.Value;
             }
@@ -282,7 +282,7 @@
             var cachedResponse = await this.cacheService.GetAsync<T>(cacheKey, cancellationToken);
             if (!cachedResponse.IsNull && cachedResponse.HasValue)
             {
-                this.logger.LogInformation("Fetch data from cache with cacheKey: {cacheKey}", cacheKey);
+                this.logger.LogInformation("Fetch data from cache with cacheKey: {CacheKey}", cacheKey);
 
                 return cachedResponse.Value;
             }
@@ -295,7 +295,7 @@
             var cachedResponse = await this.cacheService.GetAsync<List<TIn>>(cacheKey, cancellationToken);
             if (!cachedResponse.IsNull && cachedResponse.HasValue)
             {
-                this.logger.LogInformation("Fetch data from cache with cacheKey: {cacheKey}", cacheKey);
+                this.logger.LogInformation("Fetch data from cache with cacheKey: {CacheKey}", cacheKey);
 
                 return cachedResponse.Value;
             }
@@ -307,21 +307,21 @@
         {
             await this.cacheService.SetAsync(cacheKey, response, cancellationToken: cancellationToken);
 
-            this.logger.LogInformation("Set data to cache with  cacheKey: {cacheKey}", cacheKey);
+            this.logger.LogInformation("Set data to cache with  cacheKey: {CacheKey}", cacheKey);
         }
 
         private async Task CacheSetListAsync<TIn>(string cacheKey, List<TIn> response, CancellationToken cancellationToken)
         {
             await this.cacheService.SetAsync(cacheKey, response, cancellationToken: cancellationToken);
 
-            this.logger.LogInformation("Set data to cache with  cacheKey: {cacheKey}", cacheKey);
+            this.logger.LogInformation("Set data to cache with  cacheKey: {CacheKey}", cacheKey);
         }
 
         private async Task CacheServiceRemoveByPrefixAsync(CancellationToken cancellationToken)
         {
             await this.cacheService.RemoveByPrefixAsync(this.CacheKey, cancellationToken);
 
-            this.logger.LogInformation("Cache data with cacheKey: {cacheKey} removed.", this.CacheKey);
+            this.logger.LogInformation("Cache data with cacheKey: {CacheKey} removed.", this.CacheKey);
         }
     }
 }

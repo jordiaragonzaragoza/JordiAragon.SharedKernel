@@ -13,11 +13,11 @@
         where TRequest : IRequest<TResponse>
         where TResponse : IResult
     {
-        private readonly ILogger<TRequest> logger;
+        private readonly ILogger<ExceptionHandlerBehaviour<TRequest, TResponse>> logger;
         private readonly ICurrentUserService currentUserService;
 
         public ExceptionHandlerBehaviour(
-            ILogger<TRequest> logger,
+            ILogger<ExceptionHandlerBehaviour<TRequest, TResponse>> logger,
             ICurrentUserService currentUserService)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));

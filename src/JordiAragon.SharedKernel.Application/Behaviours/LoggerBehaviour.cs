@@ -15,11 +15,11 @@
     public class LoggerBehaviour<TRequest> : IRequestPreProcessor<TRequest>
         where TRequest : notnull
     {
-        private readonly ILogger<TRequest> logger;
+        private readonly ILogger<LoggerBehaviour<TRequest>> logger;
         private readonly ICurrentUserService currentUserService;
 
         public LoggerBehaviour(
-            ILogger<TRequest> logger,
+            ILogger<LoggerBehaviour<TRequest>> logger,
             ICurrentUserService currentUserService)
         {
             this.logger = Guard.Against.Null(logger, nameof(logger));

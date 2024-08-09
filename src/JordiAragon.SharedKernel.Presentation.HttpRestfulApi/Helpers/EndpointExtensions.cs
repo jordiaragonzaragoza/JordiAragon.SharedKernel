@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Net;
     using System.Threading;
     using System.Threading.Tasks;
@@ -56,9 +57,9 @@
             }
         }
 
-        private static void PrepareValidationFailures(IEndpoint endpoint, List<ValidationError> validationErrors)
+        private static void PrepareValidationFailures(IEndpoint endpoint, IEnumerable<ValidationError> validationErrors)
         {
-            validationErrors.ForEach(e =>
+            validationErrors.ToList().ForEach(e =>
                                     endpoint.ValidationFailures.Add(new ValidationFailure(e.Identifier, e.ErrorMessage) { ErrorCode = e.ErrorCode, Severity = FromSeverity(e.Severity) }));
         }
 
