@@ -3,6 +3,7 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+    using Ardalis.GuardClauses;
     using global::MassTransit;
     using JordiAragon.SharedKernel.Application.Contracts.IntegrationMessages.Interfaces;
     using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
@@ -32,6 +33,8 @@
         public async Task PublishEventAsync<T>(T @event, CancellationToken cancellationToken = default)
             where T : class, IIntegrationEvent
         {
+            Guard.Against.Null(@event, nameof(@event));
+
             @event.DatePublishedOnUtc = this.dateTime.UtcNow;
 
             await this.publishEndPoint.Publish(@event, cancellationToken);
@@ -42,6 +45,8 @@
         public async Task SendCommandAsync<T>(T command, Uri endpointAddress, CancellationToken cancellationToken = default)
             where T : class, IIntegrationCommand
         {
+            Guard.Against.Null(command, nameof(command));
+
             var endpoint = await this.sendEndpointProvider.GetSendEndpoint(endpointAddress);
 
             command.DatePublishedOnUtc = this.dateTime.UtcNow;

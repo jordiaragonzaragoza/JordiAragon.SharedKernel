@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Ardalis.GuardClauses;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
     using OpenTelemetry.Context.Propagation;
@@ -22,6 +23,8 @@
 
         public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
+            Guard.Against.Null(writer, nameof(writer));
+
             if (value is not PropagationContext propagationContext)
             {
                 writer.WriteNull();

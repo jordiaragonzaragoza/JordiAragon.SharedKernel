@@ -7,6 +7,7 @@
     using System.Text.Json;
     using System.Threading;
     using System.Threading.Tasks;
+    using Ardalis.GuardClauses;
     using Ardalis.Result;
     using FluentValidation;
     using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
@@ -34,6 +35,8 @@
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
+            Guard.Against.Null(next, nameof(next));
+
             if (this.validators.Any())
             {
                 var context = new ValidationContext<TRequest>(request);
@@ -55,7 +58,7 @@
                     var errors = failures.AsErrors();
                     var errorsSerialized = JsonSerializer.Serialize(errors);
 
-                    this.logger.LogInformation("Bad Request: {RequestName} User ID: {@UserId} Request Data: {RequestSerialized} Validation Errors: {errorsSerialized}", requestName, userId, requestSerialized, errorsSerialized);
+                    this.logger.LogInformation("Bad Request: {RequestName} User ID: {@UserId} Request Data: {RequestSerialized} Validation Errors: {ErrorsSerialized}", requestName, userId, requestSerialized, errorsSerialized);
 
                     // Get Ardalis.Result.Invalid(List<ValidationError> validationErrors) or Ardalis.Result<T>.Invalid(List<ValidationError> validationErrors) method.
                     var resultInvalidMethod = typeof(TResponse).GetMethod("Invalid", BindingFlags.Static | BindingFlags.Public, null, new[] { typeof(List<ValidationError>) }, null)

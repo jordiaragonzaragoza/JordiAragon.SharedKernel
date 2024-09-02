@@ -2,6 +2,7 @@
 {
     using System;
     using System.Text;
+    using Ardalis.GuardClauses;
     using global::EventStore.Client;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using Newtonsoft.Json;
@@ -15,11 +16,15 @@
         };
 
         public static EventData Serialize(IDomainEvent @event, object? metadata = null)
-            => new(
+        {
+            Guard.Against.Null(@event);
+
+            return new EventData(
                 eventId: Uuid.FromGuid(@event.Id),
                 type: EventTypeMapper.Instance.ToName(@event.GetType()),
                 data: Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(@event, SerializerSettings)),
                 metadata: Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(metadata ?? new { }, SerializerSettings)));
+        }
 
         public static IDomainEvent Deserialize(ResolvedEvent resolvedEvent)
         {

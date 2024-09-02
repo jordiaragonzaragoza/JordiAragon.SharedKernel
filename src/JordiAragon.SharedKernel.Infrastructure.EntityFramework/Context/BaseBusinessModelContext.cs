@@ -1,5 +1,6 @@
 ﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework.Context
 {
+    using System.Reflection.Emit;
     using Ardalis.GuardClauses;
     using JordiAragon.SharedKernel.Infrastructure.EntityFramework.Configuration;
     using JordiAragon.SharedKernel.Infrastructure.EntityFramework.Interceptors;
@@ -29,6 +30,8 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            Guard.Against.Null(modelBuilder, nameof(modelBuilder));
+
             modelBuilder.ApplyConfiguration(new OutboxMessageConfiguration());
             modelBuilder.ApplyConfiguration(new IdempotentConsumerConfiguration());
 
@@ -37,6 +40,8 @@
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            Guard.Against.Null(optionsBuilder, nameof(optionsBuilder));
+
             optionsBuilder.AddInterceptors(this.softDeleteEntitySaveChangesInterceptor);
 
             base.OnConfiguring(optionsBuilder);

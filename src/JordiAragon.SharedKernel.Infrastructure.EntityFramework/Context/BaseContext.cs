@@ -23,6 +23,8 @@
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            Guard.Against.Null(optionsBuilder, nameof(optionsBuilder));
+
             optionsBuilder
                 .UseLoggerFactory(this.loggerFactory)
                 .EnableSensitiveDataLogging(this.hostEnvironment.EnvironmentName == "Development")

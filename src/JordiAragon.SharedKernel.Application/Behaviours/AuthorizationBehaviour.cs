@@ -5,6 +5,7 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using Ardalis.GuardClauses;
     using Ardalis.Result;
     using JordiAragon.SharedKernel.Application.Attributes;
     using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
@@ -27,7 +28,9 @@
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
-            var authorizeAttributes = request.GetType().GetCustomAttributes<AuthorizeAttribute>();
+            Guard.Against.Null(next, nameof(next));
+
+            var authorizeAttributes = request.GetType().GetCustomAttributes<AuthorizeAttribute>().ToList();
 
             if (authorizeAttributes.Any())
             {
@@ -47,7 +50,7 @@
                 }
 
                 // Role-based authorization
-                var authorizeAttributesWithRoles = authorizeAttributes.Where(a => !string.IsNullOrWhiteSpace(a.Roles));
+                var authorizeAttributesWithRoles = authorizeAttributes.Where(a => !string.IsNullOrWhiteSpace(a.Roles)).ToList();
 
                 if (authorizeAttributesWithRoles.Any())
                 {
@@ -81,7 +84,7 @@
                 }
 
                 // Policy-based authorization
-                var authorizeAttributesWithPolicies = authorizeAttributes.Where(a => !string.IsNullOrWhiteSpace(a.Policy));
+                var authorizeAttributesWithPolicies = authorizeAttributes.Where(a => !string.IsNullOrWhiteSpace(a.Policy)).ToList();
                 if (authorizeAttributesWithPolicies.Any())
                 {
                     foreach (var policy in authorizeAttributesWithPolicies.Select(a => a.Policy))

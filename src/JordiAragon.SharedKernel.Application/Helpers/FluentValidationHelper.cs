@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Ardalis.GuardClauses;
     using Ardalis.Result;
     using Ardalis.Result.FluentValidation;
     using FluentValidation;
@@ -11,6 +12,8 @@
     {
         public static List<ValidationError> AsErrors(this List<ValidationFailure> valResult)
         {
+            Guard.Against.Null(valResult, nameof(valResult));
+
             var resultErrors = new List<ValidationError>();
 
             foreach (var valFailure in valResult)

@@ -8,8 +8,22 @@
     [Serializable]
     public class BusinessRuleValidationException : Exception
     {
+        public BusinessRuleValidationException()
+        {
+        }
+
+        public BusinessRuleValidationException(string message)
+            : base(message)
+        {
+        }
+
+        public BusinessRuleValidationException(string message, Exception innerException)
+            : base(message, innerException)
+        {
+        }
+
         public BusinessRuleValidationException(IBusinessRule brokenRule)
-            : base(brokenRule.Message)
+            : base(brokenRule?.Message)
         {
             this.BrokenRule = Guard.Against.Null(brokenRule, nameof(brokenRule));
         }

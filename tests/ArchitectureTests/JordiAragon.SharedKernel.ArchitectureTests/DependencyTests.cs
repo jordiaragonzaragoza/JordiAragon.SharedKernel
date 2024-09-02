@@ -18,18 +18,18 @@
 
     public class DependencyTests
     {
-        private readonly string sharedKernelNamespace = SharedKernelAssemblyReference.Assembly.GetName().Name;
-        private readonly string sharedKernelContractsNamespace = SharedKernelContractsAssemblyReference.Assembly.GetName().Name;
-        private readonly string domainNamespace = DomainAssemblyReference.Assembly.GetName().Name;
-        private readonly string domainContractsNamespace = DomainContractsAssemblyReference.Assembly.GetName().Name;
-        private readonly string applicationNamespace = ApplicationAssemblyReference.Assembly.GetName().Name;
-        private readonly string applicationContractsNamespace = ApplicationContractsAssemblyReference.Assembly.GetName().Name;
-        private readonly string applicationContractsIntegrationMessagesNamespace = ApplicationContractsIntegrationMessagesAssemblyReference.Assembly.GetName().Name;
-        private readonly string infrastructureNamespace = InfrastructureAssemblyReference.Assembly.GetName().Name;
-        private readonly string infrastructureEntityFrameworkNamespace = InfrastructureEntityFrameworkAssemblyReference.Assembly.GetName().Name;
-        private readonly string infrastructureEventStoreNamespace = InfrastructureEventStoreAssemblyReference.Assembly.GetName().Name;
-        private readonly string httpRestfulApiNamespace = HttpRestfulApiAssemblyReference.Assembly.GetName().Name;
-        private readonly string httpRestfulApiContractsNamespace = HttpRestfulApiContractsAssemblyReference.Assembly.GetName().Name;
+        private readonly string sharedKernelNamespace = SharedKernelAssemblyReference.Assembly.GetName().Name!;
+        private readonly string sharedKernelContractsNamespace = SharedKernelContractsAssemblyReference.Assembly.GetName().Name!;
+        private readonly string domainNamespace = DomainAssemblyReference.Assembly.GetName().Name!;
+        private readonly string domainContractsNamespace = DomainContractsAssemblyReference.Assembly.GetName().Name!;
+        private readonly string applicationNamespace = ApplicationAssemblyReference.Assembly.GetName().Name!;
+        private readonly string applicationContractsNamespace = ApplicationContractsAssemblyReference.Assembly.GetName().Name!;
+        private readonly string applicationContractsIntegrationMessagesNamespace = ApplicationContractsIntegrationMessagesAssemblyReference.Assembly.GetName().Name!;
+        private readonly string infrastructureNamespace = InfrastructureAssemblyReference.Assembly.GetName().Name!;
+        private readonly string infrastructureEntityFrameworkNamespace = InfrastructureEntityFrameworkAssemblyReference.Assembly.GetName().Name!;
+        private readonly string infrastructureEventStoreNamespace = InfrastructureEventStoreAssemblyReference.Assembly.GetName().Name!;
+        private readonly string httpRestfulApiNamespace = HttpRestfulApiAssemblyReference.Assembly.GetName().Name!;
+        private readonly string httpRestfulApiContractsNamespace = HttpRestfulApiContractsAssemblyReference.Assembly.GetName().Name!;
         private readonly string[] allProjects;
 
         public DependencyTests()

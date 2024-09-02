@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Net;
     using System.Text;
+    using Ardalis.GuardClauses;
     using FluentValidation.Results;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,8 @@
     {
         public static object BuildResponse(List<ValidationFailure> failures, HttpContext context, int statusCode)
         {
+            Guard.Against.Null(context, nameof(context));
+
             switch (statusCode)
             {
                 case (int)HttpStatusCode.UnprocessableEntity:
