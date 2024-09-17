@@ -1,5 +1,6 @@
 ﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework.Context
 {
+    using System;
     using Ardalis.GuardClauses;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Hosting;
@@ -10,6 +11,7 @@
     {
         private readonly ILoggerFactory loggerFactory;
         private readonly IHostEnvironment hostEnvironment;
+        private bool disposed;
 
         protected BaseContext(
             DbContextOptions options,
@@ -19,6 +21,20 @@
         {
             this.loggerFactory = Guard.Against.Null(loggerFactory, nameof(loggerFactory));
             this.hostEnvironment = Guard.Against.Null(hostEnvironment, nameof(hostEnvironment));
+        }
+
+        public override void Dispose()
+        {
+            if (!this.disposed)
+            {
+                this.loggerFactory?.Dispose();
+
+                this.disposed = true;
+
+                GC.SuppressFinalize(this);
+            }
+
+            base.Dispose();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

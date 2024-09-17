@@ -11,7 +11,7 @@
 
     public static class ResponseBuilderHelper
     {
-        public static object BuildResponse(List<ValidationFailure> failures, HttpContext context, int statusCode)
+        public static object BuildResponse(IReadOnlyCollection<ValidationFailure> failures, HttpContext context, int statusCode)
         {
             Guard.Against.Null(context, nameof(context));
 
@@ -31,7 +31,7 @@
             }
         }
 
-        private static object Invalid(List<ValidationFailure> failures, HttpContext context, int statusCode)
+        private static object Invalid(IReadOnlyCollection<ValidationFailure> failures, HttpContext context, int statusCode)
         {
             return new ValidationProblemDetails(
                 failures.GroupBy(f => f.PropertyName)
@@ -47,7 +47,7 @@
             };
         }
 
-        private static object Conflict(List<ValidationFailure> failures, HttpContext context, int statusCode)
+        private static object Conflict(IReadOnlyCollection<ValidationFailure> failures, HttpContext context, int statusCode)
         {
             return new ProblemDetails
             {
@@ -60,7 +60,7 @@
             };
         }
 
-        private static object UnprocessableEntity(List<ValidationFailure> failures, HttpContext context, int statusCode)
+        private static object UnprocessableEntity(IReadOnlyCollection<ValidationFailure> failures, HttpContext context, int statusCode)
         {
             return new ProblemDetails
             {
@@ -73,7 +73,7 @@
             };
         }
 
-        private static object NotFound(List<ValidationFailure> failures, HttpContext context, int statusCode)
+        private static object NotFound(IReadOnlyCollection<ValidationFailure> failures, HttpContext context, int statusCode)
         {
             return new ProblemDetails()
             {
@@ -86,7 +86,7 @@
             };
         }
 
-        private static string PrepareDetails(List<ValidationFailure> failures)
+        private static string PrepareDetails(IReadOnlyCollection<ValidationFailure> failures)
         {
             var details = new StringBuilder("Next error(s) occured:");
 

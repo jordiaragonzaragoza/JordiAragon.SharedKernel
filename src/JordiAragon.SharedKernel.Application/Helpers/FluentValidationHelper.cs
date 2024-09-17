@@ -10,7 +10,7 @@
 
     public static class FluentValidationHelper
     {
-        public static List<ValidationError> AsErrors(this List<ValidationFailure> valResult)
+        public static IReadOnlyCollection<ValidationError> AsErrors(this List<ValidationFailure> valResult)
         {
             Guard.Against.Null(valResult, nameof(valResult));
 

@@ -62,6 +62,7 @@
             writer.WriteValue(value);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Temporal suppresion.")]
         private static IEnumerable<string> ExtractTraceContextFromEventMetadata(Dictionary<string, string?> headers, string key)
         {
             try
