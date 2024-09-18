@@ -4,9 +4,10 @@
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
-    using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
+    using Ardalis.GuardClauses;
     using global::MediatR;
     using global::MediatR.NotificationPublishers;
+    using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
 
     /// <summary>
     /// This class is required due to an issue with Autofac, Decorators and .NET DI.
@@ -27,6 +28,8 @@
             INotification notification,
             CancellationToken cancellationToken)
         {
+            Guard.Against.Null(handlerExecutors, nameof(handlerExecutors));
+
             var newHandlerExecutors = new List<NotificationHandlerExecutor>();
             foreach (var handler in handlerExecutors)
             {

@@ -21,11 +21,13 @@
         }
 
         private static IServiceCollection AddEventStoreDB(this IServiceCollection serviceCollection, EventStoreDbOptions eventStoreDBConfig)
+#pragma warning disable CA2000 // Dispose objects before losing scope
             => serviceCollection
                 .AddSingleton(EventTypeMapper.Instance) // TODO: Register with autofac.
                 .AddSingleton(new EventStoreClient(EventStoreClientSettings.Create(eventStoreDBConfig.ConnectionString)))
                 .AddTransient<EventStoreDbSubscriptionToAll, EventStoreDbSubscriptionToAll>()
                 .AddSingleton(new CancellationTokenSource());
+#pragma warning restore CA2000 // Dispose objects before losing scope
 
         private static IServiceCollection AddEventStoreDBSubscriptionToAll(
             this IServiceCollection serviceCollection,

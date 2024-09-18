@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using Ardalis.GuardClauses;
     using JordiAragon.SharedKernel.Contracts.DependencyInjection;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Domain.Exceptions;
@@ -11,6 +12,7 @@
     // See: https://enterprisecraftsmanship.com/posts/value-object-better-implementation/
     [Serializable]
     [SuppressMessage("Minor Code Smell", "S1210:\"Equals\" and the comparison operators should be overridden when implementing \"IComparable\"", Justification = "Ok for BaseValueObject.")]
+    [SuppressMessage("Design", "CA1036:Override methods on comparable types", Justification = "Ok for BaseValueObject.")]
     public abstract class BaseValueObject : IComparable, IComparable<BaseValueObject>, IIgnoreDependency
     {
         private int? cachedHashCode;
@@ -117,7 +119,8 @@
             var type = obj.GetType();
             var typeString = type.ToString();
 
-            if (typeString.Contains(EFCoreProxyPrefix) || typeString.EndsWith(NHibernateProxyPostfix))
+            if (typeString.Contains(EFCoreProxyPrefix, StringComparison.InvariantCulture)
+                || typeString.EndsWith(NHibernateProxyPostfix, StringComparison.InvariantCulture))
             {
                 return type.BaseType!;
             }
@@ -127,6 +130,8 @@
 
         protected static void CheckRule(IBusinessRule rule)
         {
+            Guard.Against.Null(rule, nameof(rule));
+
             if (rule.IsBroken())
             {
                 throw new BusinessRuleValidationException(rule);

@@ -2,11 +2,14 @@
 {
     using System;
     using System.Linq;
+    using Ardalis.GuardClauses;
 
     public static class ConcurrencyVersionHelper
     {
         public static void IncrementByteVersion(byte[] version)
         {
+            Guard.Against.Null(version, nameof(version));
+
             for (int i = version.Length - 1; i >= 0; i--)
             {
                 // Increment the current byte and check for overflow
@@ -30,6 +33,8 @@
 
         public static long ByteArrayToLong(byte[] version)
         {
+            Guard.Against.Null(version, nameof(version));
+
             // Make a copy of the array to avoid modifying the original
             byte[] copy = (byte[])version.Clone();
 

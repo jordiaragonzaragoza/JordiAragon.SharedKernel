@@ -2,11 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Reflection;
     using System.Text.Json;
     using System.Threading;
     using System.Threading.Tasks;
+    using Ardalis.GuardClauses;
     using JordiAragon.SharedKernel.Contracts.Events;
     using JordiAragon.SharedKernel.Contracts.Repositories;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
@@ -27,16 +29,19 @@
             ILogger<ProcessOutboxMessagesJob> logger,
             ICachedSpecificationRepository<OutboxMessage, Guid> repositoryOutboxMessages)
         {
-            this.dateTime = dateTime ?? throw new ArgumentNullException(nameof(dateTime));
-            this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            this.repositoryOutboxMessages = repositoryOutboxMessages ?? throw new ArgumentNullException(nameof(repositoryOutboxMessages));
+            this.dateTime = Guard.Against.Null(dateTime, nameof(dateTime));
+            this.eventBus = Guard.Against.Null(eventBus, nameof(eventBus));
+            this.logger = Guard.Against.Null(logger, nameof(logger));
+            this.repositoryOutboxMessages = Guard.Against.Null(repositoryOutboxMessages, nameof(repositoryOutboxMessages));
         }
 
         protected abstract IEnumerable<Assembly> CurrentAssemblies { get; }
 
+        [SuppressMessage("Design", "CA1031: Do not catch general exception types", Justification = "Ok for this method.")]
         public async Task Execute(IJobExecutionContext context)
         {
+            Guard.Against.Null(context, nameof(context));
+
             var outboxMessages = await this.repositoryOutboxMessages.ListAsync(new OutboxMessagesUnProcessedWithoutErrorSpec(), context.CancellationToken);
             if (!outboxMessages.Any())
             {
@@ -97,6 +102,7 @@
             await this.repositoryOutboxMessages.UpdateRangeAsync(outboxMessages, context.CancellationToken);
         }
 
+        [SuppressMessage("Design", "CA1031: Do not catch general exception types", Justification = "Ok handling any exception from event handlers")]
         private async Task PublishAsync(OutboxMessage outboxMessage, IEventNotification eventNotification, CancellationToken cancellationToken = default)
         {
             try
