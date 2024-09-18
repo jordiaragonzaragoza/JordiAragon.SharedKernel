@@ -46,11 +46,11 @@
                         validator.ValidateAsync(context, cancellationToken)));
 
                 var failures = validationResults
-                    .Where(validationResult => validationResult.Errors.Any())
+                    .Where(validationResult => validationResult.Errors.Count > 0)
                     .SelectMany(validationResult => validationResult.Errors)
                     .ToList();
 
-                if (failures.Any())
+                if (failures.Count > 0)
                 {
                     var requestName = typeof(TRequest).Name;
                     var userId = this.currentUserService.UserId ?? string.Empty;
