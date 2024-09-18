@@ -100,7 +100,7 @@
                 .GroupBy(x => x.Identifier, x => x.ErrorMessage)
                 .ToDictionary(g => g.Key, g => g.ToArray());
 
-            if (errors.Any())
+            if (errors.Count > 0)
             {
                 details.Append("Next validation error(s) occured: ");
 
