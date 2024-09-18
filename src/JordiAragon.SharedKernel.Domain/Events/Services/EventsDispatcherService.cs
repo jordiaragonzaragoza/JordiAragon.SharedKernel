@@ -47,7 +47,7 @@
             await this.StoreEventNotificationsAsync(eventNotifications, cancellationToken);
         }
 
-        private IEnumerable<IEventNotification<IEvent>> CreateEventNotifications(IEnumerable<IEvent> events)
+        private List<IEventNotification<IEvent>> CreateEventNotifications(IEnumerable<IEvent> events)
         {
             var eventNotifications = new List<IEventNotification<IEvent>>();
             foreach (var @event in events)
