@@ -125,7 +125,7 @@
             }
         }
 
-        private static ActionResult Unauthorized(ControllerBase controller)
+        private static UnauthorizedObjectResult Unauthorized(ControllerBase controller)
         {
             var problemDetails = new ProblemDetails
             {
@@ -137,7 +137,7 @@
             return controller.Unauthorized(problemDetails);
         }
 
-        private static ActionResult BadRequest(ControllerBase controller, IResult result)
+        private static BadRequestObjectResult BadRequest(ControllerBase controller, IResult result)
         {
             var errors = result.ValidationErrors
                 .GroupBy(x => x.Identifier, x => x.ErrorMessage)
@@ -152,7 +152,7 @@
             });
         }
 
-        private static ActionResult UnprocessableEntity(ControllerBase controller, IResult result)
+        private static UnprocessableEntityObjectResult UnprocessableEntity(ControllerBase controller, IResult result)
         {
             var details = new StringBuilder("Next error(s) occured: ");
 
@@ -170,7 +170,7 @@
             });
         }
 
-        private static ActionResult NotFoundEntity(ControllerBase controller, IResult result)
+        private static NotFoundObjectResult NotFoundEntity(ControllerBase controller, IResult result)
         {
             var problemDetails = new ProblemDetails
             {
@@ -196,7 +196,7 @@
             return controller.NotFound(problemDetails);
         }
 
-        private static ActionResult Forbidden(ControllerBase controller)
+        private static ForbidResult Forbidden(ControllerBase controller)
         {
             return controller.Forbid();
         }

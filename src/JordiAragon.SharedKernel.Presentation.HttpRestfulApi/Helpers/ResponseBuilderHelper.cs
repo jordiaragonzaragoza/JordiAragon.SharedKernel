@@ -13,6 +13,7 @@
     {
         public static object BuildResponse(IReadOnlyCollection<ValidationFailure> failures, HttpContext context, int statusCode)
         {
+            Guard.Against.Null(failures, nameof(failures));
             Guard.Against.Null(context, nameof(context));
 
             switch (statusCode)
@@ -31,7 +32,7 @@
             }
         }
 
-        private static object Invalid(IReadOnlyCollection<ValidationFailure> failures, HttpContext context, int statusCode)
+        private static ValidationProblemDetails Invalid(IReadOnlyCollection<ValidationFailure> failures, HttpContext context, int statusCode)
         {
             return new ValidationProblemDetails(
                 failures.GroupBy(f => f.PropertyName)
@@ -47,7 +48,7 @@
             };
         }
 
-        private static object Conflict(IReadOnlyCollection<ValidationFailure> failures, HttpContext context, int statusCode)
+        private static ProblemDetails Conflict(IReadOnlyCollection<ValidationFailure> failures, HttpContext context, int statusCode)
         {
             return new ProblemDetails
             {
@@ -56,11 +57,11 @@
                 Status = statusCode,
                 Instance = context.Request.Path,
                 Extensions = { { "traceId", context.TraceIdentifier } },
-                Detail = failures.Any() ? PrepareDetails(failures) : null,
+                Detail = failures.Count > 0 ? PrepareDetails(failures) : null,
             };
         }
 
-        private static object UnprocessableEntity(IReadOnlyCollection<ValidationFailure> failures, HttpContext context, int statusCode)
+        private static ProblemDetails UnprocessableEntity(IReadOnlyCollection<ValidationFailure> failures, HttpContext context, int statusCode)
         {
             return new ProblemDetails
             {
@@ -69,11 +70,11 @@
                 Status = statusCode,
                 Instance = context.Request.Path,
                 Extensions = { { "traceId", context.TraceIdentifier } },
-                Detail = failures.Any() ? PrepareDetails(failures) : null,
+                Detail = failures.Count > 0 ? PrepareDetails(failures) : null,
             };
         }
 
-        private static object NotFound(IReadOnlyCollection<ValidationFailure> failures, HttpContext context, int statusCode)
+        private static ProblemDetails NotFound(IReadOnlyCollection<ValidationFailure> failures, HttpContext context, int statusCode)
         {
             return new ProblemDetails()
             {
@@ -82,7 +83,7 @@
                 Status = statusCode,
                 Instance = context.Request.Path,
                 Extensions = { { "traceId", context.TraceIdentifier } },
-                Detail = failures.Any() ? PrepareDetails(failures) : null,
+                Detail = failures.Count > 0 ? PrepareDetails(failures) : null,
             };
         }
 
