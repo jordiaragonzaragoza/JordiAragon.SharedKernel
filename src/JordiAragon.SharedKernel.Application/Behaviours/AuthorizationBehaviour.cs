@@ -32,7 +32,7 @@
 
             var authorizeAttributes = request.GetType().GetCustomAttributes<AuthorizeAttribute>().ToList();
 
-            if (authorizeAttributes.Any())
+            if (authorizeAttributes.Count > 0)
             {
                 // Must be authenticated user
                 if (this.currentUserService.UserId == null)
@@ -52,7 +52,7 @@
                 // Role-based authorization
                 var authorizeAttributesWithRoles = authorizeAttributes.Where(a => !string.IsNullOrWhiteSpace(a.Roles)).ToList();
 
-                if (authorizeAttributesWithRoles.Any())
+                if (authorizeAttributesWithRoles.Count > 0)
                 {
                     var authorized = false;
 
@@ -85,7 +85,7 @@
 
                 // Policy-based authorization
                 var authorizeAttributesWithPolicies = authorizeAttributes.Where(a => !string.IsNullOrWhiteSpace(a.Policy)).ToList();
-                if (authorizeAttributesWithPolicies.Any())
+                if (authorizeAttributesWithPolicies.Count > 0)
                 {
                     foreach (var policy in authorizeAttributesWithPolicies.Select(a => a.Policy))
                     {

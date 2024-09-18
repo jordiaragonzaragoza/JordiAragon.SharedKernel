@@ -43,7 +43,7 @@
             Guard.Against.Null(context, nameof(context));
 
             var outboxMessages = await this.repositoryOutboxMessages.ListAsync(new OutboxMessagesUnProcessedWithoutErrorSpec(), context.CancellationToken);
-            if (!outboxMessages.Any())
+            if (outboxMessages.Count == 0)
             {
                 return;
             }
