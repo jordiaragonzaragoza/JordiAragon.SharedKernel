@@ -20,6 +20,7 @@
 
         // TODO: Remove this workaround when EF supports ValueObjects collections.
         // https://github.com/dotnet/efcore/issues/31237
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1061:Do not hide base class methods", Justification = "Workaround required by EF on ValueObjects collections")]
         public new BaseAggregateRootId<TIdType> Id { get; protected set; } = default!;
     }
 }

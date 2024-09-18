@@ -29,6 +29,11 @@
             return self.Value;
         }
 
+        public TIdType FromBaseEntityId(BaseEntityId<TIdType> self)
+        {
+            return self;
+        }
+
         public override string? ToString()
             => this.Value.ToString();
 

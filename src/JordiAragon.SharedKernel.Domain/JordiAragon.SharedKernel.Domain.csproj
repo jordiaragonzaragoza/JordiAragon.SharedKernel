@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-	<Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.1.3" />
 	<PropertyGroup>
 		<PackageId>JordiAragon.SharedKernel.Domain</PackageId>
 		<Title>JordiAragon.SharedKernel.Domain</Title>
 		<AssemblyName>JordiAragon.SharedKernel.Domain</AssemblyName>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Ardalis.GuardClauses" />
 		<PackageReference Include="Ardalis.SmartEnum" />
 		<PackageReference Include="Microsoft.Extensions.Logging" />
 	</ItemGroup>

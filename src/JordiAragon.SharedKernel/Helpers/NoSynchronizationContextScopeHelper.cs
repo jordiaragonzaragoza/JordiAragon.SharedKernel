@@ -12,7 +12,8 @@
             return new Disposable(context);
         }
 
-        public readonly struct Disposable : IDisposable
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1034:Nested types should not be visible", Justification = "Ok for this helper")]
+        public readonly struct Disposable : IDisposable, IEquatable<Disposable>
         {
             private readonly SynchronizationContext? synchronizationContext;
 
@@ -21,8 +22,34 @@
                 this.synchronizationContext = synchronizationContext;
             }
 
+            public static bool operator ==(Disposable left, Disposable right) =>
+                left.Equals(right);
+
+            public static bool operator !=(Disposable left, Disposable right) =>
+                !(left == right);
+
             public void Dispose() =>
                 SynchronizationContext.SetSynchronizationContext(this.synchronizationContext);
+
+            public override bool Equals(object? obj)
+            {
+                if (obj is Disposable other)
+                {
+                    return this.Equals(other);
+                }
+
+                return false;
+            }
+
+            public bool Equals(Disposable other)
+            {
+                return Equals(this.synchronizationContext, other.synchronizationContext);
+            }
+
+            public override int GetHashCode()
+            {
+                return this.synchronizationContext?.GetHashCode() ?? 0;
+            }
         }
     }
 }

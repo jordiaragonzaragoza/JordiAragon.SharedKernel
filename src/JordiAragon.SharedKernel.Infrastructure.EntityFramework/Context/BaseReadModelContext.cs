@@ -1,5 +1,6 @@
 ﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework.Context
 {
+    using Ardalis.GuardClauses;
     using JordiAragon.SharedKernel.Infrastructure.EntityFramework.Configuration;
     using JordiAragon.SharedKernel.Infrastructure.ProjectionCheckpoint;
     using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,8 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            Guard.Against.Null(modelBuilder, nameof(modelBuilder));
+
             modelBuilder.ApplyConfiguration(new CheckpointConfiguration());
 
             base.OnModelCreating(modelBuilder);

@@ -1,14 +1,19 @@
 ﻿namespace JordiAragon.SharedKernel.Application.Helpers
 {
     using System;
+    using System.Globalization;
     using System.Linq;
     using System.Text;
+    using Ardalis.GuardClauses;
     using Ardalis.Result;
 
     public static class ResultHelper
     {
         public static Result<TDestination> Transform<TSource, TDestination>(this Result<TSource> result, Func<TSource, TDestination> func)
         {
+            Guard.Against.Null(result, nameof(result));
+            Guard.Against.Null(func, nameof(func));
+
             switch (result.Status)
             {
                 case ResultStatus.Ok: return func(result);
@@ -24,6 +29,8 @@
 
         public static Result Transform<TSource>(this Result<TSource> result)
         {
+            Guard.Against.Null(result, nameof(result));
+
             switch (result.Status)
             {
                 case ResultStatus.Ok: return Result.Success();
@@ -39,6 +46,8 @@
 
         public static string ResultDetails(this IResult result)
         {
+            Guard.Against.Null(result, nameof(result));
+
             switch (result.Status)
             {
                 case ResultStatus.Ok: return Success(result);
@@ -97,7 +106,7 @@
 
                 foreach (var error in errors)
                 {
-                    details.Append($"Identifier: {error.Key}. Message: {error.Value}");
+                    details.Append(CultureInfo.InvariantCulture, $"Identifier: {error.Key}. Message: {error.Value}");
                 }
             }
 
