@@ -26,6 +26,8 @@
 
         public async Task PublishAsync(IEvent @event, CancellationToken cancellationToken = default)
         {
+            Guard.Against.Null(@event, nameof(@event));
+
             try
             {
                 @event.IsPublished = true;
@@ -50,6 +52,8 @@
 
         public async Task PublishAsync(IEventNotification eventNotification, CancellationToken cancellationToken = default)
         {
+            Guard.Against.Null(eventNotification, nameof(eventNotification));
+
             try
             {
                 this.logger.LogInformation("Dispatched: Event notification {EventNofification}", eventNotification.GetType().Name);

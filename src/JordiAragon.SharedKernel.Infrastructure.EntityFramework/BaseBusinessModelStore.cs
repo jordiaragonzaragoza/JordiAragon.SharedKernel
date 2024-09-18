@@ -16,6 +16,7 @@
     {
         private readonly BaseBusinessModelContext writeContext;
         private IDbContextTransaction transaction = default!;
+        private bool disposed;
 
         protected BaseBusinessModelStore(BaseBusinessModelContext writeContext)
         {
@@ -71,13 +72,15 @@
 
         protected virtual void Dispose(bool disposing)
         {
-            if (this.transaction == null)
+            if (!this.disposed && disposing)
             {
-                return;
+                this.transaction?.Dispose();
+                this.writeContext?.Dispose();
+
+                this.transaction = null!;
             }
 
-            this.transaction.Dispose();
-            this.transaction = null!;
+            this.disposed = true;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace JordiAragon.SharedKernel.Infrastructure.EntityFramework.Configuration
 {
+    using Ardalis.GuardClauses;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -10,6 +11,8 @@
     {
         public override void Configure(EntityTypeBuilder<TAggregateRoot> builder)
         {
+            Guard.Against.Null(builder, nameof(builder));
+
             base.Configure(builder);
 
             builder.Property(aggregateRoot => aggregateRoot.Version)

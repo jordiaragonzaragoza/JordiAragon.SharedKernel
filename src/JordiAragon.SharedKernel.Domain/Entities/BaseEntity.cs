@@ -36,18 +36,20 @@
             return x.Id.Equals(y.Id);
         }
 
-        public int GetHashCode(BaseEntity<TId> entity)
+        public int GetHashCode(BaseEntity<TId> obj)
         {
-            if (entity == null)
+            if (obj == null)
             {
                 return 0;
             }
 
-            return entity.Id.GetHashCode();
+            return obj.Id.GetHashCode();
         }
 
         protected static void CheckRule(IBusinessRule rule)
         {
+            Guard.Against.Null(rule, nameof(rule));
+
             if (rule.IsBroken())
             {
                 throw new BusinessRuleValidationException(rule);

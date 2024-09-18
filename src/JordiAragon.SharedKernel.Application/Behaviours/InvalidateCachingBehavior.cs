@@ -25,11 +25,13 @@
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
+            Guard.Against.Null(next, nameof(next));
+
             var response = await next();
 
             await this.cacheService.RemoveByPrefixAsync(request.PrefixCacheKey, cancellationToken);
 
-            this.logger.LogInformation("Cache data with cacheKey: {cacheKey} removed.", request.PrefixCacheKey);
+            this.logger.LogInformation("Cache data with cacheKey: {CacheKey} removed.", request.PrefixCacheKey);
 
             return response;
         }

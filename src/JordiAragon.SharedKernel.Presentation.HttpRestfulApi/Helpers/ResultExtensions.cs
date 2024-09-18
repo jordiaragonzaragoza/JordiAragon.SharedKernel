@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using System.Text;
+    using Ardalis.GuardClauses;
     using Ardalis.Result;
     using JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts;
     using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,9 @@
         /// <returns>The <see cref="ActionResult{T}"/> converted.</returns>
         public static ActionResult<T> ToActionResult<T>(this Result<T> result, ControllerBase controller)
         {
+            Guard.Against.Null(result, nameof(result));
+            Guard.Against.Null(controller, nameof(controller));
+
             return controller.ToActionResult((IResult)result);
         }
 
@@ -33,6 +37,9 @@
         /// <returns>The <see cref="ActionResult"/> converted.</returns>
         public static ActionResult ToActionResult(this Result result, ControllerBase controller)
         {
+            Guard.Against.Null(result, nameof(result));
+            Guard.Against.Null(controller, nameof(controller));
+
             return controller.ToActionResult((IResult)result);
         }
 
@@ -45,6 +52,9 @@
         /// <returns>The <see cref="ActionResult{T}"/> converted.</returns>
         public static ActionResult<T> ToActionResult<T>(this ControllerBase controller, Result<T> result)
         {
+            Guard.Against.Null(result, nameof(result));
+            Guard.Against.Null(controller, nameof(controller));
+
             return controller.ToActionResult((IResult)result);
         }
 
@@ -56,6 +66,9 @@
         /// <returns>The <see cref="ActionResult"/> converted.</returns>
         public static ActionResult ToActionResult(this ControllerBase controller, Result result)
         {
+            Guard.Against.Null(result, nameof(result));
+            Guard.Against.Null(controller, nameof(controller));
+
             return controller.ToActionResult((IResult)result);
         }
 
@@ -78,6 +91,9 @@
         /// <returns>The <see cref="ActionResult"/> converted.</returns>
         public static ActionResult ToFileResult(this ControllerBase controller, Result<FileResponse> result)
         {
+            Guard.Against.Null(result, nameof(result));
+            Guard.Against.Null(controller, nameof(controller));
+
             switch (result.Status)
             {
                 case ResultStatus.Ok:

@@ -31,11 +31,13 @@
 
         public async Task DispatchEventsAsync(IEnumerable<IEventsContainer<IEvent>> eventableEntities, CancellationToken cancellationToken = default)
         {
-            var events = eventableEntities.SelectMany(x => x.Events).Where(e => !e.IsPublished).OrderBy(e => e.DateOccurredOnUtc).ToList();
+            var eventables = eventableEntities.ToList();
+
+            var events = eventables.SelectMany(x => x.Events).Where(e => !e.IsPublished).OrderBy(e => e.DateOccurredOnUtc).ToList();
 
             // Filter to not include IEventSourcedAggregateRoot events.
             // This event notifications will come from event store subscription.
-            var aggregateEvents = eventableEntities.Where(entity => entity is not IEventSourcedAggregateRoot<IEntityId>)
+            var aggregateEvents = eventables.Where(entity => entity is not IEventSourcedAggregateRoot<IEntityId>)
                 .SelectMany(x => x.Events).Where(e => !e.IsPublished).OrderBy(e => e.DateOccurredOnUtc).ToList();
 
             var eventNotifications = this.CreateEventNotifications(aggregateEvents);

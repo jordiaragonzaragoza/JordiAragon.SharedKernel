@@ -1,8 +1,12 @@
 What is the SharedKernel Project?
 =====================
-The goal of this project is create the building blocks to follow DDD principles and Clean Architecture in .NET 
+The goal of this project is create the building blocks to follow DDD principles and Clean Architecture in .NET
 
-## Nugets ready to use:
+# Give it a star ⭐
+
+Loving it? Please show your support by giving this project a star!
+
+## NuGets ready to use: ⚙️
 
 - [![JordiAragon.SharedKernel - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.svg?label=JordiAragon.SharedKernel%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel)
 [![JordiAragon.SharedKernel.Contracts - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Contracts.svg?label=JordiAragon.SharedKernel.Contracts%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Contracts)
@@ -16,15 +20,16 @@ The goal of this project is create the building blocks to follow DDD principles 
 - [![JordiAragon.SharedKernel.Presentation.HttpRestfulApi - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Presentation.HttpRestfulApi.svg?label=JordiAragon.SharedKernel.Presentation.HttpRestfulApi%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Presentation.HttpRestfulApi)
 [![JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts.svg?label=JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts)
 
-## Dependency graph:
+## Dependency graph: 👨‍💻
 
 ![JordiAragon.SharedKernel - Dependency graph](./docs/ArchitectureDiagram.jpg)
 
-## How to debug:
+## How to debug: 🐛
+
 - You will need the latest Visual Studio 2022 and the latest .NET Core SDK (at least .NET 7 SDK)
 - All the projects library are contained in JordiAragon.SharedKernel.sln solution file.
 
-## Used libraries:
+## Used libraries: ⚒️
 
 - MediatR
 - AutoMapper
@@ -43,7 +48,7 @@ The goal of this project is create the building blocks to follow DDD principles 
 - Volo.Abp.Guids Generator
 - StyleCop & SonarAnalyzer
 
-## Brief explanation per project (Pending to complete)
+## Brief explanation per project (Pending to complete) 🤓
 
 **SharedKernel and Contracts**
 - Dependency Injection. Allow auto register services using markup interfaces.
@@ -65,12 +70,13 @@ The goal of this project is create the building blocks to follow DDD principles 
 **Presentation and Contracts**
 - HttpRestfulApi building blocks. Like BaseApiController, ExceptionMiddleware, CurrentUserService and ResponseBuilder for ProblemDetails.
 
-## Testing
+## Testing 🧪
 
-- GitHub workflow CI with SonarCloud integration
+GitHub workflow CI with SonarCloud integration
+
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=jordiaragonzaragoza_JordiAragon.SharedKernel)
 
-## Resources and Inspiration
+## Resources and Inspiration 🙏
 
 Special thanks to all these authors for sharing their knowledge and expertise:
 
@@ -95,11 +101,11 @@ Special thanks to all these authors for sharing their knowledge and expertise:
 - <a href="https://www.youtube.com/@amantinband" target="_blank">Amichai Mantinband: Youtube Channel</a>
 - <a href="https://www.youtube.com/@MilanJovanovicTech" target="_blank">Milan Jovanović: Youtube Channel</a>
 
-## About:
+## About: 🧐
 
 The SharedKernel Project was developed by <a href="https://www.linkedin.com/in/jordiaragonzaragoza/" target="_blank">Jordi Aragón Zaragoza</a>
 
-## License:
+## License: 👮‍♂️
 
 [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/).
 
