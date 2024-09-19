@@ -103,7 +103,7 @@
         {
             var events = aggregate.Events.AsEnumerable().Select(@event => SerializerHelper.Serialize(@event)).ToArray();
 
-            if (!events.Any())
+            if (events.Length == 0)
             {
                 return;
             }
