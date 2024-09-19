@@ -38,18 +38,16 @@
             this.transaction = this.writeContext.Database.BeginTransaction();
         }
 
-        public Task CommitTransactionAsync()
+        public async Task CommitTransactionAsync()
         {
             if (this.transaction == null)
             {
-                return Task.CompletedTask;
+                return;
             }
 
-            this.transaction.Commit();
+            await this.transaction.CommitAsync();
             this.transaction.Dispose();
             this.transaction = null!;
-
-            return Task.CompletedTask;
         }
 
         public void RollbackTransaction()
