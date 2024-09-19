@@ -4,6 +4,7 @@
     using System.Text.Json;
     using System.Threading;
     using System.Threading.Tasks;
+    using Ardalis.GuardClauses;
     using Ardalis.Result;
     using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
     using MediatR;
@@ -26,6 +27,8 @@
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
+            Guard.Against.Null(next, nameof(next));
+
             try
             {
                 return await next();

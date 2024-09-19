@@ -96,6 +96,8 @@
 
         public override async Task<TAggregate?> FirstOrDefaultAsync(ISpecification<TAggregate> specification, CancellationToken cancellationToken = default)
         {
+            Guard.Against.Null(specification, nameof(specification));
+
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
 
             var cachedResponse = await this.CacheGetAsync<TAggregate>(cacheKeySpecification, cancellationToken);
@@ -114,6 +116,8 @@
         public override async Task<TResult?> FirstOrDefaultAsync<TResult>(ISpecification<TAggregate, TResult> specification, CancellationToken cancellationToken = default)
             where TResult : default
         {
+            Guard.Against.Null(specification, nameof(specification));
+
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
             var cachedResponse = await this.cacheService.GetAsync<TResult>(cacheKeySpecification, cancellationToken);
             if (!cachedResponse.IsNull && cachedResponse.HasValue)
@@ -132,6 +136,8 @@
 
         public override async Task<TAggregate?> SingleOrDefaultAsync(ISingleResultSpecification<TAggregate> specification, CancellationToken cancellationToken = default)
         {
+            Guard.Against.Null(specification, nameof(specification));
+
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
             var cachedResponse = await this.CacheGetAsync<TAggregate>(cacheKeySpecification, cancellationToken);
             if (cachedResponse != null)
@@ -149,6 +155,8 @@
         public override async Task<TResult?> SingleOrDefaultAsync<TResult>(ISingleResultSpecification<TAggregate, TResult> specification, CancellationToken cancellationToken = default)
             where TResult : default
         {
+            Guard.Against.Null(specification, nameof(specification));
+
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
 
             var cachedResponse = await this.cacheService.GetAsync<TResult>(cacheKeySpecification, cancellationToken);
@@ -183,6 +191,8 @@
 
         public override async Task<List<TAggregate>> ListAsync(ISpecification<TAggregate> specification, CancellationToken cancellationToken = default)
         {
+            Guard.Against.Null(specification, nameof(specification));
+
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
             var cachedResponse = await this.CacheGetListAsync<TAggregate>(cacheKeySpecification, cancellationToken);
             if (cachedResponse != null)
@@ -199,6 +209,8 @@
 
         public override async Task<List<TResult>> ListAsync<TResult>(ISpecification<TAggregate, TResult> specification, CancellationToken cancellationToken = default)
         {
+            Guard.Against.Null(specification, nameof(specification));
+
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
             var cachedResponse = await this.CacheGetListAsync<TResult>(cacheKeySpecification, cancellationToken);
             if (cachedResponse != null)
@@ -215,6 +227,8 @@
 
         public override async Task<int> CountAsync(ISpecification<TAggregate> specification, CancellationToken cancellationToken = default)
         {
+            Guard.Against.Null(specification, nameof(specification));
+
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
 
             var cachedResponse = await this.cacheService.GetAsync<int>(cacheKeySpecification, cancellationToken);
@@ -251,6 +265,8 @@
 
         public override async Task<bool> AnyAsync(ISpecification<TAggregate> specification, CancellationToken cancellationToken = default)
         {
+            Guard.Against.Null(specification, nameof(specification));
+
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
             var cachedResponse = await this.cacheService.GetAsync<bool>(cacheKeySpecification, cancellationToken);
             if (!cachedResponse.IsNull && cachedResponse.HasValue)

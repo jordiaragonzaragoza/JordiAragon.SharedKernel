@@ -7,6 +7,7 @@
     using System.Text.Json;
     using System.Threading;
     using System.Threading.Tasks;
+    using Ardalis.GuardClauses;
     using Ardalis.Result;
     using FluentValidation;
     using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
@@ -34,6 +35,8 @@
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
+            Guard.Against.Null(next, nameof(next));
+
             if (this.validators.Any())
             {
                 var context = new ValidationContext<TRequest>(request);
@@ -43,11 +46,11 @@
                         validator.ValidateAsync(context, cancellationToken)));
 
                 var failures = validationResults
-                    .Where(validationResult => validationResult.Errors.Any())
+                    .Where(validationResult => validationResult.Errors.Count > 0)
                     .SelectMany(validationResult => validationResult.Errors)
                     .ToList();
 
-                if (failures.Any())
+                if (failures.Count > 0)
                 {
                     var requestName = typeof(TRequest).Name;
                     var userId = this.currentUserService.UserId ?? string.Empty;

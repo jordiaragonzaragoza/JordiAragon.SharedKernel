@@ -5,10 +5,13 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using Ardalis.GuardClauses;
     using Ardalis.Result;
     using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Domain.Exceptions;
     using MediatR;
+
+    using NotFoundException = JordiAragon.SharedKernel.Domain.Exceptions.NotFoundException;
 
     public class UnitOfWorkBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>, IBaseCommand
@@ -23,6 +26,8 @@
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
+            Guard.Against.Null(next, nameof(next));
+
             try
             {
                 this.unitOfWork.BeginTransaction();

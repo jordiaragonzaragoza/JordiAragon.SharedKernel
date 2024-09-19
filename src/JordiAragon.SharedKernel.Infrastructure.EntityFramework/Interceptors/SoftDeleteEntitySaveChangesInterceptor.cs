@@ -3,6 +3,7 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Ardalis.GuardClauses;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Diagnostics;
 
@@ -10,6 +11,8 @@
     {
         public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
         {
+            Guard.Against.Null(eventData, nameof(eventData));
+
             UpdateEntities(eventData.Context);
 
             return base.SavingChanges(eventData, result);
@@ -17,6 +20,8 @@
 
         public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
         {
+            Guard.Against.Null(eventData, nameof(eventData));
+
             UpdateEntities(eventData.Context);
 
             return base.SavingChangesAsync(eventData, result, cancellationToken);

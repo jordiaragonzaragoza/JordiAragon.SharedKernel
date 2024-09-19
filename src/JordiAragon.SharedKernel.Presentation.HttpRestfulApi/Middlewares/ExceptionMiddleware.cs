@@ -15,8 +15,11 @@
             this.next = next ?? throw new ArgumentNullException(nameof(next));
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031: Do not catch general exception types", Justification = "Main exception handler for http requests")]
         public async Task InvokeAsync(HttpContext httpContext)
         {
+            ArgumentNullException.ThrowIfNull(httpContext);
+
             try
             {
                 await this.next(httpContext);

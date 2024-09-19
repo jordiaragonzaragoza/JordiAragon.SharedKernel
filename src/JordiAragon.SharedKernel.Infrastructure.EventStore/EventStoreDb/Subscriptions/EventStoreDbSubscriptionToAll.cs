@@ -50,6 +50,8 @@ namespace JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb.Subscr
 
         public async Task SubscribeToAllAsync(IServiceScopeFactory serviceScopeFactory, EventStoreDbSubscriptionToAllOptions subscriptionOptions, CancellationToken cancellationToken)
         {
+            Guard.Against.Null(subscriptionOptions, nameof(subscriptionOptions));
+
             // see: https://github.com/dotnet/runtime/issues/36063
             await Task.Yield();
 
@@ -149,6 +151,7 @@ namespace JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb.Subscr
             this.Resubscribe();
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Ok for BackgroundService and Resubscribe")]
         private void Resubscribe()
         {
             // You may consider adding a max resubscribe count if you want to fail process
@@ -165,9 +168,7 @@ namespace JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb.Subscr
                     // As this is a background process then we don't need to have async context here.
                     using (NoSynchronizationContextScopeHelper.Enter())
                     {
-#pragma warning disable VSTHRD002
                         this.SubscribeToAllAsync(this.serviceScopeFactory, this.subscriptionOptions, this.cancellationToken).Wait(this.cancellationToken);
-#pragma warning restore VSTHRD002
                     }
 
                     resubscribed = true;
@@ -193,7 +194,9 @@ namespace JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb.Subscr
 
                 // Sleep between reconnections to not flood the database or not kill the CPU with infinite loop
                 // Randomness added to reduce the chance of multiple subscriptions trying to reconnect at the same time
+#pragma warning disable CA5394 // Do not use insecure randomness
                 Thread.Sleep(1000 + new Random((int)DateTime.UtcNow.Ticks).Next(1000));
+#pragma warning restore CA5394 // Do not use insecure randomness
             }
         }
 

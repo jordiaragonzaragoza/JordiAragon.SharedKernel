@@ -1,5 +1,6 @@
 ﻿namespace JordiAragon.SharedKernel.ArchitectureTests
 {
+    using System;
     using FluentAssertions;
     using JordiAragon.SharedKernel.Application;
     using NetArchTest.Rules;
@@ -17,9 +18,9 @@
             var testResult = Types
                 .InAssembly(assembly)
                 .That()
-                .HaveNameEndingWith("Handler")
-                .And().DoNotHaveNameEndingWith("EventHandler")
-                .And().DoNotHaveNameEndingWith("NotificationHandler")
+                .HaveNameEndingWith("Handler", StringComparison.InvariantCulture)
+                .And().DoNotHaveNameEndingWith("EventHandler", StringComparison.InvariantCulture)
+                .And().DoNotHaveNameEndingWith("NotificationHandler", StringComparison.InvariantCulture)
                 .Should()
                 .HaveDependencyOn("Ardalis.Result")
                 .GetResult();

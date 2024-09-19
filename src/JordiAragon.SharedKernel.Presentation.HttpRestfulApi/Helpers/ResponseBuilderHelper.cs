@@ -4,14 +4,18 @@
     using System.Linq;
     using System.Net;
     using System.Text;
+    using Ardalis.GuardClauses;
     using FluentValidation.Results;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
     public static class ResponseBuilderHelper
     {
-        public static object BuildResponse(List<ValidationFailure> failures, HttpContext context, int statusCode)
+        public static object BuildResponse(IReadOnlyCollection<ValidationFailure> failures, HttpContext context, int statusCode)
         {
+            Guard.Against.Null(failures, nameof(failures));
+            Guard.Against.Null(context, nameof(context));
+
             switch (statusCode)
             {
                 case (int)HttpStatusCode.UnprocessableEntity:
@@ -28,7 +32,7 @@
             }
         }
 
-        private static object Invalid(List<ValidationFailure> failures, HttpContext context, int statusCode)
+        private static ValidationProblemDetails Invalid(IReadOnlyCollection<ValidationFailure> failures, HttpContext context, int statusCode)
         {
             return new ValidationProblemDetails(
                 failures.GroupBy(f => f.PropertyName)
@@ -44,7 +48,7 @@
             };
         }
 
-        private static object Conflict(List<ValidationFailure> failures, HttpContext context, int statusCode)
+        private static ProblemDetails Conflict(IReadOnlyCollection<ValidationFailure> failures, HttpContext context, int statusCode)
         {
             return new ProblemDetails
             {
@@ -53,11 +57,11 @@
                 Status = statusCode,
                 Instance = context.Request.Path,
                 Extensions = { { "traceId", context.TraceIdentifier } },
-                Detail = failures.Any() ? PrepareDetails(failures) : null,
+                Detail = failures.Count > 0 ? PrepareDetails(failures) : null,
             };
         }
 
-        private static object UnprocessableEntity(List<ValidationFailure> failures, HttpContext context, int statusCode)
+        private static ProblemDetails UnprocessableEntity(IReadOnlyCollection<ValidationFailure> failures, HttpContext context, int statusCode)
         {
             return new ProblemDetails
             {
@@ -66,11 +70,11 @@
                 Status = statusCode,
                 Instance = context.Request.Path,
                 Extensions = { { "traceId", context.TraceIdentifier } },
-                Detail = failures.Any() ? PrepareDetails(failures) : null,
+                Detail = failures.Count > 0 ? PrepareDetails(failures) : null,
             };
         }
 
-        private static object NotFound(List<ValidationFailure> failures, HttpContext context, int statusCode)
+        private static ProblemDetails NotFound(IReadOnlyCollection<ValidationFailure> failures, HttpContext context, int statusCode)
         {
             return new ProblemDetails()
             {
@@ -79,11 +83,11 @@
                 Status = statusCode,
                 Instance = context.Request.Path,
                 Extensions = { { "traceId", context.TraceIdentifier } },
-                Detail = failures.Any() ? PrepareDetails(failures) : null,
+                Detail = failures.Count > 0 ? PrepareDetails(failures) : null,
             };
         }
 
-        private static string PrepareDetails(List<ValidationFailure> failures)
+        private static string PrepareDetails(IReadOnlyCollection<ValidationFailure> failures)
         {
             var details = new StringBuilder("Next error(s) occured:");
 

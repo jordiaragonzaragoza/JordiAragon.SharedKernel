@@ -25,6 +25,8 @@
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
+            Guard.Against.Null(next, nameof(next));
+
             var cacheKey = request.CacheKey;
             var cachedResponse = await this.cacheService.GetAsync<TResponse>(cacheKey, cancellationToken);
             if (cachedResponse.HasValue && !cachedResponse.IsNull)

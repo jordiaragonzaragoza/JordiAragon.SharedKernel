@@ -5,6 +5,7 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using Ardalis.GuardClauses;
     using Ardalis.Result;
     using JordiAragon.SharedKernel.Application.Attributes;
     using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
@@ -27,9 +28,11 @@
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
-            var authorizeAttributes = request.GetType().GetCustomAttributes<AuthorizeAttribute>();
+            Guard.Against.Null(next, nameof(next));
 
-            if (authorizeAttributes.Any())
+            var authorizeAttributes = request.GetType().GetCustomAttributes<AuthorizeAttribute>().ToList();
+
+            if (authorizeAttributes.Count > 0)
             {
                 // Must be authenticated user
                 if (this.currentUserService.UserId == null)
@@ -47,9 +50,9 @@
                 }
 
                 // Role-based authorization
-                var authorizeAttributesWithRoles = authorizeAttributes.Where(a => !string.IsNullOrWhiteSpace(a.Roles));
+                var authorizeAttributesWithRoles = authorizeAttributes.Where(a => !string.IsNullOrWhiteSpace(a.Roles)).ToList();
 
-                if (authorizeAttributesWithRoles.Any())
+                if (authorizeAttributesWithRoles.Count > 0)
                 {
                     var authorized = false;
 
@@ -81,8 +84,8 @@
                 }
 
                 // Policy-based authorization
-                var authorizeAttributesWithPolicies = authorizeAttributes.Where(a => !string.IsNullOrWhiteSpace(a.Policy));
-                if (authorizeAttributesWithPolicies.Any())
+                var authorizeAttributesWithPolicies = authorizeAttributes.Where(a => !string.IsNullOrWhiteSpace(a.Policy)).ToList();
+                if (authorizeAttributesWithPolicies.Count > 0)
                 {
                     foreach (var policy in authorizeAttributesWithPolicies.Select(a => a.Policy))
                     {

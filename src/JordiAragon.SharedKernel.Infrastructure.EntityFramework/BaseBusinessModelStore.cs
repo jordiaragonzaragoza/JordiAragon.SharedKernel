@@ -16,6 +16,7 @@
     {
         private readonly BaseBusinessModelContext writeContext;
         private IDbContextTransaction transaction = default!;
+        private bool disposed;
 
         protected BaseBusinessModelStore(BaseBusinessModelContext writeContext)
         {
@@ -37,18 +38,16 @@
             this.transaction = this.writeContext.Database.BeginTransaction();
         }
 
-        public Task CommitTransactionAsync()
+        public async Task CommitTransactionAsync()
         {
             if (this.transaction == null)
             {
-                return Task.CompletedTask;
+                return;
             }
 
-            this.transaction.Commit();
+            await this.transaction.CommitAsync();
             this.transaction.Dispose();
             this.transaction = null!;
-
-            return Task.CompletedTask;
         }
 
         public void RollbackTransaction()
@@ -71,13 +70,15 @@
 
         protected virtual void Dispose(bool disposing)
         {
-            if (this.transaction == null)
+            if (!this.disposed && disposing)
             {
-                return;
+                this.transaction?.Dispose();
+                this.writeContext?.Dispose();
+
+                this.transaction = null!;
             }
 
-            this.transaction.Dispose();
-            this.transaction = null!;
+            this.disposed = true;
         }
     }
 }
