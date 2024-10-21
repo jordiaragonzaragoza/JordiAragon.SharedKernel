@@ -6,7 +6,9 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Ardalis.GuardClauses;
+    using Ardalis.Result;
     using global::EventStore.Client;
+    using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Contracts.DependencyInjection;
     using JordiAragon.SharedKernel.Contracts.Events;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
@@ -84,19 +86,21 @@
             this.pendingChanges.Clear();
         }
 
-        public void BeginTransaction()
+        public async Task<TResponse> ExecuteInTransactionAsync<TResponse>(Func<Task<TResponse>> operation)
+            where TResponse : IResult
         {
-            // Not required on Event Store DB.
-        }
+            Guard.Against.Null(operation, nameof(operation));
 
-        public Task CommitTransactionAsync()
-        {
-            return this.SaveChangesAsync();
-        }
+            var response = await operation();
 
-        public void RollbackTransaction()
-        {
-            // Not required on Event Store DB.
+            // Get Ardalis.Result.IsSuccess or Ardalis.Result<T>.IsSuccess
+            var isSuccessResponse = typeof(TResponse).GetProperty("IsSuccess")?.GetValue(response, null) ?? false;
+            if ((bool)isSuccessResponse)
+            {
+                await this.SaveChangesAsync();
+            }
+
+            return response;
         }
 
         private async Task StoreAsync(IEventSourcedAggregateRoot<IEntityId> aggregate, CancellationToken cancellationToken)

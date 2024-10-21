@@ -7,7 +7,6 @@
     using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Contracts.DependencyInjection;
     using JordiAragon.SharedKernel.Domain.Events.Services;
-    using JordiAragon.SharedKernel.Infrastructure.Interfaces;
 
     public abstract class BaseDomainEventsDispatcher : IDomainEventsDispatcher, IScopedDependency
     {

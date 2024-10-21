@@ -30,27 +30,15 @@
 
             try
             {
-                this.unitOfWork.BeginTransaction();
-
-                var response = await next();
-
-                // Get Ardalis.Result.IsSuccess or Ardalis.Result<T>.IsSuccess
-                var isSuccessResponse = typeof(TResponse).GetProperty("IsSuccess")?.GetValue(response, null) ?? false;
-                if ((bool)isSuccessResponse)
+                return await this.unitOfWork.ExecuteInTransactionAsync(async () =>
                 {
-                    await this.unitOfWork.CommitTransactionAsync();
-                }
-                else
-                {
-                    this.unitOfWork.RollbackTransaction();
-                }
-
-                return response;
+                    return await next();
+                });
             }
+
+            // TODO: Remove catches when not using custom exceptions on domain layer.
             catch (NotFoundException notFoundException)
             {
-                this.unitOfWork.RollbackTransaction();
-
                 var resultType = typeof(Result);
                 if (typeof(TResponse).IsGenericType && typeof(TResponse).GetGenericTypeDefinition() == typeof(Result<>))
                 {
@@ -66,10 +54,10 @@
 
                 return (TResponse)result;
             }
+
+            // TODO: Remove catches when not using custom exceptions on domain layer.
             catch (BusinessRuleValidationException businessRuleValidationException)
             {
-                this.unitOfWork.RollbackTransaction();
-
                 var errors = new List<ValidationError>()
                 {
                     new ValidationError()
@@ -88,12 +76,6 @@
                     ?? throw new InvalidOperationException("The 'Invalid' method returned null.");
 
                 return (TResponse)result;
-            }
-            catch (Exception)
-            {
-                this.unitOfWork.RollbackTransaction();
-
-                throw;
             }
         }
     }

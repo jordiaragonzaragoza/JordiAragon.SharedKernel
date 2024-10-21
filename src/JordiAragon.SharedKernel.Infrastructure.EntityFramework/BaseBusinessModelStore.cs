@@ -5,11 +5,13 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Ardalis.GuardClauses;
+    using Ardalis.Result;
+    using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Contracts.DependencyInjection;
     using JordiAragon.SharedKernel.Contracts.Events;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Infrastructure.EntityFramework.Context;
-    using JordiAragon.SharedKernel.Infrastructure.Interfaces;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Storage;
 
     public abstract class BaseBusinessModelStore : IBusinessModelStore, IDisposable, IScopedDependency
@@ -28,38 +30,50 @@
                             .Select(e => e.Entity)
                             .Where(entity => entity.Events.Any());
 
-        public void BeginTransaction()
+        public async Task<TResponse> ExecuteInTransactionAsync<TResponse>(Func<Task<TResponse>> operation)
+            where TResponse : IResult
         {
-            if (this.transaction != null)
+            var strategy = this.writeContext.Database.CreateExecutionStrategy();
+
+            return await strategy.ExecuteAsync(async () =>
             {
-                return;
-            }
+                // Start transaction inside strategy
+                if (this.transaction == null)
+                {
+                    this.transaction = await this.writeContext.Database.BeginTransactionAsync();
+                }
 
-            this.transaction = this.writeContext.Database.BeginTransaction();
-        }
+                try
+                {
+                    Guard.Against.Null(operation, nameof(operation));
 
-        public async Task CommitTransactionAsync()
-        {
-            if (this.transaction == null)
-            {
-                return;
-            }
+                    // Execute operation
+                    var response = await operation();
 
-            await this.transaction.CommitAsync();
-            this.transaction.Dispose();
-            this.transaction = null!;
-        }
+                    // Get Ardalis.Result.IsSuccess or Ardalis.Result<T>.IsSuccess
+                    var isSuccessResponse = typeof(TResponse).GetProperty("IsSuccess")?.GetValue(response, null) ?? false;
+                    if ((bool)isSuccessResponse)
+                    {
+                        await this.transaction.CommitAsync();
+                    }
+                    else
+                    {
+                        await this.transaction.RollbackAsync();
+                    }
 
-        public void RollbackTransaction()
-        {
-            if (this.transaction == null)
-            {
-                return;
-            }
-
-            this.transaction.Rollback();
-            this.transaction.Dispose();
-            this.transaction = null!;
+                    return response;
+                }
+                catch
+                {
+                    await this.transaction.RollbackAsync();
+                    throw;
+                }
+                finally
+                {
+                    this.transaction.Dispose();
+                    this.transaction = null!;
+                }
+            });
         }
 
         public void Dispose()
