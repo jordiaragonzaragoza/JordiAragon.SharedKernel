@@ -6,6 +6,7 @@
     using Ardalis.GuardClauses;
     using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Contracts.Events;
+    using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using MediatR;
 
     /// <summary>
@@ -17,12 +18,12 @@
         where TEventNotification : IEventNotification
     {
         private readonly INotificationHandler<TEventNotification> decoratedHandler;
-        private readonly IDomainEventsDispatcher domainEventsDispatcher;
+        private readonly IEventsDispatcherService domainEventsDispatcher;
         private readonly IIdempotencyService idempotencyService;
 
         public EventNotificationHandlerDecorator(
             IIdempotencyService idempotencyService,
-            IDomainEventsDispatcher domainEventsDispatcher,
+            IEventsDispatcherService domainEventsDispatcher,
             INotificationHandler<TEventNotification> decoratedHandler)
         {
             this.domainEventsDispatcher = Guard.Against.Null(domainEventsDispatcher, nameof(domainEventsDispatcher));
@@ -47,7 +48,7 @@
 
             await this.decoratedHandler.Handle(notification, cancellationToken).ConfigureAwait(true);
 
-            await this.domainEventsDispatcher.DispatchDomainEventsAsync(cancellationToken);
+            await this.domainEventsDispatcher.DispatchEventsFromAggregatesStoreAsync(cancellationToken);
 
             await this.idempotencyService.MarkAsProcessedAsync(messageId, consumerFullName, cancellationToken);
         }

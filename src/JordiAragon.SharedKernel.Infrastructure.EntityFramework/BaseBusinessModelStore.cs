@@ -14,7 +14,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Storage;
 
-    public abstract class BaseBusinessModelStore : IBusinessModelStore, IDisposable, IScopedDependency
+    public abstract class BaseBusinessModelStore : IAggregatesStore, IUnitOfWork, IDisposable, IScopedDependency
     {
         private readonly BaseBusinessModelContext writeContext;
         private IDbContextTransaction transaction = default!;

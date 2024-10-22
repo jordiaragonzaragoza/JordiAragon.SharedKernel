@@ -1,4 +1,4 @@
-﻿namespace JordiAragon.SharedKernel.Application.Contracts.Interfaces
+﻿namespace JordiAragon.SharedKernel.Domain.Contracts.Interfaces
 {
     using System.Collections.Generic;
     using JordiAragon.SharedKernel.Contracts.Events;

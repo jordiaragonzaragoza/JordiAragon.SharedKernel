@@ -5,6 +5,7 @@
     using Ardalis.Result;
     using Ardalis.GuardClauses;
     using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
+    using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
     using MediatR;
 
     /// <summary>
@@ -24,10 +25,10 @@
         where TRequest : IRequest<TResponse>, IBaseCommand
         where TResponse : IResult
     {
-        private readonly IDomainEventsDispatcher domainEventsDispatcher;
+        private readonly IEventsDispatcherService domainEventsDispatcher;
 
         public DomainEventsDispatcherBehaviour(
-            IDomainEventsDispatcher domainEventsDispatcher)
+            IEventsDispatcherService domainEventsDispatcher)
         {
             this.domainEventsDispatcher = domainEventsDispatcher;
         }
@@ -38,7 +39,7 @@
 
             var response = await next();
 
-            await this.domainEventsDispatcher.DispatchDomainEventsAsync(cancellationToken);
+            await this.domainEventsDispatcher.DispatchEventsFromAggregatesStoreAsync(cancellationToken);
 
             return response;
         }

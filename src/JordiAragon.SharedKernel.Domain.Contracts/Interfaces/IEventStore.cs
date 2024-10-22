@@ -1,10 +1,9 @@
-﻿namespace JordiAragon.SharedKernel.Application.Contracts.Interfaces
+﻿namespace JordiAragon.SharedKernel.Domain.Contracts.Interfaces
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
 
-    public interface IEventStore : IAggregatesStore, IUnitOfWork
+    public interface IEventStore : IAggregatesStore
     {
         void AppendChanges<TAggregate, TId>(TAggregate aggregate)
             where TAggregate : class, IEventSourcedAggregateRoot<TId>

@@ -18,21 +18,44 @@
         private readonly IEventBus eventBus;
         private readonly ILifetimeScope scope;
         private readonly IOutboxService outboxService;
+        private readonly IAggregatesStore aggregatesStore;
 
         public EventsDispatcherService(
+            IAggregatesStore aggregatesStore,
             IEventBus eventBus,
             ILifetimeScope scope,
             IOutboxService outboxService)
         {
+            this.aggregatesStore = Guard.Against.Null(aggregatesStore, nameof(aggregatesStore));
             this.eventBus = Guard.Against.Null(eventBus, nameof(eventBus));
             this.scope = Guard.Against.Null(scope, nameof(scope));
             this.outboxService = Guard.Against.Null(outboxService, nameof(outboxService));
         }
 
-        public async Task DispatchEventsAsync(IEnumerable<IEventsContainer<IEvent>> eventableEntities, CancellationToken cancellationToken = default)
+        public async Task DispatchEventsFromEventableEntitiesAsync(IEnumerable<IEventsContainer<IEvent>> eventableEntities, CancellationToken cancellationToken = default)
         {
             var eventables = eventableEntities.ToList();
+            if (eventables.Count == 0)
+            {
+                return;
+            }
 
+            await this.DispatchEventsAsync(eventables, cancellationToken);
+        }
+
+        public async Task DispatchEventsFromAggregatesStoreAsync(CancellationToken cancellationToken = default)
+        {
+            var eventables = this.aggregatesStore.EventableEntities.ToList();
+            if (eventables.Count == 0)
+            {
+                return;
+            }
+
+            await this.DispatchEventsAsync(eventables, cancellationToken);
+        }
+
+        private async Task DispatchEventsAsync(List<IEventsContainer<IEvent>> eventables, CancellationToken cancellationToken)
+        {
             var events = eventables.SelectMany(x => x.Events).Where(e => !e.IsPublished).OrderBy(e => e.DateOccurredOnUtc).ToList();
 
             // Filter to not include IEventSourcedAggregateRoot events.

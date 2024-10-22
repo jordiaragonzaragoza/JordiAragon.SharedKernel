@@ -8,7 +8,7 @@
     using Ardalis.Result;
     using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Contracts.Events;
-    using JordiAragon.SharedKernel.Domain.Events.Services;
+    using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
 
     public class CommandHandlerDecorator<TCommand> : ICommandHandler<TCommand>
         where TCommand : ICommand
@@ -35,7 +35,7 @@
 
             if (this.Events.Any())
             {
-                await this.eventsDispatcherService.DispatchEventsAsync(new List<IEventsContainer<IApplicationEvent>> { this }, cancellationToken);
+                await this.eventsDispatcherService.DispatchEventsFromEventableEntitiesAsync(new List<IEventsContainer<IApplicationEvent>> { this }, cancellationToken);
             }
 
             return result;

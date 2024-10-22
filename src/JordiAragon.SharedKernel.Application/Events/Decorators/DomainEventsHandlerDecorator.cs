@@ -15,10 +15,10 @@
         where TDomainEvent : IDomainEvent
     {
         private readonly INotificationHandler<TDomainEvent> decoratedHandler;
-        private readonly IDomainEventsDispatcher domainEventsDispatcher;
+        private readonly IEventsDispatcherService domainEventsDispatcher;
 
         public DomainEventsHandlerDecorator(
-            IDomainEventsDispatcher domainEventsDispatcher,
+            IEventsDispatcherService domainEventsDispatcher,
             INotificationHandler<TDomainEvent> decoratedHandler)
         {
             this.domainEventsDispatcher = Guard.Against.Null(domainEventsDispatcher, nameof(domainEventsDispatcher));
@@ -32,7 +32,7 @@
         {
             await this.decoratedHandler.Handle(notification, cancellationToken).ConfigureAwait(true);
 
-            await this.domainEventsDispatcher.DispatchDomainEventsAsync(cancellationToken);
+            await this.domainEventsDispatcher.DispatchEventsFromAggregatesStoreAsync(cancellationToken);
         }
     }
 }

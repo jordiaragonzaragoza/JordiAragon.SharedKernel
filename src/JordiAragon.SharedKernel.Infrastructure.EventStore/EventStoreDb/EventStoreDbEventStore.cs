@@ -15,7 +15,7 @@
     using JordiAragon.SharedKernel.Infrastructure.EventStore.EventStoreDb.Serialization;
     using Microsoft.Extensions.Logging;
 
-    public class EventStoreDbEventStore : IEventStore, IScopedDependency
+    public class EventStoreDbEventStore : IEventStore, IUnitOfWork, IScopedDependency
     {
         private readonly List<IEventSourcedAggregateRoot<IEntityId>> pendingChanges = new();
         private readonly EventStoreClient eventStoreClient;
