@@ -3,7 +3,6 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Ardalis.GuardClauses;
-    using JordiAragon.SharedKernel.Application.Contracts.Interfaces;
     using JordiAragon.SharedKernel.Contracts.DependencyInjection;
     using JordiAragon.SharedKernel.Contracts.Repositories;
     using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;

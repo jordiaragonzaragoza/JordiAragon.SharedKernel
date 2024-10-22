@@ -1,7 +1,8 @@
-﻿namespace JordiAragon.SharedKernel.Domain.Contracts.Interfaces
+﻿namespace JordiAragon.SharedKernel.Infrastructure.EventStore
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using JordiAragon.SharedKernel.Domain.Contracts.Interfaces;
 
     public interface IEventStore : IAggregatesStore
     {
