@@ -14,10 +14,8 @@
         public static IServiceCollection AddSharedKernelEventStoreServices(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
             serviceCollection
-                .AddEventStoreDB(configuration.GetRequiredConfiguration<EventStoreDbOptions>(EventStoreDbOptions.Section));
-
-                // TODO: Temporal removed.
-                ////.AddEventStoreDBSubscriptionToAll();
+                .AddEventStoreDB(configuration.GetRequiredConfiguration<EventStoreDbOptions>(EventStoreDbOptions.Section))
+                .AddEventStoreDBSubscriptionToAll();
 
             return serviceCollection;
         }
@@ -31,7 +29,7 @@
                 .AddSingleton(new CancellationTokenSource());
 #pragma warning restore CA2000 // Dispose objects before losing scope
 
-        /*private static IServiceCollection AddEventStoreDBSubscriptionToAll(
+        private static IServiceCollection AddEventStoreDBSubscriptionToAll(
             this IServiceCollection serviceCollection,
             EventStoreDbSubscriptionToAllOptions? subscriptionOptions = null)
         {
@@ -50,6 +48,6 @@
                             subscriptionOptions ?? new EventStoreDbSubscriptionToAllOptions(),
                             cancellationTokenSource.Token));
             });
-        }*/
+        }
     }
 }
