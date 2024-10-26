@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<PackageId>JordiAragonZaragoza.SharedKernel.Domain</PackageId>
+		<Title>JordiAragonZaragoza.SharedKernel.Domain</Title>
+		<AssemblyName>JordiAragonZaragoza.SharedKernel.Domain</AssemblyName>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Ardalis.SmartEnum" />
+		<PackageReference Include="Microsoft.Extensions.Logging" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\JordiAragonZaragoza.SharedKernel\JordiAragonZaragoza.SharedKernel.csproj" />
+	  <ProjectReference Include="..\JordiAragonZaragoza.SharedKernel.Domain.Contracts\JordiAragonZaragoza.SharedKernel.Domain.Contracts.csproj" />
+	</ItemGroup>
+</Project>

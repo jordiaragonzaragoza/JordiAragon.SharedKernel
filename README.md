@@ -8,26 +8,26 @@ Loving it? Please show your support by giving this project a star!
 
 ## NuGets ready to use: ⚙️
 
-- [![JordiAragon.SharedKernel - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.svg?label=JordiAragon.SharedKernel%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel)
-[![JordiAragon.SharedKernel.Contracts - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Contracts.svg?label=JordiAragon.SharedKernel.Contracts%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Contracts)
-- [![JordiAragon.SharedKernel.Domain - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Domain.svg?label=JordiAragon.SharedKernel.Domain%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Domain)
-[![JordiAragon.SharedKernel.Domain.Contracts - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Domain.Contracts.svg?label=JordiAragon.SharedKernel.Domain.Contracts%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Domain.Contracts)
-- [![JordiAragon.SharedKernel.Application - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Application.svg?label=JordiAragon.SharedKernel.Application%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Application)
-[![JordiAragon.SharedKernel.Application.Contracts - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Application.Contracts.svg?label=JordiAragon.SharedKernel.Application.Contracts%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Application.Contracts)
-[![JordiAragon.SharedKernel.Application.Contracts.IntegrationMessages - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Application.Contracts.IntegrationMessages.svg?label=JordiAragon.SharedKernel.Application.Contracts.IntegrationMessages%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Application.Contracts.IntegrationMessages)
-- [![JordiAragon.SharedKernel.Infrastructure - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Infrastructure.svg?label=JordiAragon.SharedKernel.Infrastructure%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Infrastructure)
-[![JordiAragon.SharedKernel.Infrastructure.EntityFramework - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Infrastructure.EntityFramework.svg?label=JordiAragon.SharedKernel.Infrastructure.EntityFramework%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Infrastructure.EntityFramework)
-- [![JordiAragon.SharedKernel.Presentation.HttpRestfulApi - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Presentation.HttpRestfulApi.svg?label=JordiAragon.SharedKernel.Presentation.HttpRestfulApi%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Presentation.HttpRestfulApi)
-[![JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts - NuGet](https://img.shields.io/nuget/v/JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts.svg?label=JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts%20-%20nuget)](https://www.nuget.org/packages/JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts)
+- [![JordiAragonZaragoza.SharedKernel - NuGet](https://img.shields.io/nuget/v/JordiAragonZaragoza.SharedKernel.svg?label=JordiAragonZaragoza.SharedKernel%20-%20nuget)](https://www.nuget.org/packages/JordiAragonZaragoza.SharedKernel)
+[![JordiAragonZaragoza.SharedKernel.Contracts - NuGet](https://img.shields.io/nuget/v/JordiAragonZaragoza.SharedKernel.Contracts.svg?label=JordiAragonZaragoza.SharedKernel.Contracts%20-%20nuget)](https://www.nuget.org/packages/JordiAragonZaragoza.SharedKernel.Contracts)
+- [![JordiAragonZaragoza.SharedKernel.Domain - NuGet](https://img.shields.io/nuget/v/JordiAragonZaragoza.SharedKernel.Domain.svg?label=JordiAragonZaragoza.SharedKernel.Domain%20-%20nuget)](https://www.nuget.org/packages/JordiAragonZaragoza.SharedKernel.Domain)
+[![JordiAragonZaragoza.SharedKernel.Domain.Contracts - NuGet](https://img.shields.io/nuget/v/JordiAragonZaragoza.SharedKernel.Domain.Contracts.svg?label=JordiAragonZaragoza.SharedKernel.Domain.Contracts%20-%20nuget)](https://www.nuget.org/packages/JordiAragonZaragoza.SharedKernel.Domain.Contracts)
+- [![JordiAragonZaragoza.SharedKernel.Application - NuGet](https://img.shields.io/nuget/v/JordiAragonZaragoza.SharedKernel.Application.svg?label=JordiAragonZaragoza.SharedKernel.Application%20-%20nuget)](https://www.nuget.org/packages/JordiAragonZaragoza.SharedKernel.Application)
+[![JordiAragonZaragoza.SharedKernel.Application.Contracts - NuGet](https://img.shields.io/nuget/v/JordiAragonZaragoza.SharedKernel.Application.Contracts.svg?label=JordiAragonZaragoza.SharedKernel.Application.Contracts%20-%20nuget)](https://www.nuget.org/packages/JordiAragonZaragoza.SharedKernel.Application.Contracts)
+[![JordiAragonZaragoza.SharedKernel.Application.Contracts.IntegrationMessages - NuGet](https://img.shields.io/nuget/v/JordiAragonZaragoza.SharedKernel.Application.Contracts.IntegrationMessages.svg?label=JordiAragonZaragoza.SharedKernel.Application.Contracts.IntegrationMessages%20-%20nuget)](https://www.nuget.org/packages/JordiAragonZaragoza.SharedKernel.Application.Contracts.IntegrationMessages)
+- [![JordiAragonZaragoza.SharedKernel.Infrastructure - NuGet](https://img.shields.io/nuget/v/JordiAragonZaragoza.SharedKernel.Infrastructure.svg?label=JordiAragonZaragoza.SharedKernel.Infrastructure%20-%20nuget)](https://www.nuget.org/packages/JordiAragonZaragoza.SharedKernel.Infrastructure)
+[![JordiAragonZaragoza.SharedKernel.Infrastructure.EntityFramework - NuGet](https://img.shields.io/nuget/v/JordiAragonZaragoza.SharedKernel.Infrastructure.EntityFramework.svg?label=JordiAragonZaragoza.SharedKernel.Infrastructure.EntityFramework%20-%20nuget)](https://www.nuget.org/packages/JordiAragonZaragoza.SharedKernel.Infrastructure.EntityFramework)
+- [![JordiAragonZaragoza.SharedKernel.Presentation.HttpRestfulApi - NuGet](https://img.shields.io/nuget/v/JordiAragonZaragoza.SharedKernel.Presentation.HttpRestfulApi.svg?label=JordiAragonZaragoza.SharedKernel.Presentation.HttpRestfulApi%20-%20nuget)](https://www.nuget.org/packages/JordiAragonZaragoza.SharedKernel.Presentation.HttpRestfulApi)
+[![JordiAragonZaragoza.SharedKernel.Presentation.HttpRestfulApi.Contracts - NuGet](https://img.shields.io/nuget/v/JordiAragonZaragoza.SharedKernel.Presentation.HttpRestfulApi.Contracts.svg?label=JordiAragonZaragoza.SharedKernel.Presentation.HttpRestfulApi.Contracts%20-%20nuget)](https://www.nuget.org/packages/JordiAragonZaragoza.SharedKernel.Presentation.HttpRestfulApi.Contracts)
 
 ## Dependency graph: 👨‍💻
 
-![JordiAragon.SharedKernel - Dependency graph](./docs/ArchitectureDiagram.jpg)
+![JordiAragonZaragoza.SharedKernel - Dependency graph](./docs/ArchitectureDiagram.jpg)
 
 ## How to debug: 🐛
 
 - You will need the latest Visual Studio 2022 and the latest .NET Core SDK (at least .NET 7 SDK)
-- All the projects library are contained in JordiAragon.SharedKernel.sln solution file.
+- All the projects library are contained in JordiAragonZaragoza.SharedKernel.sln solution file.
 
 ## Used libraries: ⚒️
 

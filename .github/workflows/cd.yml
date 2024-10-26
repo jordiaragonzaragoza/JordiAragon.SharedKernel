@@ -1,4 +1,4 @@
-name: Publish JordiAragon.SharedKernel to Nuget.org
+name: Publish JordiAragonZaragoza.SharedKernel to Nuget.org
 
 on:
   push:
@@ -28,74 +28,74 @@ jobs:
       id: version
       uses: battila7/get-version-action@v2.2.1
 
-    - name: Publish JordiAragon.SharedKernel to NuGet
+    - name: Publish JordiAragonZaragoza.SharedKernel to NuGet
       run: |
         rm -rf nuget/
-        dotnet pack --no-build src/JordiAragon.SharedKernel/JordiAragon.SharedKernel.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
+        dotnet pack --no-build src/JordiAragonZaragoza.SharedKernel/JordiAragonZaragoza.SharedKernel.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
         dotnet nuget push nuget/*.nupkg -k '${{ secrets.NUGET_API_KEY }}' --skip-duplicate -s https://api.nuget.org/v3/index.json
 
-    - name: Publish JordiAragon.SharedKernel.Application to NuGet
+    - name: Publish JordiAragonZaragoza.SharedKernel.Application to NuGet
       run: |
         rm -rf nuget/
-        dotnet pack --no-build src/JordiAragon.SharedKernel.Application/JordiAragon.SharedKernel.Application.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
+        dotnet pack --no-build src/JordiAragonZaragoza.SharedKernel.Application/JordiAragonZaragoza.SharedKernel.Application.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
         dotnet nuget push nuget/*.nupkg -k '${{ secrets.NUGET_API_KEY }}' --skip-duplicate -s https://api.nuget.org/v3/index.json
 
-    - name: Publish JordiAragon.SharedKernel.Application.Contracts to NuGet
+    - name: Publish JordiAragonZaragoza.SharedKernel.Application.Contracts to NuGet
       run: |
         rm -rf nuget/
-        dotnet pack --no-build src/JordiAragon.SharedKernel.Application.Contracts/JordiAragon.SharedKernel.Application.Contracts.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
+        dotnet pack --no-build src/JordiAragonZaragoza.SharedKernel.Application.Contracts/JordiAragonZaragoza.SharedKernel.Application.Contracts.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
         dotnet nuget push nuget/*.nupkg -k '${{ secrets.NUGET_API_KEY }}' --skip-duplicate -s https://api.nuget.org/v3/index.json
 
-    - name: Publish JordiAragon.SharedKernel.Application.Contracts.IntegrationMessages to NuGet
+    - name: Publish JordiAragonZaragoza.SharedKernel.Application.Contracts.IntegrationMessages to NuGet
       run: |
         rm -rf nuget/
-        dotnet pack --no-build src/JordiAragon.SharedKernel.Application.Contracts.IntegrationMessages/JordiAragon.SharedKernel.Application.Contracts.IntegrationMessages.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
+        dotnet pack --no-build src/JordiAragonZaragoza.SharedKernel.Application.Contracts.IntegrationMessages/JordiAragonZaragoza.SharedKernel.Application.Contracts.IntegrationMessages.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
         dotnet nuget push nuget/*.nupkg -k '${{ secrets.NUGET_API_KEY }}' --skip-duplicate -s https://api.nuget.org/v3/index.json
 
-    - name: Publish JordiAragon.SharedKernel.Contracts to NuGet
+    - name: Publish JordiAragonZaragoza.SharedKernel.Contracts to NuGet
       run: |
         rm -rf nuget/
-        dotnet pack --no-build src/JordiAragon.SharedKernel.Contracts/JordiAragon.SharedKernel.Contracts.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
+        dotnet pack --no-build src/JordiAragonZaragoza.SharedKernel.Contracts/JordiAragonZaragoza.SharedKernel.Contracts.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
         dotnet nuget push nuget/*.nupkg -k '${{ secrets.NUGET_API_KEY }}' --skip-duplicate -s https://api.nuget.org/v3/index.json
 
-    - name: Publish JordiAragon.SharedKernel.Domain to NuGet
+    - name: Publish JordiAragonZaragoza.SharedKernel.Domain to NuGet
       run: |
         rm -rf nuget/
-        dotnet pack --no-build src/JordiAragon.SharedKernel.Domain/JordiAragon.SharedKernel.Domain.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
+        dotnet pack --no-build src/JordiAragonZaragoza.SharedKernel.Domain/JordiAragonZaragoza.SharedKernel.Domain.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
         dotnet nuget push nuget/*.nupkg -k '${{ secrets.NUGET_API_KEY }}' --skip-duplicate -s https://api.nuget.org/v3/index.json
 
-    - name: Publish JordiAragon.SharedKernel.Domain.Contracts to NuGet
+    - name: Publish JordiAragonZaragoza.SharedKernel.Domain.Contracts to NuGet
       run: |
         rm -rf nuget/
-        dotnet pack --no-build src/JordiAragon.SharedKernel.Domain.Contracts/JordiAragon.SharedKernel.Domain.Contracts.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
+        dotnet pack --no-build src/JordiAragonZaragoza.SharedKernel.Domain.Contracts/JordiAragonZaragoza.SharedKernel.Domain.Contracts.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
         dotnet nuget push nuget/*.nupkg -k '${{ secrets.NUGET_API_KEY }}' --skip-duplicate -s https://api.nuget.org/v3/index.json
 
-    - name: Publish JordiAragon.SharedKernel.Infrastructure to NuGet
+    - name: Publish JordiAragonZaragoza.SharedKernel.Infrastructure to NuGet
       run: |
         rm -rf nuget/
-        dotnet pack --no-build src/JordiAragon.SharedKernel.Infrastructure/JordiAragon.SharedKernel.Infrastructure.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
+        dotnet pack --no-build src/JordiAragonZaragoza.SharedKernel.Infrastructure/JordiAragonZaragoza.SharedKernel.Infrastructure.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
         dotnet nuget push nuget/*.nupkg -k '${{ secrets.NUGET_API_KEY }}' --skip-duplicate -s https://api.nuget.org/v3/index.json
 
-    - name: Publish JordiAragon.SharedKernel.Infrastructure.EntityFramework to NuGet
+    - name: Publish JordiAragonZaragoza.SharedKernel.Infrastructure.EntityFramework to NuGet
       run: |
         rm -rf nuget/
-        dotnet pack --no-build src/JordiAragon.SharedKernel.Infrastructure.EntityFramework/JordiAragon.SharedKernel.Infrastructure.EntityFramework.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
+        dotnet pack --no-build src/JordiAragonZaragoza.SharedKernel.Infrastructure.EntityFramework/JordiAragonZaragoza.SharedKernel.Infrastructure.EntityFramework.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
         dotnet nuget push nuget/*.nupkg -k '${{ secrets.NUGET_API_KEY }}' --skip-duplicate -s https://api.nuget.org/v3/index.json
 
-    - name: Publish JordiAragon.SharedKernel.Infrastructure.EventStore to NuGet
+    - name: Publish JordiAragonZaragoza.SharedKernel.Infrastructure.EventStore to NuGet
       run: |
         rm -rf nuget/
-        dotnet pack --no-build src/JordiAragon.SharedKernel.Infrastructure.EventStore/JordiAragon.SharedKernel.Infrastructure.EventStore.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
+        dotnet pack --no-build src/JordiAragonZaragoza.SharedKernel.Infrastructure.EventStore/JordiAragonZaragoza.SharedKernel.Infrastructure.EventStore.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
         dotnet nuget push nuget/*.nupkg -k '${{ secrets.NUGET_API_KEY }}' --skip-duplicate -s https://api.nuget.org/v3/index.json
 
-    - name: Publish JordiAragon.SharedKernel.Presentation.HttpRestfulApi to NuGet
+    - name: Publish JordiAragonZaragoza.SharedKernel.Presentation.HttpRestfulApi to NuGet
       run: |
         rm -rf nuget/
-        dotnet pack --no-build src/JordiAragon.SharedKernel.Presentation.HttpRestfulApi/JordiAragon.SharedKernel.Presentation.HttpRestfulApi.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
+        dotnet pack --no-build src/JordiAragonZaragoza.SharedKernel.Presentation.HttpRestfulApi/JordiAragonZaragoza.SharedKernel.Presentation.HttpRestfulApi.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
         dotnet nuget push nuget/*.nupkg -k '${{ secrets.NUGET_API_KEY }}' --skip-duplicate -s https://api.nuget.org/v3/index.json
 
-    - name: Publish JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts to NuGet
+    - name: Publish JordiAragonZaragoza.SharedKernel.Presentation.HttpRestfulApi.Contracts to NuGet
       run: |
         rm -rf nuget/
-        dotnet pack --no-build src/JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts/JordiAragon.SharedKernel.Presentation.HttpRestfulApi.Contracts.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
+        dotnet pack --no-build src/JordiAragonZaragoza.SharedKernel.Presentation.HttpRestfulApi.Contracts/JordiAragonZaragoza.SharedKernel.Presentation.HttpRestfulApi.Contracts.csproj --configuration Release -p:PackageVersion=${{steps.version.outputs.version-without-v}} --output nuget
         dotnet nuget push nuget/*.nupkg -k '${{ secrets.NUGET_API_KEY }}' --skip-duplicate -s https://api.nuget.org/v3/index.json

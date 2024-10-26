@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<PackageId>JordiAragonZaragoza.SharedKernel.Presentation.HttpRestfulApi</PackageId>
+		<Title>JordiAragonZaragoza.SharedKernel.Presentation.HttpRestfulApi</Title>
+		<AssemblyName>JordiAragonZaragoza.SharedKernel.Presentation.HttpRestfulApi</AssemblyName>
+	</PropertyGroup>
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+		<PackageReference Include="AutoMapper" />
+		<PackageReference Include="FastEndpoints" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\JordiAragonZaragoza.SharedKernel\JordiAragonZaragoza.SharedKernel.csproj" />
+	  <ProjectReference Include="..\JordiAragonZaragoza.SharedKernel.Application.Contracts\JordiAragonZaragoza.SharedKernel.Application.Contracts.csproj" />
+	  <ProjectReference Include="..\JordiAragonZaragoza.SharedKernel.Presentation.HttpRestfulApi.Contracts\JordiAragonZaragoza.SharedKernel.Presentation.HttpRestfulApi.Contracts.csproj" />
+	</ItemGroup>
+</Project>

@@ -7,13 +7,13 @@
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 		<Description>A simple package to implement the building blocks to follow DDD principles and Clean Architecture.</Description>
 		<Summary>A simple package to implement the building blocks to follow DDD principles and Clean Architecture.</Summary>
-		<RepositoryUrl>https://github.com/jordiaragonzaragoza/JordiAragon.SharedKernel</RepositoryUrl>
+		<RepositoryUrl>https://github.com/jordiaragonzaragoza/JordiAragonZaragoza.SharedKernel</RepositoryUrl>
 		<Authors>Jordi Aragon Zaragoza</Authors>
-		<PackageProjectUrl>https://github.com/jordiaragonzaragoza/JordiAragon.SharedKernel</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/jordiaragonzaragoza/JordiAragonZaragoza.SharedKernel</PackageProjectUrl>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageIcon>icon.png</PackageIcon>
-		<PackageTags>DDD, SharedKernel, Clean Architecture, Onion Architecture, CQRS, ES</PackageTags>
+		<PackageTags>DDD, SharedKernel, Clean Architecture, CQRS, Event Sourcing</PackageTags>
 		<AnalysisLevel>latest</AnalysisLevel>
 		<AnalysisMode>All</AnalysisMode>
 		<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>

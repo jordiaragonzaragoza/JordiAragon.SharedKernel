@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<PackageId>JordiAragonZaragoza.SharedKernel.Application.Contracts</PackageId>
+		<Title>JordiAragonZaragoza.SharedKernel.Application.Contracts</Title>
+		<AssemblyName>JordiAragonZaragoza.SharedKernel.Application.Contracts</AssemblyName>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Ardalis.Result" />
+		<PackageReference Include="MediatR" />
+    </ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\JordiAragonZaragoza.SharedKernel.Domain.Contracts\JordiAragonZaragoza.SharedKernel.Domain.Contracts.csproj" />
+	  <ProjectReference Include="..\JordiAragonZaragoza.SharedKernel.Application.Contracts.IntegrationMessages\JordiAragonZaragoza.SharedKernel.Application.Contracts.IntegrationMessages.csproj" />
+	</ItemGroup>
+</Project>
