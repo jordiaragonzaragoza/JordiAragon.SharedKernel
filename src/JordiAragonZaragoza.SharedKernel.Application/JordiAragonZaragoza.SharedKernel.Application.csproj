@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<PackageId>JordiAragonZaragoza.SharedKernel.Application</PackageId>
+		<Title>JordiAragonZaragoza.SharedKernel.Application</Title>
+		<AssemblyName>JordiAragonZaragoza.SharedKernel.Application</AssemblyName>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Ardalis.Result.FluentValidation" />
+		<PackageReference Include="Microsoft.Extensions.Logging" />
+		<PackageReference Include="FluentValidation" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\JordiAragonZaragoza.SharedKernel.Application.Contracts\JordiAragonZaragoza.SharedKernel.Application.Contracts.csproj" />
+	  <ProjectReference Include="..\JordiAragonZaragoza.SharedKernel.Domain\JordiAragonZaragoza.SharedKernel.Domain.csproj" />
+	</ItemGroup>
+</Project>
