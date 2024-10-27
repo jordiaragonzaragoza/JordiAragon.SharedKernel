@@ -11,6 +11,8 @@
 
     public static class ResponseBuilderHelper
     {
+        private const string TraceId = "traceId";
+
         public static object BuildResponse(IReadOnlyCollection<ValidationFailure> failures, HttpContext context, int statusCode)
         {
             Guard.Against.Null(failures, nameof(failures));
@@ -44,7 +46,7 @@
                 Title = "One or more validation errors occurred.",
                 Status = statusCode,
                 Instance = context.Request.Path,
-                Extensions = { { "traceId", context.TraceIdentifier } },
+                Extensions = { { TraceId, context.TraceIdentifier } },
             };
         }
 
@@ -56,7 +58,7 @@
                 Title = "There was a conflict.",
                 Status = statusCode,
                 Instance = context.Request.Path,
-                Extensions = { { "traceId", context.TraceIdentifier } },
+                Extensions = { { TraceId, context.TraceIdentifier } },
                 Detail = failures.Count > 0 ? PrepareDetails(failures) : null,
             };
         }
@@ -69,7 +71,7 @@
                 Title = "Something went wrong.",
                 Status = statusCode,
                 Instance = context.Request.Path,
-                Extensions = { { "traceId", context.TraceIdentifier } },
+                Extensions = { { TraceId, context.TraceIdentifier } },
                 Detail = failures.Count > 0 ? PrepareDetails(failures) : null,
             };
         }
@@ -82,7 +84,7 @@
                 Type = "https://www.rfc-editor.org/rfc/rfc7231#section-6.5.4",
                 Status = statusCode,
                 Instance = context.Request.Path,
-                Extensions = { { "traceId", context.TraceIdentifier } },
+                Extensions = { { TraceId, context.TraceIdentifier } },
                 Detail = failures.Count > 0 ? PrepareDetails(failures) : null,
             };
         }

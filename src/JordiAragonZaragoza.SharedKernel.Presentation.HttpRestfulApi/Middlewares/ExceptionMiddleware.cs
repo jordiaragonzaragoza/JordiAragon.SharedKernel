@@ -38,8 +38,8 @@
 
             var errorDetails = new
             {
-                StatusCode = context.Response.StatusCode,
-                Message = exception.Message,
+                context.Response.StatusCode,
+                exception.Message,
             };
 
             await context.Response.WriteAsync(JsonSerializer.Serialize(errorDetails));

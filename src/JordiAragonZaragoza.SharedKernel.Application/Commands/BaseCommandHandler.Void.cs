@@ -9,7 +9,7 @@
     public abstract class BaseCommandHandler<TCommand> : ICommandHandler<TCommand>
          where TCommand : ICommand
     {
-        private readonly List<IApplicationEvent> applicationEvents = new();
+        private readonly List<IApplicationEvent> applicationEvents = [];
 
         public IEnumerable<IApplicationEvent> Events => this.applicationEvents.AsReadOnly();
 

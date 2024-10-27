@@ -7,7 +7,7 @@
     public abstract class BaseAggregateRoot<TId> : BaseEntity<TId>, IAggregateRoot<TId>
        where TId : class, IEntityId
     {
-        private readonly List<IDomainEvent> domainEvents = new();
+        private readonly List<IDomainEvent> domainEvents = [];
 
         protected BaseAggregateRoot(TId id)
             : base(id)

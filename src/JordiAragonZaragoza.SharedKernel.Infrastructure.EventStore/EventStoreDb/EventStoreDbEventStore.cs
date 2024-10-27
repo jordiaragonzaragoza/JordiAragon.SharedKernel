@@ -17,7 +17,7 @@
 
     public class EventStoreDbEventStore : IEventStore, IUnitOfWork, IScopedDependency
     {
-        private readonly List<IEventSourcedAggregateRoot<IEntityId>> pendingChanges = new();
+        private readonly List<IEventSourcedAggregateRoot<IEntityId>> pendingChanges = [];
         private readonly EventStoreClient eventStoreClient;
         private readonly ILogger<EventStoreDbEventStore> logger;
 
