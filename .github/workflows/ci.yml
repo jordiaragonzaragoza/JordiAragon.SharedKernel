@@ -49,9 +49,9 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"jordiaragonzaragoza_JordiAragon.SharedKernel" /o:"jordiaragonzaragoza" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:"sonar.verbose=true" /d:"sonar.dotnet.excludeTestProjects=true" /d:"sonar.cs.opencover.reportsPaths=**/coverage.opencover.xml" /d:sonar.host.url="https://sonarcloud.io"
-          dotnet restore JordiAragon.SharedKernel.sln
-          dotnet build JordiAragon.SharedKernel.sln --no-restore --configuration Release
-          dotnet test JordiAragon.SharedKernel.sln --no-restore --configuration Release --collect:"XPlat Code Coverage;Format=opencover"
+          dotnet restore JordiAragonZaragoza.SharedKernel.sln
+          dotnet build JordiAragonZaragoza.SharedKernel.sln --no-restore --configuration Release
+          dotnet test JordiAragonZaragoza.SharedKernel.sln --no-restore --configuration Release --collect:"XPlat Code Coverage;Format=opencover"
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
       
       #- name: Display structure of files
