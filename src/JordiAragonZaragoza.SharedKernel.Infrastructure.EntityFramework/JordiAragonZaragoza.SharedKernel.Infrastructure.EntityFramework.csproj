@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<PackageId>JordiAragonZaragoza.SharedKernel.Infrastructure.EntityFramework</PackageId>
+		<Title>JordiAragonZaragoza.SharedKernel.Infrastructure.EntityFramework</Title>
+		<AssemblyName>JordiAragonZaragoza.SharedKernel.Infrastructure.EntityFramework</AssemblyName>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Ardalis.SmartEnum.EFCore" />
+		<PackageReference Include="Ardalis.Specification.EntityFrameworkCore" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\JordiAragonZaragoza.SharedKernel\JordiAragonZaragoza.SharedKernel.csproj" />
+	  <ProjectReference Include="..\JordiAragonZaragoza.SharedKernel.Domain\JordiAragonZaragoza.SharedKernel.Domain.csproj" />
+	  <ProjectReference Include="..\JordiAragonZaragoza.SharedKernel.Application.Contracts\JordiAragonZaragoza.SharedKernel.Application.Contracts.csproj" />
+	  <ProjectReference Include="..\JordiAragonZaragoza.SharedKernel.Infrastructure\JordiAragonZaragoza.SharedKernel.Infrastructure.csproj" />
+	</ItemGroup>
+</Project>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <PackageId>JordiAragonZaragoza.SharedKernel.Contracts</PackageId>
+    <Title>JordiAragonZaragoza.SharedKernel.Contracts</Title>
+    <AssemblyName>JordiAragonZaragoza.SharedKernel.Contracts</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+      <PackageReference Include="MediatR.Contracts" />
+      <PackageReference Include="Ardalis.Specification" />
+  </ItemGroup>
+</Project>

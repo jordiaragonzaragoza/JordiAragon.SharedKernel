@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JordiAragonZaragoza.SharedKernel.Contracts</name>
+    </assembly>
+    <members>
+        <member name="T:JordiAragonZaragoza.SharedKernel.Contracts.DependencyInjection.IIgnoreDependency">
+            <summary>
+            Specifies that a type in a scanned assembly will not be automatically registered.
+            If not specified with this interface it will be set as a transient dependency.
+            </summary>
+        </member>
+        <member name="T:JordiAragonZaragoza.SharedKernel.Contracts.DependencyInjection.IScopedDependency">
+            <summary>
+            Apply this marker interface to register a service as a scoped dependency.
+            </summary>
+        </member>
+        <member name="T:JordiAragonZaragoza.SharedKernel.Contracts.DependencyInjection.ISingletonDependency">
+            <summary>
+            Apply this marker interface to register a service as a singleton dependency.
+            </summary>
+        </member>
+        <member name="T:JordiAragonZaragoza.SharedKernel.Contracts.DependencyInjection.ITransientDependency">
+            <summary>
+            Apply this marker interface to register a service as a transient dependency.
+            </summary>
+        </member>
+        <member name="T:JordiAragonZaragoza.SharedKernel.Contracts.Events.IEvent">
+            <summary>
+            The Event is an event that occurs within the problem (living inside a bounded context)
+            and is used to communicate a change in the state of the aggregate inside from source transaction.
+            This is a private event, not persisted, part of Ubiquitous Language.
+            </summary>
+        </member>
+        <member name="T:JordiAragonZaragoza.SharedKernel.Contracts.Events.IEventNotification`1">
+            <summary>
+            The Event Notification is an event that occurs within the problem (living inside a bounded context)
+            and is used to communicate a change in the state of the aggregate outside from source transaction.
+            This is a private event, persisted, part of Ubiquitous Language.
+            </summary>
+            <typeparam name="TEvent">Source domainEvent.</typeparam>
+        </member>
+        <member name="T:JordiAragonZaragoza.SharedKernel.Contracts.Events.IEventNotification">
+            <summary>
+            The Event Notification is an event that occurs within the problem (living inside a bounded context)
+            and is used to communicate a change in the state of the aggregate outside from source transaction.
+            This is a private event, persisted, part of Ubiquitous Language.
+            </summary>
+        </member>
+        <member name="T:JordiAragonZaragoza.SharedKernel.Contracts.Model.IBaseModel`1">
+            <summary>
+            Generic abstraction for a base model.
+            </summary>
+            <typeparam name="TId">The id for the base model.</typeparam>
+        </member>
+        <member name="T:JordiAragonZaragoza.SharedKernel.Contracts.Repositories.IReadListRepository`2">
+            <summary>
+            <para>
+            A <see cref="T:JordiAragonZaragoza.SharedKernel.Contracts.Repositories.IReadListRepository`2" /> can be used to query instances of <typeparamref name="TModel" />.
+            </para>
+            </summary>
+            <typeparam name="TModel">The type of model being operated on by this repository.</typeparam>
+            <typeparam name="TId">The type of id model being operated on by this repository.</typeparam>
+        </member>
+        <member name="M:JordiAragonZaragoza.SharedKernel.Contracts.Repositories.IReadListRepository`2.ListAsync(System.Threading.CancellationToken)">
+            <summary>
+            Finds all entities of <typeparamref name="TModel" /> from the database.
+            </summary>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+            <returns>
+            A task that represents the asynchronous operation.
+            The task result contains a <see cref="T:System.Collections.Generic.List`1" /> that contains elements from the input sequence.
+            </returns>
+        </member>
+        <member name="M:JordiAragonZaragoza.SharedKernel.Contracts.Repositories.IReadListRepository`2.AnyAsync(System.Threading.CancellationToken)">
+            <summary>
+            Returns a boolean whether any model exists or not.
+            </summary>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+            <returns>
+            A task that represents the asynchronous operation. The task result contains true if the
+            source sequence contains any elements; otherwise, false.
+            </returns>
+        </member>
+        <member name="T:JordiAragonZaragoza.SharedKernel.Contracts.Repositories.IReadRepository`2">
+            <summary>
+            <para>
+            A <see cref="T:JordiAragonZaragoza.SharedKernel.Contracts.Repositories.IReadRepository`2" /> can be used to query instances of <typeparamref name="TModel" />.
+            </para>
+            </summary>
+            <typeparam name="TModel">The type of model being operated on by this repository.</typeparam>
+            <typeparam name="TId">The type of id model being operated on by this repository.</typeparam>
+        </member>
+        <member name="M:JordiAragonZaragoza.SharedKernel.Contracts.Repositories.IReadRepository`2.GetByIdAsync(`1,System.Threading.CancellationToken)">
+            <summary>
+            Finds an model with the given primary key value.
+            </summary>
+            <param name="id">The value of the primary key for the model to be found.</param>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+            <returns>
+            A task that represents the asynchronous operation.
+            The task result contains the <typeparamref name="TModel" />, or <see langword="null"/>.
+            </returns>
+        </member>
+        <member name="T:JordiAragonZaragoza.SharedKernel.Contracts.Repositories.ISpecificationReadRepository`2">
+            <summary>
+            <para>
+            A <see cref="T:JordiAragonZaragoza.SharedKernel.Contracts.Repositories.ISpecificationReadRepository`2" /> can be used to query instances of <typeparamref name="TModel" />.
+            An <see cref="T:Ardalis.Specification.ISpecification`1"/> (or derived) is used to encapsulate the LINQ queries against the database.
+            </para>
+            </summary>
+            <typeparam name="TModel">The type of model being operated on by this repository.</typeparam>
+            <typeparam name="TId">The type of id model being operated on by this repository.</typeparam>
+        </member>
+        <member name="M:JordiAragonZaragoza.SharedKernel.Contracts.Repositories.ISpecificationReadRepository`2.FirstOrDefaultAsync(Ardalis.Specification.ISpecification{`0},System.Threading.CancellationToken)">
+            <summary>
+            Returns the first element of a sequence, or a default value if the sequence contains no elements.
+            </summary>
+            <param name="specification">The encapsulated query logic.</param>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+            <returns>
+            A task that represents the asynchronous operation.
+            The task result contains the <typeparamref name="TModel" />, or <see langword="null"/>.
+            </returns>
+        </member>
+        <member name="M:JordiAragonZaragoza.SharedKernel.Contracts.Repositories.ISpecificationReadRepository`2.FirstOrDefaultAsync``1(Ardalis.Specification.ISpecification{`0,``0},System.Threading.CancellationToken)">
+            <summary>
+            Returns the first element of a sequence, or a default value if the sequence contains no elements.
+            </summary>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="specification">The encapsulated query logic.</param>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+            <returns>
+            A task that represents the asynchronous operation.
+            The task result contains the <typeparamref name="TResult" />, or <see langword="null"/>.
+            </returns>
+        </member>
+        <member name="M:JordiAragonZaragoza.SharedKernel.Contracts.Repositories.ISpecificationReadRepository`2.SingleOrDefaultAsync(Ardalis.Specification.ISingleResultSpecification{`0},System.Threading.CancellationToken)">
+            <summary>
+            Returns the only element of a sequence, or a default value if the sequence is empty; this method throws an exception if there is more than one element in the sequence.
+            </summary>
+            <param name="specification">The encapsulated query logic.</param>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+            <returns>
+            A task that represents the asynchronous operation.
+            The task result contains the <typeparamref name="TModel" />, or <see langword="null"/>.
+            </returns>
+        </member>
+        <member name="M:JordiAragonZaragoza.SharedKernel.Contracts.Repositories.ISpecificationReadRepository`2.SingleOrDefaultAsync``1(Ardalis.Specification.ISingleResultSpecification{`0,``0},System.Threading.CancellationToken)">
+            <summary>
+            Returns the only element of a sequence, or a default value if the sequence is empty; this method throws an exception if there is more than one element in the sequence.
+            </summary>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="specification">The encapsulated query logic.</param>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+            <returns>
+            A task that represents the asynchronous operation.
+            The task result contains the <typeparamref name="TResult" />, or <see langword="null"/>.
+            </returns>
+        </member>
+        <member name="M:JordiAragonZaragoza.SharedKernel.Contracts.Repositories.ISpecificationReadRepository`2.ListAsync(Ardalis.Specification.ISpecification{`0},System.Threading.CancellationToken)">
+            <summary>
+            Finds all entities of <typeparamref name="TModel" />, that matches the encapsulated query logic of the
+            <paramref name="specification"/>, from the database.
+            </summary>
+            <param name="specification">The encapsulated query logic.</param>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+            <returns>
+            A task that represents the asynchronous operation.
+            The task result contains a <see cref="T:System.Collections.Generic.List`1" /> that contains elements from the input sequence.
+            </returns>
+        </member>
+        <member name="M:JordiAragonZaragoza.SharedKernel.Contracts.Repositories.ISpecificationReadRepository`2.ListAsync``1(Ardalis.Specification.ISpecification{`0,``0},System.Threading.CancellationToken)">
+            <summary>
+            Finds all entities of <typeparamref name="TModel" />, that matches the encapsulated query logic of the
+            <paramref name="specification"/>, from the database.
+            <para>
+            Projects each model into a new form, being <typeparamref name="TResult" />.
+            </para>
+            </summary>
+            <typeparam name="TResult">The type of the value returned by the projection.</typeparam>
+            <param name="specification">The encapsulated query logic.</param>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+            <returns>
+            A task that represents the asynchronous operation.
+            The task result contains a <see cref="T:System.Collections.Generic.List`1" /> that contains elements from the input sequence.
+            </returns>
+        </member>
+        <member name="M:JordiAragonZaragoza.SharedKernel.Contracts.Repositories.ISpecificationReadRepository`2.CountAsync(Ardalis.Specification.ISpecification{`0},System.Threading.CancellationToken)">
+            <summary>
+            Returns a number that represents how many entities satisfy the encapsulated query logic
+            of the <paramref name="specification"/>.
+            </summary>
+            <param name="specification">The encapsulated query logic.</param>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+            <returns>
+            A task that represents the asynchronous operation. The task result contains the
+            number of elements in the input sequence.
+            </returns>
+        </member>
+        <member name="M:JordiAragonZaragoza.SharedKernel.Contracts.Repositories.ISpecificationReadRepository`2.CountAsync(System.Threading.CancellationToken)">
+            <summary>
+            Returns the total number of records.
+            </summary>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+            <returns>
+            A task that represents the asynchronous operation. The task result contains the
+            number of elements in the input sequence.
+            </returns>
+        </member>
+        <member name="M:JordiAragonZaragoza.SharedKernel.Contracts.Repositories.ISpecificationReadRepository`2.AnyAsync(Ardalis.Specification.ISpecification{`0},System.Threading.CancellationToken)">
+            <summary>
+            Returns a boolean that represents whether any model satisfy the encapsulated query logic
+            of the <paramref name="specification"/> or not.
+            </summary>
+            <param name="specification">The encapsulated query logic.</param>
+            <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+            <returns>
+            A task that represents the asynchronous operation. The task result contains true if the
+            source sequence contains any elements; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:JordiAragonZaragoza.SharedKernel.Contracts.Repositories.ISpecificationReadRepository`2.AsAsyncEnumerable(Ardalis.Specification.ISpecification{`0})">
+            <summary>
+            Finds all entities of <typeparamref name="TModel" />, that matches the encapsulated query logic of the
+            <paramref name="specification"/>, from the database.
+            </summary>
+            <param name="specification">The encapsulated query logic.</param>
+            <returns>
+             Returns an IAsyncEnumerable which can be enumerated asynchronously.
+            </returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<PackageId>JordiAragonZaragoza.SharedKernel.Domain.Contracts</PackageId>
+		<Title>JordiAragonZaragoza.SharedKernel.Domain.Contracts</Title>
+		<AssemblyName>JordiAragonZaragoza.SharedKernel.Domain.Contracts</AssemblyName>
+	</PropertyGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\JordiAragonZaragoza.SharedKernel.Contracts\JordiAragonZaragoza.SharedKernel.Contracts.csproj" />
+	</ItemGroup>
+</Project>
