@@ -38,3 +38,6 @@ dotnet_diagnostic.CA1848.severity = none
 
 # CA2007: Consider calling ConfigureAwait on the awaited task
 dotnet_diagnostic.CA2007.severity = none
+
+# Resharper settings
+resharper_redundant_name_qualifier_highlighting = none
