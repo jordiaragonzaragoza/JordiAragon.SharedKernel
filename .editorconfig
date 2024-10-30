@@ -39,5 +39,9 @@ dotnet_diagnostic.CA1848.severity = none
 # CA2007: Consider calling ConfigureAwait on the awaited task
 dotnet_diagnostic.CA2007.severity = none
 
+# Csharp settings
+csharp_style_prefer_primary_constructors = false
+
 # Resharper settings
 resharper_redundant_name_qualifier_highlighting = none
+resharper_convert_to_primary_constructor_highlighting = none
