@@ -31,6 +31,10 @@
                     await endpoint.HttpContext.Response.SendAsync(result.GetValue(), cancellation: cancellationToken);
                     break;
 
+                case ResultStatus.Created:
+                    await endpoint.HttpContext.Response.SendCreatedAtAsync<IEndpoint>(routeValues: default!, responseBody: result.GetValue(), cancellation: cancellationToken);
+                    break;
+
                 case ResultStatus.Error:
                     PrepareValidationFailures(endpoint, result.Errors);
                     await endpoint.HttpContext.Response.SendErrorsAsync(endpoint.ValidationFailures, statusCode: (int)HttpStatusCode.UnprocessableEntity, cancellation: cancellationToken);
@@ -54,9 +58,23 @@
                     await endpoint.HttpContext.Response.SendErrorsAsync(endpoint.ValidationFailures, statusCode: (int)HttpStatusCode.NotFound, cancellation: cancellationToken);
                     break;
 
+                case ResultStatus.NoContent:
+                    await endpoint.HttpContext.Response.SendNoContentAsync(cancellationToken);
+                    break;
+
                 case ResultStatus.Conflict:
                     PrepareValidationFailures(endpoint, result.Errors);
                     await endpoint.HttpContext.Response.SendErrorsAsync(endpoint.ValidationFailures, statusCode: (int)HttpStatusCode.Conflict, cancellation: cancellationToken);
+                    break;
+
+                case ResultStatus.CriticalError:
+                    PrepareValidationFailures(endpoint, result.Errors);
+                    await endpoint.HttpContext.Response.SendErrorsAsync(endpoint.ValidationFailures, statusCode: (int)HttpStatusCode.InternalServerError, cancellation: cancellationToken);
+                    break;
+
+                case ResultStatus.Unavailable:
+                    PrepareValidationFailures(endpoint, result.Errors);
+                    await endpoint.HttpContext.Response.SendErrorsAsync(endpoint.ValidationFailures, statusCode: (int)HttpStatusCode.ServiceUnavailable, cancellation: cancellationToken);
                     break;
             }
         }
