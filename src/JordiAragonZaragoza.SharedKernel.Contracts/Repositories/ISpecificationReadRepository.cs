@@ -14,7 +14,7 @@
     /// </summary>
     /// <typeparam name="TModel">The type of model being operated on by this repository.</typeparam>
     /// <typeparam name="TId">The type of id model being operated on by this repository.</typeparam>
-    public interface ISpecificationReadRepository<TModel, TId> : IReadListRepository<TModel, TId>
+    public interface ISpecificationReadRepository<TModel, in TId> : IReadListRepository<TModel, TId>
         where TModel : class, IBaseModel<TId>
         where TId : notnull
     {

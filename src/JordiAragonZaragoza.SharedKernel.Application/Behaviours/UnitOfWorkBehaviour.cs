@@ -30,10 +30,7 @@
 
             try
             {
-                return await this.unitOfWork.ExecuteInTransactionAsync(async () =>
-                {
-                    return await next();
-                });
+                return await this.unitOfWork.ExecuteInTransactionAsync(async () => await next());
             }
 
             // TODO: Remove catches when not using custom exceptions on domain layer.

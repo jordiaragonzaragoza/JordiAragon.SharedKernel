@@ -1,7 +1,6 @@
 ﻿namespace JordiAragonZaragoza.SharedKernel.Domain.Exceptions
 {
     using System;
-    using System.Runtime.Serialization;
     using JordiAragonZaragoza.SharedKernel.Domain.Contracts.Interfaces;
 
     public sealed class InvalidAggregateStateException<TAggregate, TId> : Exception

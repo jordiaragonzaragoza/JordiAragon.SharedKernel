@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
     using JordiAragonZaragoza.SharedKernel.Contracts.Model;
 
-    public interface IRepository<TModel, TId> : IReadRepository<TModel, TId>
+    public interface IRepository<TModel, in TId> : IReadRepository<TModel, TId>
         where TModel : class, IBaseModel<TId>
         where TId : notnull
     {
