@@ -2,9 +2,9 @@
 {
     using System.Collections.Generic;
     using Ardalis.GuardClauses;
+    using Ardalis.Result;
     using JordiAragonZaragoza.SharedKernel.Contracts.DependencyInjection;
     using JordiAragonZaragoza.SharedKernel.Domain.Contracts.Interfaces;
-    using JordiAragonZaragoza.SharedKernel.Domain.Exceptions;
 
     public abstract class BaseEntity<TId> : IEqualityComparer<BaseEntity<TId>>, IEntity<TId>, IIgnoreDependency
         where TId : class, IEntityId
@@ -46,14 +46,26 @@
             return obj.Id.GetHashCode();
         }
 
-        protected static void CheckRule(IBusinessRule rule)
+        protected static Result CheckRule(IBusinessRule rule)
         {
             Guard.Against.Null(rule, nameof(rule));
 
-            if (rule.IsBroken())
+            if (!rule.IsBroken())
             {
-                throw new BusinessRuleValidationException(rule);
+                return Result.Success();
             }
+
+            var errors = new List<ValidationError>()
+            {
+                new()
+                {
+                    ErrorMessage = rule.Message,
+                    Identifier = rule.GetType().Name,
+                    Severity = ValidationSeverity.Error,
+                },
+            };
+
+            return Result.Invalid(errors);
         }
     }
 }

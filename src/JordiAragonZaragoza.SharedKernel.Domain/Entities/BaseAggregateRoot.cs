@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
+    using Ardalis.Result;
     using JordiAragonZaragoza.SharedKernel.Domain.Contracts.Interfaces;
 
     public abstract class BaseAggregateRoot<TId> : BaseEntity<TId>, IAggregateRoot<TId>
@@ -26,14 +27,21 @@
 
         public void ClearEvents() => this.domainEvents.Clear();
 
-        protected void Apply(IDomainEvent domainEvent)
+        protected Result Apply(IDomainEvent domainEvent)
         {
-            this.When(domainEvent);
+            var result = this.When(domainEvent);
+            if (!result.IsSuccess)
+            {
+                return result;
+            }
+
             this.EnsureValidState();
             this.domainEvents.Add(domainEvent);
+
+            return result;
         }
 
-        protected abstract void When(IDomainEvent domainEvent);
+        protected abstract Result When(IDomainEvent domainEvent);
 
         protected abstract void EnsureValidState();
     }

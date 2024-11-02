@@ -5,9 +5,9 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Ardalis.GuardClauses;
+    using Ardalis.Result;
     using JordiAragonZaragoza.SharedKernel.Contracts.DependencyInjection;
     using JordiAragonZaragoza.SharedKernel.Domain.Contracts.Interfaces;
-    using JordiAragonZaragoza.SharedKernel.Domain.Exceptions;
 
     // See: https://enterprisecraftsmanship.com/posts/value-object-better-implementation/
     [Serializable]
@@ -128,14 +128,26 @@
             return type;
         }
 
-        protected static void CheckRule(IBusinessRule rule)
+        protected static Result CheckRule(IBusinessRule rule)
         {
             Guard.Against.Null(rule, nameof(rule));
 
-            if (rule.IsBroken())
+            if (!rule.IsBroken())
             {
-                throw new BusinessRuleValidationException(rule);
+                return Result.Success();
             }
+
+            var errors = new List<ValidationError>()
+            {
+                new()
+                {
+                    ErrorMessage = rule.Message,
+                    Identifier = rule.GetType().Name,
+                    Severity = ValidationSeverity.Error,
+                },
+            };
+
+            return Result.Invalid(errors);
         }
 
         protected abstract IEnumerable<object> GetEqualityComponents();
