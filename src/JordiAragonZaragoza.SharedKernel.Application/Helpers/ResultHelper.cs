@@ -1,4 +1,4 @@
-﻿namespace JordiAragonZaragoza.SharedKernel.Domain.Helpers
+﻿namespace JordiAragonZaragoza.SharedKernel.Application.Helpers
 {
     using System;
     using System.Globalization;

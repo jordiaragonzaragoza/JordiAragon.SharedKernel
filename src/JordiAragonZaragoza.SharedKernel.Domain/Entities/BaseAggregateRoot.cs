@@ -27,22 +27,25 @@
 
         public void ClearEvents() => this.domainEvents.Clear();
 
-        protected Result Apply(IDomainEvent domainEvent)
+        protected void Apply(IDomainEvent domainEvent)
         {
-            var result = this.When(domainEvent);
-            if (!result.IsSuccess)
-            {
-                return result;
-            }
-
+            this.When(domainEvent);
             this.EnsureValidState();
             this.domainEvents.Add(domainEvent);
-
-            return result;
         }
 
-        protected abstract Result When(IDomainEvent domainEvent);
+        /// <summary>
+        /// When is used to project events into the state of the aggregate.
+        /// This means that it is responsible for applying the changes described in each event to the current state of the aggregate.
+        /// </summary>
+        /// <param name="domainEvent">The domain event to apply.</param>
+        protected abstract void When(IDomainEvent domainEvent);
 
+        /// <summary>
+        /// This method checks that in any situation, the state of the entity is valid and if it is not, it will return an error result.
+        /// When we call this method from any operation method, we can be sure that no matter what we try to do,
+        /// our entity will always be in a valid state or the caller will get an error result.
+        /// </summary>
         protected abstract void EnsureValidState();
     }
 }
