@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
-    using Ardalis.Result;
     using JordiAragonZaragoza.SharedKernel.Domain.Contracts.Interfaces;
 
     public abstract class BaseAggregateRoot<TId> : BaseEntity<TId>, IAggregateRoot<TId>

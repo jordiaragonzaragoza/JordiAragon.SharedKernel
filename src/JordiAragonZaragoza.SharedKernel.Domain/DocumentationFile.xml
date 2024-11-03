@@ -4,5 +4,19 @@
         <name>JordiAragonZaragoza.SharedKernel.Domain</name>
     </assembly>
     <members>
+        <member name="M:JordiAragonZaragoza.SharedKernel.Domain.Entities.BaseAggregateRoot`1.When(JordiAragonZaragoza.SharedKernel.Domain.Contracts.Interfaces.IDomainEvent)">
+            <summary>
+            When is used to project events into the state of the aggregate.
+            This means that it is responsible for applying the changes described in each event to the current state of the aggregate.
+            </summary>
+            <param name="domainEvent">The domain event to apply.</param>
+        </member>
+        <member name="M:JordiAragonZaragoza.SharedKernel.Domain.Entities.BaseAggregateRoot`1.EnsureValidState">
+            <summary>
+            This method checks that in any situation, the state of the entity is valid and if it is not, it will return an error result.
+            When we call this method from any operation method, we can be sure that no matter what we try to do,
+            our entity will always be in a valid state or the caller will get an error result.
+            </summary>
+        </member>
     </members>
 </doc>
