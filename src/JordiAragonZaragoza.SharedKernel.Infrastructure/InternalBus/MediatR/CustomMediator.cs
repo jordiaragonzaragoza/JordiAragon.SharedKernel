@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
-    using Ardalis.GuardClauses;
     using global::MediatR;
     using global::MediatR.NotificationPublishers;
     using JordiAragonZaragoza.SharedKernel.Application.Contracts.Interfaces;
@@ -28,7 +27,7 @@
             INotification notification,
             CancellationToken cancellationToken)
         {
-            Guard.Against.Null(handlerExecutors, nameof(handlerExecutors));
+            ArgumentNullException.ThrowIfNull(handlerExecutors, nameof(handlerExecutors));
 
             var newHandlerExecutors = new List<NotificationHandlerExecutor>();
             foreach (var handler in handlerExecutors)

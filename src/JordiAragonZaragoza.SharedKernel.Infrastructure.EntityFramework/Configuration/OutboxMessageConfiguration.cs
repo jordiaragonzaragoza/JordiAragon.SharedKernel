@@ -1,7 +1,6 @@
 ﻿namespace JordiAragonZaragoza.SharedKernel.Infrastructure.EntityFramework.Configuration
 {
     using System;
-    using Ardalis.GuardClauses;
     using JordiAragonZaragoza.SharedKernel.Infrastructure.Outbox;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -10,7 +9,7 @@
     {
         public override void Configure(EntityTypeBuilder<OutboxMessage> builder)
         {
-            Guard.Against.Null(builder, nameof(builder));
+            ArgumentNullException.ThrowIfNull(builder, nameof(builder));
 
             builder.ToTable("__OutboxMessages");
 

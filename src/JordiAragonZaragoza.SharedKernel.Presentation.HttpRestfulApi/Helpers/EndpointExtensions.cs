@@ -6,7 +6,6 @@
     using System.Net;
     using System.Threading;
     using System.Threading.Tasks;
-    using Ardalis.GuardClauses;
     using Ardalis.Result;
     using FastEndpoints;
     using FluentValidation;
@@ -16,8 +15,8 @@
     {
         public static async Task SendResponseAsync(this IEndpoint endpoint, IResult result, CancellationToken cancellationToken)
         {
-            Guard.Against.Null(endpoint, nameof(endpoint));
-            Guard.Against.Null(result, nameof(result));
+            ArgumentNullException.ThrowIfNull(endpoint, nameof(endpoint));
+            ArgumentNullException.ThrowIfNull(result, nameof(result));
 
             switch (result.Status)
             {

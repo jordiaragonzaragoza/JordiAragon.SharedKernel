@@ -1,7 +1,7 @@
 ﻿namespace JordiAragonZaragoza.SharedKernel.Infrastructure.EntityFramework.Helpers
 {
+    using System;
     using System.Linq;
-    using Ardalis.GuardClauses;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.ChangeTracking;
 
@@ -9,7 +9,7 @@
     {
         public static bool HasChangedOwnedEntities(this EntityEntry entry)
         {
-            Guard.Against.Null(entry, nameof(entry));
+            ArgumentNullException.ThrowIfNull(entry, nameof(entry));
 
             return entry.References.Any(referenceEntry =>
                 referenceEntry.TargetEntry != null &&

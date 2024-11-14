@@ -4,14 +4,13 @@
     using System.Globalization;
     using System.Linq;
     using System.Text;
-    using Ardalis.GuardClauses;
     using Ardalis.Result;
 
     public static class ResultHelper
     {
         public static Result<TDestination> HandleNonSuccessStatus<TSource, TDestination>(this Result<TSource> result)
         {
-            Guard.Against.Null(result, nameof(result));
+            ArgumentNullException.ThrowIfNull(result, nameof(result));
 
             return result.Status switch
             {
@@ -38,7 +37,7 @@
 
         public static Result<TDestination> HandleNonSuccessStatus<TDestination>(this Result result)
         {
-            Guard.Against.Null(result, nameof(result));
+            ArgumentNullException.ThrowIfNull(result, nameof(result));
 
             return result.Status switch
             {
@@ -65,7 +64,7 @@
 
         public static Result HandleNonSuccessStatus<TSource>(this Result<TSource> result)
         {
-            Guard.Against.Null(result, nameof(result));
+            ArgumentNullException.ThrowIfNull(result, nameof(result));
 
             return result.Status switch
             {
@@ -92,7 +91,7 @@
 
         public static string ResultDetails(this IResult result)
         {
-            Guard.Against.Null(result, nameof(result));
+            ArgumentNullException.ThrowIfNull(result, nameof(result));
 
             switch (result.Status)
             {

@@ -5,7 +5,6 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
-    using Ardalis.GuardClauses;
     using Ardalis.Result;
     using JordiAragonZaragoza.SharedKernel.Application.Contracts.Interfaces;
     using JordiAragonZaragoza.SharedKernel.Domain.Exceptions;
@@ -26,7 +25,7 @@
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
-            Guard.Against.Null(next, nameof(next));
+            ArgumentNullException.ThrowIfNull(next, nameof(next));
 
             try
             {
