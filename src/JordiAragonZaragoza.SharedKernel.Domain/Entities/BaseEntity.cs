@@ -1,5 +1,6 @@
 ﻿namespace JordiAragonZaragoza.SharedKernel.Domain.Entities
 {
+    using System;
     using System.Collections.Generic;
     using Ardalis.GuardClauses;
     using JordiAragonZaragoza.SharedKernel.Contracts.DependencyInjection;
@@ -48,7 +49,7 @@
 
         protected static void CheckRule(IBusinessRule rule)
         {
-            Guard.Against.Null(rule, nameof(rule));
+            ArgumentNullException.ThrowIfNull(rule, nameof(rule));
 
             if (rule.IsBroken())
             {

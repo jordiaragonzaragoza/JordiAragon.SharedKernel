@@ -1,6 +1,6 @@
 ﻿namespace JordiAragonZaragoza.SharedKernel.Infrastructure.EntityFramework.Configuration
 {
-    using Ardalis.GuardClauses;
+    using System;
     using JordiAragonZaragoza.SharedKernel.Infrastructure.ProjectionCheckpoint;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -9,7 +9,7 @@
     {
         public void Configure(EntityTypeBuilder<Checkpoint> builder)
         {
-            Guard.Against.Null(builder, nameof(builder));
+            ArgumentNullException.ThrowIfNull(builder, nameof(builder));
 
             builder.ToTable("__Checkpoints");
 

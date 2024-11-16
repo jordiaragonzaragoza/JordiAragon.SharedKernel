@@ -93,7 +93,7 @@
         </member>
         <member name="M:JordiAragonZaragoza.SharedKernel.Contracts.Repositories.IReadRepository`2.GetByIdAsync(`1,System.Threading.CancellationToken)">
             <summary>
-            Finds an model with the given primary key value.
+            Finds a model with the given primary key value.
             </summary>
             <param name="id">The value of the primary key for the model to be found.</param>
             <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>

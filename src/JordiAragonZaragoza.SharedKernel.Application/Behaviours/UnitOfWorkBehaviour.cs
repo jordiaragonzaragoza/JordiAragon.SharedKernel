@@ -5,7 +5,6 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
-    using Ardalis.GuardClauses;
     using Ardalis.Result;
     using JordiAragonZaragoza.SharedKernel.Application.Contracts.Interfaces;
     using JordiAragonZaragoza.SharedKernel.Domain.Exceptions;
@@ -26,17 +25,12 @@
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
-            Guard.Against.Null(next, nameof(next));
+            ArgumentNullException.ThrowIfNull(next, nameof(next));
 
             try
             {
-                return await this.unitOfWork.ExecuteInTransactionAsync(async () =>
-                {
-                    return await next();
-                });
+                return await this.unitOfWork.ExecuteInTransactionAsync(async () => await next());
             }
-
-            // TODO: Remove catches when not using custom exceptions on domain layer.
             catch (NotFoundException notFoundException)
             {
                 var resultType = typeof(Result);
@@ -54,8 +48,6 @@
 
                 return (TResponse)result;
             }
-
-            // TODO: Remove catches when not using custom exceptions on domain layer.
             catch (BusinessRuleValidationException businessRuleValidationException)
             {
                 var errors = new List<ValidationError>()

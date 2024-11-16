@@ -26,7 +26,7 @@
 
         public async Task PublishAsync(IEvent @event, CancellationToken cancellationToken = default)
         {
-            Guard.Against.Null(@event, nameof(@event));
+            ArgumentNullException.ThrowIfNull(@event, nameof(@event));
 
             try
             {
@@ -52,7 +52,7 @@
 
         public async Task PublishAsync(IEventNotification eventNotification, CancellationToken cancellationToken = default)
         {
-            Guard.Against.Null(eventNotification, nameof(eventNotification));
+            ArgumentNullException.ThrowIfNull(eventNotification, nameof(eventNotification));
 
             try
             {

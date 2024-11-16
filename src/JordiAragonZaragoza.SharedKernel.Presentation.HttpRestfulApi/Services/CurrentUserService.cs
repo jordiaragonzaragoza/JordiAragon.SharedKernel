@@ -1,7 +1,7 @@
 ﻿namespace JordiAragonZaragoza.SharedKernel.Presentation.HttpRestfulApi.Services
 {
+    using System;
     using System.Security.Claims;
-    using Ardalis.GuardClauses;
     using JordiAragonZaragoza.SharedKernel.Application.Contracts.Interfaces;
     using JordiAragonZaragoza.SharedKernel.Contracts.DependencyInjection;
     using Microsoft.AspNetCore.Http;
@@ -10,7 +10,7 @@
     {
         public CurrentUserService(IHttpContextAccessor httpContextAccessor)
         {
-            Guard.Against.Null(httpContextAccessor, nameof(httpContextAccessor));
+            ArgumentNullException.ThrowIfNull(httpContextAccessor, nameof(httpContextAccessor));
 
             this.UserId = httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
             this.IsAuthenticated = !string.IsNullOrEmpty(this.UserId);

@@ -5,7 +5,7 @@
     using System.Threading.Tasks;
     using JordiAragonZaragoza.SharedKernel.Contracts.Model;
 
-    public interface IRangeableRepository<TModel, TId> : IRepository<TModel, TId>
+    public interface IRangeableRepository<TModel, in TId> : IRepository<TModel, TId>
         where TModel : class, IBaseModel<TId>
         where TId : notnull
     {

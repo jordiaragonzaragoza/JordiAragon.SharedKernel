@@ -5,7 +5,6 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using Ardalis.GuardClauses;
     using Ardalis.Specification;
     using Ardalis.Specification.EntityFrameworkCore;
     using JordiAragonZaragoza.SharedKernel.Application.Contracts;
@@ -29,7 +28,7 @@
 
         public async Task<PaginatedCollectionOutputDto<TReadModel>> PaginatedListAsync(IPaginatedSpecification<TReadModel> paginatedSpecification, CancellationToken cancellationToken)
         {
-            Guard.Against.Null(paginatedSpecification);
+            ArgumentNullException.ThrowIfNull(paginatedSpecification);
             var request = paginatedSpecification.Request;
 
             var totalCount = await this.ApplySpecification(paginatedSpecification).CountAsync(cancellationToken);

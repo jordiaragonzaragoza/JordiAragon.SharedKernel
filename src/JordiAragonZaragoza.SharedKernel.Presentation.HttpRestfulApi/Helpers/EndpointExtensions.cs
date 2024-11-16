@@ -6,7 +6,6 @@
     using System.Net;
     using System.Threading;
     using System.Threading.Tasks;
-    using Ardalis.GuardClauses;
     using Ardalis.Result;
     using FastEndpoints;
     using FluentValidation;
@@ -16,8 +15,8 @@
     {
         public static async Task SendResponseAsync(this IEndpoint endpoint, IResult result, CancellationToken cancellationToken)
         {
-            Guard.Against.Null(endpoint, nameof(endpoint));
-            Guard.Against.Null(result, nameof(result));
+            ArgumentNullException.ThrowIfNull(endpoint, nameof(endpoint));
+            ArgumentNullException.ThrowIfNull(result, nameof(result));
 
             switch (result.Status)
             {
@@ -29,6 +28,10 @@
                     }
 
                     await endpoint.HttpContext.Response.SendAsync(result.GetValue(), cancellation: cancellationToken);
+                    break;
+
+                case ResultStatus.Created:
+                    await endpoint.HttpContext.Response.SendCreatedAtAsync<IEndpoint>(routeValues: default!, responseBody: result.GetValue(), cancellation: cancellationToken);
                     break;
 
                 case ResultStatus.Error:
@@ -54,9 +57,23 @@
                     await endpoint.HttpContext.Response.SendErrorsAsync(endpoint.ValidationFailures, statusCode: (int)HttpStatusCode.NotFound, cancellation: cancellationToken);
                     break;
 
+                case ResultStatus.NoContent:
+                    await endpoint.HttpContext.Response.SendNoContentAsync(cancellationToken);
+                    break;
+
                 case ResultStatus.Conflict:
                     PrepareValidationFailures(endpoint, result.Errors);
                     await endpoint.HttpContext.Response.SendErrorsAsync(endpoint.ValidationFailures, statusCode: (int)HttpStatusCode.Conflict, cancellation: cancellationToken);
+                    break;
+
+                case ResultStatus.CriticalError:
+                    PrepareValidationFailures(endpoint, result.Errors);
+                    await endpoint.HttpContext.Response.SendErrorsAsync(endpoint.ValidationFailures, statusCode: (int)HttpStatusCode.InternalServerError, cancellation: cancellationToken);
+                    break;
+
+                case ResultStatus.Unavailable:
+                    PrepareValidationFailures(endpoint, result.Errors);
+                    await endpoint.HttpContext.Response.SendErrorsAsync(endpoint.ValidationFailures, statusCode: (int)HttpStatusCode.ServiceUnavailable, cancellation: cancellationToken);
                     break;
             }
         }

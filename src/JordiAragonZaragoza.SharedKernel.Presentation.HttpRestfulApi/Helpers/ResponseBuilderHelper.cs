@@ -1,10 +1,10 @@
 ﻿namespace JordiAragonZaragoza.SharedKernel.Presentation.HttpRestfulApi.Helpers
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
     using System.Text;
-    using Ardalis.GuardClauses;
     using FluentValidation.Results;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
@@ -15,8 +15,8 @@
 
         public static object BuildResponse(IReadOnlyCollection<ValidationFailure> failures, HttpContext context, int statusCode)
         {
-            Guard.Against.Null(failures, nameof(failures));
-            Guard.Against.Null(context, nameof(context));
+            ArgumentNullException.ThrowIfNull(failures, nameof(failures));
+            ArgumentNullException.ThrowIfNull(context, nameof(context));
 
             switch (statusCode)
             {

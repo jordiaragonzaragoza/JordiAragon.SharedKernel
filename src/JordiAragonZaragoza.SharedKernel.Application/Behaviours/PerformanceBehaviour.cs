@@ -1,5 +1,6 @@
 ﻿namespace JordiAragonZaragoza.SharedKernel.Application.Behaviours
 {
+    using System;
     using System.Diagnostics;
     using System.Text.Json;
     using System.Threading;
@@ -30,7 +31,7 @@
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
-            Guard.Against.Null(next, nameof(next));
+            ArgumentNullException.ThrowIfNull(next, nameof(next));
 
             this.timer.Start();
 

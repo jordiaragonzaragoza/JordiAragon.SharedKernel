@@ -1,5 +1,6 @@
 ﻿namespace JordiAragonZaragoza.SharedKernel.Application.Behaviours
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using Ardalis.GuardClauses;
@@ -25,7 +26,7 @@
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
-            Guard.Against.Null(next, nameof(next));
+            ArgumentNullException.ThrowIfNull(next, nameof(next));
 
             var response = await next();
 

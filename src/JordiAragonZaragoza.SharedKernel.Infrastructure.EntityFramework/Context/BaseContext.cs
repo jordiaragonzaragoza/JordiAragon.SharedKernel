@@ -1,5 +1,6 @@
 ﻿namespace JordiAragonZaragoza.SharedKernel.Infrastructure.EntityFramework.Context
 {
+    using System;
     using Ardalis.GuardClauses;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Hosting;
@@ -24,7 +25,7 @@
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            Guard.Against.Null(optionsBuilder, nameof(optionsBuilder));
+            ArgumentNullException.ThrowIfNull(optionsBuilder, nameof(optionsBuilder));
 
             optionsBuilder
                 .UseLoggerFactory(this.loggerFactory)

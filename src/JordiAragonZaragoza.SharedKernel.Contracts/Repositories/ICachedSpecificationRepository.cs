@@ -2,7 +2,7 @@
 {
     using JordiAragonZaragoza.SharedKernel.Contracts.Model;
 
-    public interface ICachedSpecificationRepository<TModel, TId> : IRangeableRepository<TModel, TId>, ISpecificationReadRepository<TModel, TId>
+    public interface ICachedSpecificationRepository<TModel, in TId> : IRangeableRepository<TModel, TId>, ISpecificationReadRepository<TModel, TId>
         where TModel : class, IBaseModel<TId>
         where TId : notnull
     {

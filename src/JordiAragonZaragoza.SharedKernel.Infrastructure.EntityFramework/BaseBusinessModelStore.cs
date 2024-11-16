@@ -45,7 +45,7 @@
 
                 try
                 {
-                    Guard.Against.Null(operation, nameof(operation));
+                    ArgumentNullException.ThrowIfNull(operation, nameof(operation));
 
                     // Execute operation
                     var response = await operation();

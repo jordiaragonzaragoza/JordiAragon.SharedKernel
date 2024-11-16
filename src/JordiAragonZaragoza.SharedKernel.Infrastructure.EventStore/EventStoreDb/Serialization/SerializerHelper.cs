@@ -2,7 +2,6 @@
 {
     using System;
     using System.Text;
-    using Ardalis.GuardClauses;
     using global::EventStore.Client;
     using JordiAragonZaragoza.SharedKernel.Domain.Contracts.Interfaces;
     using Newtonsoft.Json;
@@ -17,7 +16,7 @@
 
         public static EventData Serialize(IDomainEvent @event, object? metadata = null)
         {
-            Guard.Against.Null(@event);
+            ArgumentNullException.ThrowIfNull(@event);
 
             return new EventData(
                 eventId: Uuid.FromGuid(@event.Id),

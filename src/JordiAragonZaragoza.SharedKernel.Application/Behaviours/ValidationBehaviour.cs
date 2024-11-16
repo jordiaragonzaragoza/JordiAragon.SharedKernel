@@ -7,7 +7,6 @@
     using System.Text.Json;
     using System.Threading;
     using System.Threading.Tasks;
-    using Ardalis.GuardClauses;
     using Ardalis.Result;
     using FluentValidation;
     using JordiAragonZaragoza.SharedKernel.Application.Contracts.Interfaces;
@@ -35,7 +34,7 @@
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
-            Guard.Against.Null(next, nameof(next));
+            ArgumentNullException.ThrowIfNull(next, nameof(next));
 
             if (this.validators.Any())
             {

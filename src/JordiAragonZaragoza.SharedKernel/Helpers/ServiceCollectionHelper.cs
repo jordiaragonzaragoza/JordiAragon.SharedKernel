@@ -1,14 +1,14 @@
 ﻿namespace JordiAragonZaragoza.SharedKernel.Helpers
 {
+    using System;
     using System.Linq;
-    using Ardalis.GuardClauses;
     using Microsoft.Extensions.DependencyInjection;
 
     public static class ServiceCollectionHelper
     {
         public static IServiceCollection Remove<TService>(this IServiceCollection services)
         {
-            Guard.Against.Null(services, nameof(services));
+            ArgumentNullException.ThrowIfNull(services, nameof(services));
 
             var serviceDescriptor = services.FirstOrDefault(d =>
                 d.ServiceType == typeof(TService));
