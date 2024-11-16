@@ -40,7 +40,7 @@
         [SuppressMessage("Design", "CA1031: Do not catch general exception types", Justification = "Ok for this method.")]
         public async Task Execute(IJobExecutionContext context)
         {
-            Guard.Against.Null(context, nameof(context));
+            ArgumentNullException.ThrowIfNull(context, nameof(context));
 
             var outboxMessages = await this.repositoryOutboxMessages.ListAsync(new OutboxMessagesUnProcessedWithoutErrorSpec(), context.CancellationToken);
             if (outboxMessages.Count == 0)

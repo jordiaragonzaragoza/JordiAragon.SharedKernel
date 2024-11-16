@@ -12,7 +12,7 @@
     /// </summary>
     /// <typeparam name="TModel">The type of model being operated on by this repository.</typeparam>
     /// <typeparam name="TId">The type of id model being operated on by this repository.</typeparam>
-    public interface IReadListRepository<TModel, TId> : IReadRepository<TModel, TId>
+    public interface IReadListRepository<TModel, in TId> : IReadRepository<TModel, TId>
         where TModel : class, IBaseModel<TId>
         where TId : notnull
     {

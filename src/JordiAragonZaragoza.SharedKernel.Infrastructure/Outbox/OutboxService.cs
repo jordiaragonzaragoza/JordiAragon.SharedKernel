@@ -3,7 +3,6 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using Ardalis.GuardClauses;
     using JordiAragonZaragoza.SharedKernel.Application.Contracts.Interfaces;
     using JordiAragonZaragoza.SharedKernel.Contracts.Events;
     using JordiAragonZaragoza.SharedKernel.Contracts.Outbox;
@@ -29,7 +28,7 @@
 
         public async Task AddMessageAsync(IEventNotification<IEvent> eventNotification, CancellationToken cancellationToken = default)
         {
-            Guard.Against.Null(eventNotification);
+            ArgumentNullException.ThrowIfNull(eventNotification);
 
             var type = eventNotification.GetType().FullName
                 ?? throw new InvalidOperationException("The full name of the eventNotification is null.");

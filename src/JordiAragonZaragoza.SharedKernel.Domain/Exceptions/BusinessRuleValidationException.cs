@@ -4,7 +4,6 @@
     using Ardalis.GuardClauses;
     using JordiAragonZaragoza.SharedKernel.Domain.Contracts.Interfaces;
 
-    // TODO: Remove and use result pattern.
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1032:Implement standard exception constructors", Justification = "Temporal suppresion")]
     public class BusinessRuleValidationException : Exception
     {

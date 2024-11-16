@@ -1,6 +1,6 @@
 ﻿namespace JordiAragonZaragoza.SharedKernel.Domain.Entities
 {
-    using Ardalis.GuardClauses;
+    using System;
     using Ardalis.Specification;
     using JordiAragonZaragoza.SharedKernel.Domain.Contracts.Interfaces;
 
@@ -10,7 +10,7 @@
     {
         public EntityByIdSpec(TId entityId)
         {
-            Guard.Against.Null(entityId);
+            ArgumentNullException.ThrowIfNull(entityId);
 
             this.Query
                 .Where(entity => entity.Id == entityId);

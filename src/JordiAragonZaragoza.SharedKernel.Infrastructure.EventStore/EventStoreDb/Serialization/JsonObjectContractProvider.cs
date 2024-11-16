@@ -5,7 +5,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using Ardalis.GuardClauses;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
 
@@ -20,7 +19,7 @@
             Func<ConstructorInfo, JsonPropertyCollection, IList<JsonProperty>> createConstructorParameters) =>
             Constructors.GetOrAdd(objectType?.AssemblyQualifiedName!, _ =>
             {
-                Guard.Against.Null(objectType, nameof(objectType));
+                ArgumentNullException.ThrowIfNull(objectType, nameof(objectType));
 
                 var nonDefaultConstructor = GetNonDefaultConstructor(objectType);
 

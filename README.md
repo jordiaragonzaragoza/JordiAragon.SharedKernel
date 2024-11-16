@@ -26,7 +26,7 @@ Loving it? Please show your support by giving this project a star!
 
 ## How to debug: 🐛
 
-- You will need the latest Visual Studio 2022 and the latest .NET Core SDK (at least .NET 7 SDK)
+- You will need the latest Visual Studio 2022 and the latest .NET Core SDK (at least .NET 8 SDK)
 - All the projects library are contained in JordiAragonZaragoza.SharedKernel.sln solution file.
 
 ## Used libraries: ⚒️
@@ -100,6 +100,11 @@ Special thanks to all these authors for sharing their knowledge and expertise:
 - <a href="https://www.youtube.com/@CodeOpinion" target="_blank">CodeOpinion: Youtube Channel</a>
 - <a href="https://www.youtube.com/@amantinband" target="_blank">Amichai Mantinband: Youtube Channel</a>
 - <a href="https://www.youtube.com/@MilanJovanovicTech" target="_blank">Milan Jovanović: Youtube Channel</a>
+
+## Versions
+
+The main branch is now on .NET 8 The following previous versions are available:
+* [.NET 7](https://github.com/jordiaragonzaragoza/JordiAragonZaragoza.SharedKernel/tree/net7.0)
 
 ## About: 🧐
 

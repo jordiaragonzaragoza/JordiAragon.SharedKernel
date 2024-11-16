@@ -10,7 +10,7 @@
         public IdempotentConsumerByMessageIdConsumerFullNameSpec(Guid messageId, string consumerFullName)
         {
             Guard.Against.Default(messageId);
-            Guard.Against.NullOrWhiteSpace(consumerFullName);
+            ArgumentNullException.ThrowIfNullOrWhiteSpace(consumerFullName);
 
             this.Query
                 .Where(consumer => consumer.MessageId == messageId

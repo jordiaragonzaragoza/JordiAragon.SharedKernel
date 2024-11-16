@@ -1,7 +1,7 @@
 ﻿namespace JordiAragonZaragoza.SharedKernel.Domain.Entities
 {
+    using System;
     using System.Collections.Generic;
-    using Ardalis.GuardClauses;
     using JordiAragonZaragoza.SharedKernel.Domain.Contracts.Interfaces;
 
     public abstract class BaseEventSourcedAggregateRoot<TId> : BaseAggregateRoot<TId>, IEventSourcedAggregateRoot<TId>
@@ -18,7 +18,7 @@
 
         public void Load(IEnumerable<IDomainEvent> history)
         {
-            Guard.Against.Null(history, nameof(history));
+            ArgumentNullException.ThrowIfNull(history, nameof(history));
             this.Version = 0;
 
             foreach (var @event in history)
