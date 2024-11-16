@@ -31,8 +31,6 @@
             {
                 return await this.unitOfWork.ExecuteInTransactionAsync(async () => await next());
             }
-
-            // TODO: Remove catches when not using custom exceptions on domain layer.
             catch (NotFoundException notFoundException)
             {
                 var resultType = typeof(Result);
@@ -50,8 +48,6 @@
 
                 return (TResponse)result;
             }
-
-            // TODO: Remove catches when not using custom exceptions on domain layer.
             catch (BusinessRuleValidationException businessRuleValidationException)
             {
                 var errors = new List<ValidationError>()
