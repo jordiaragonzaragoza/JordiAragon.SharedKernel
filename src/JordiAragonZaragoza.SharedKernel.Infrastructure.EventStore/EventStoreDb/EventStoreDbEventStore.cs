@@ -36,7 +36,7 @@
             where TAggregate : class, IEventSourcedAggregateRoot<TId>
             where TId : class, IEntityId
         {
-            Guard.Against.Null(aggregateId, nameof(aggregateId));
+            ArgumentNullException.ThrowIfNull(aggregateId, nameof(aggregateId));
 
             var readResult = this.eventStoreClient.ReadStreamAsync(
                 Direction.Forwards,
@@ -89,7 +89,7 @@
         public async Task<TResponse> ExecuteInTransactionAsync<TResponse>(Func<Task<TResponse>> operation)
             where TResponse : IResult
         {
-            Guard.Against.Null(operation, nameof(operation));
+            ArgumentNullException.ThrowIfNull(operation, nameof(operation));
 
             var response = await operation();
 

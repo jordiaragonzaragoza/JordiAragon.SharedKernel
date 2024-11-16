@@ -5,7 +5,6 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
-    using Ardalis.GuardClauses;
     using Ardalis.Result;
     using JordiAragonZaragoza.SharedKernel.Application.Attributes;
     using JordiAragonZaragoza.SharedKernel.Application.Contracts.Interfaces;
@@ -28,7 +27,7 @@
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
-            Guard.Against.Null(next, nameof(next));
+            ArgumentNullException.ThrowIfNull(next, nameof(next));
 
             var authorizeAttributes = request.GetType().GetCustomAttributes<AuthorizeAttribute>().ToList();
 

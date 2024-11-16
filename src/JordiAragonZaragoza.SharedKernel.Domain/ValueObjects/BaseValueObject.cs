@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using Ardalis.GuardClauses;
     using JordiAragonZaragoza.SharedKernel.Contracts.DependencyInjection;
     using JordiAragonZaragoza.SharedKernel.Domain.Contracts.Interfaces;
     using JordiAragonZaragoza.SharedKernel.Domain.Exceptions;
@@ -130,7 +129,7 @@
 
         protected static void CheckRule(IBusinessRule rule)
         {
-            Guard.Against.Null(rule, nameof(rule));
+            ArgumentNullException.ThrowIfNull(rule, nameof(rule));
 
             if (rule.IsBroken())
             {

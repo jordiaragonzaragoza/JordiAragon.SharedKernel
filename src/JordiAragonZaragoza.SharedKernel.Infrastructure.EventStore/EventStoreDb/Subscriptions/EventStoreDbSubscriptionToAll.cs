@@ -50,7 +50,7 @@ namespace JordiAragonZaragoza.SharedKernel.Infrastructure.EventStore.EventStoreD
 
         public async Task SubscribeToAllAsync(IServiceScopeFactory serviceScopeFactory, EventStoreDbSubscriptionToAllOptions subscriptionOptions, CancellationToken cancellationToken)
         {
-            Guard.Against.Null(subscriptionOptions, nameof(subscriptionOptions));
+            ArgumentNullException.ThrowIfNull(subscriptionOptions, nameof(subscriptionOptions));
 
             // see: https://github.com/dotnet/runtime/issues/36063
             await Task.Yield();

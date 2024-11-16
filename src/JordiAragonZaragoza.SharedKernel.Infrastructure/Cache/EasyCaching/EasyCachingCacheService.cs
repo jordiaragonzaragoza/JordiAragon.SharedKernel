@@ -4,7 +4,6 @@
     using System.Threading;
     using System.Threading.Tasks;
     using global::EasyCaching.Core;
-    using Ardalis.GuardClauses;
     using JordiAragonZaragoza.SharedKernel.Application.Contracts.Interfaces;
     using JordiAragonZaragoza.SharedKernel.Contracts.DependencyInjection;
     using Microsoft.Extensions.Options;
@@ -18,8 +17,8 @@
             IEasyCachingProviderFactory cachingFactory,
             IOptions<CacheOptions> easyCachingOptions)
         {
-            Guard.Against.Null(cachingFactory);
-            Guard.Against.Null(easyCachingOptions);
+            ArgumentNullException.ThrowIfNull(cachingFactory);
+            ArgumentNullException.ThrowIfNull(easyCachingOptions);
 
             this.easyCachingOptions = easyCachingOptions.Value;
             this.cachingProvider = cachingFactory.GetCachingProvider(this.easyCachingOptions.DefaultName);

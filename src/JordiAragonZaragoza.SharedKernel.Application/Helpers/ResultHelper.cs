@@ -4,49 +4,94 @@
     using System.Globalization;
     using System.Linq;
     using System.Text;
-    using Ardalis.GuardClauses;
     using Ardalis.Result;
 
     public static class ResultHelper
     {
-        public static Result<TDestination> Transform<TSource, TDestination>(this Result<TSource> result, Func<TSource, TDestination> func)
+        public static Result<TDestination> HandleNonSuccessStatus<TSource, TDestination>(this Result<TSource> result)
         {
-            Guard.Against.Null(result, nameof(result));
-            Guard.Against.Null(func, nameof(func));
+            ArgumentNullException.ThrowIfNull(result, nameof(result));
 
-            switch (result.Status)
+            return result.Status switch
             {
-                case ResultStatus.Ok: return func(result);
-                case ResultStatus.NotFound: return Result<TDestination>.NotFound(result.Errors?.ToArray<string>());
-                case ResultStatus.Unauthorized: return Result<TDestination>.Unauthorized();
-                case ResultStatus.Forbidden: return Result<TDestination>.Forbidden();
-                case ResultStatus.Invalid: return Result<TDestination>.Invalid(result.ValidationErrors);
-                case ResultStatus.Error: return Result<TDestination>.Error(new ErrorList(result.Errors));
-                default:
-                    throw new NotSupportedException($"Result {result.Status} conversion is not supported.");
-            }
+                ResultStatus.NotFound => result.Errors.Any()
+                    ? Result<TDestination>.NotFound(result.Errors.ToArray())
+                    : Result<TDestination>.NotFound(),
+                ResultStatus.Unauthorized => result.Errors.Any()
+                    ? Result<TDestination>.Unauthorized(result.Errors.ToArray())
+                    : Result<TDestination>.Unauthorized(),
+                ResultStatus.Forbidden => result.Errors.Any()
+                    ? Result<TDestination>.Forbidden(result.Errors.ToArray())
+                    : Result<TDestination>.Forbidden(),
+                ResultStatus.Invalid => Result<TDestination>.Invalid(result.ValidationErrors),
+                ResultStatus.Error => Result<TDestination>.Error(new ErrorList(result.Errors.ToArray(), result.CorrelationId)),
+                ResultStatus.Conflict => result.Errors.Any()
+                    ? Result<TDestination>.Conflict(result.Errors.ToArray())
+                    : Result<TDestination>.Conflict(),
+                ResultStatus.CriticalError => Result<TDestination>.CriticalError(result.Errors.ToArray()),
+                ResultStatus.Unavailable => Result<TDestination>.Unavailable(result.Errors.ToArray()),
+                ResultStatus.NoContent => Result<TDestination>.NoContent(),
+                _ => throw new NotSupportedException($"Result {result.Status} conversion is not supported."),
+            };
         }
 
-        public static Result Transform<TSource>(this Result<TSource> result)
+        public static Result<TDestination> HandleNonSuccessStatus<TDestination>(this Result result)
         {
-            Guard.Against.Null(result, nameof(result));
+            ArgumentNullException.ThrowIfNull(result, nameof(result));
 
-            switch (result.Status)
+            return result.Status switch
             {
-                case ResultStatus.Ok: return Result.Success();
-                case ResultStatus.NotFound: return Result.NotFound(result.Errors?.ToArray<string>());
-                case ResultStatus.Unauthorized: return Result.Unauthorized();
-                case ResultStatus.Forbidden: return Result.Forbidden();
-                case ResultStatus.Invalid: return Result.Invalid(result.ValidationErrors);
-                case ResultStatus.Error: return Result.Error(new ErrorList(result.Errors));
-                default:
-                    throw new NotSupportedException($"Result {result.Status} conversion is not supported.");
-            }
+                ResultStatus.NotFound => result.Errors.Any()
+                    ? Result<TDestination>.NotFound(result.Errors.ToArray())
+                    : Result<TDestination>.NotFound(),
+                ResultStatus.Unauthorized => result.Errors.Any()
+                    ? Result<TDestination>.Unauthorized(result.Errors.ToArray())
+                    : Result<TDestination>.Unauthorized(),
+                ResultStatus.Forbidden => result.Errors.Any()
+                    ? Result<TDestination>.Forbidden(result.Errors.ToArray())
+                    : Result<TDestination>.Forbidden(),
+                ResultStatus.Invalid => Result<TDestination>.Invalid(result.ValidationErrors),
+                ResultStatus.Error => Result<TDestination>.Error(new ErrorList(result.Errors.ToArray(), result.CorrelationId)),
+                ResultStatus.Conflict => result.Errors.Any()
+                    ? Result<TDestination>.Conflict(result.Errors.ToArray())
+                    : Result<TDestination>.Conflict(),
+                ResultStatus.CriticalError => Result<TDestination>.CriticalError(result.Errors.ToArray()),
+                ResultStatus.Unavailable => Result<TDestination>.Unavailable(result.Errors.ToArray()),
+                ResultStatus.NoContent => Result<TDestination>.NoContent(),
+                _ => throw new NotSupportedException($"Result {result.Status} conversion is not supported."),
+            };
+        }
+
+        public static Result HandleNonSuccessStatus<TSource>(this Result<TSource> result)
+        {
+            ArgumentNullException.ThrowIfNull(result, nameof(result));
+
+            return result.Status switch
+            {
+                ResultStatus.NotFound => result.Errors.Any()
+                    ? Result.NotFound(result.Errors.ToArray())
+                    : Result.NotFound(),
+                ResultStatus.Unauthorized => result.Errors.Any()
+                    ? Result.Unauthorized(result.Errors.ToArray())
+                    : Result.Unauthorized(),
+                ResultStatus.Forbidden => result.Errors.Any()
+                    ? Result.Forbidden(result.Errors.ToArray())
+                    : Result.Forbidden(),
+                ResultStatus.Invalid => Result.Invalid(result.ValidationErrors),
+                ResultStatus.Error => Result.Error(new ErrorList(result.Errors.ToArray(), result.CorrelationId)),
+                ResultStatus.Conflict => result.Errors.Any()
+                    ? Result.Conflict(result.Errors.ToArray())
+                    : Result.Conflict(),
+                ResultStatus.CriticalError => Result.CriticalError(result.Errors.ToArray()),
+                ResultStatus.Unavailable => Result.Unavailable(result.Errors.ToArray()),
+                ResultStatus.NoContent => Result.NoContent(),
+                _ => throw new NotSupportedException($"Result {result.Status} conversion is not supported."),
+            };
         }
 
         public static string ResultDetails(this IResult result)
         {
-            Guard.Against.Null(result, nameof(result));
+            ArgumentNullException.ThrowIfNull(result, nameof(result));
 
             switch (result.Status)
             {
@@ -70,7 +115,7 @@
                 return details.ToString();
             }
 
-            details.Append(result.GetValue().ToString());
+            details.Append(result.GetValue());
 
             return details.ToString();
         }

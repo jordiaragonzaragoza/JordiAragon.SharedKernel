@@ -1,6 +1,6 @@
 ﻿namespace JordiAragonZaragoza.SharedKernel.Domain.Services
 {
-    using Ardalis.GuardClauses;
+    using System;
     using JordiAragonZaragoza.SharedKernel.Domain.Contracts.Interfaces;
     using JordiAragonZaragoza.SharedKernel.Domain.Exceptions;
 
@@ -8,7 +8,7 @@
     {
         protected static void CheckRule(IBusinessRule rule)
         {
-            Guard.Against.Null(rule, nameof(rule));
+            ArgumentNullException.ThrowIfNull(rule, nameof(rule));
 
             if (rule.IsBroken())
             {

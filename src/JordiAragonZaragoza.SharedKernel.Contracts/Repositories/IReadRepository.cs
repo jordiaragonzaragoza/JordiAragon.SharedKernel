@@ -11,12 +11,12 @@
     /// </summary>
     /// <typeparam name="TModel">The type of model being operated on by this repository.</typeparam>
     /// <typeparam name="TId">The type of id model being operated on by this repository.</typeparam>
-    public interface IReadRepository<TModel, TId>
+    public interface IReadRepository<TModel, in TId>
         where TModel : class, IBaseModel<TId>
         where TId : notnull
     {
         /// <summary>
-        /// Finds an model with the given primary key value.
+        /// Finds a model with the given primary key value.
         /// </summary>
         /// <param name="id">The value of the primary key for the model to be found.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>

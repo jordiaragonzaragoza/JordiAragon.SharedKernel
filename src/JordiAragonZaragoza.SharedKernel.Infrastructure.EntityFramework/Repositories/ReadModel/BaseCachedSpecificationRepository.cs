@@ -92,7 +92,7 @@
 
         public override async Task<TReadModel?> FirstOrDefaultAsync(ISpecification<TReadModel> specification, CancellationToken cancellationToken = default)
         {
-            Guard.Against.Null(specification, nameof(specification));
+            ArgumentNullException.ThrowIfNull(specification, nameof(specification));
 
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
 
@@ -112,7 +112,7 @@
         public override async Task<TResult?> FirstOrDefaultAsync<TResult>(ISpecification<TReadModel, TResult> specification, CancellationToken cancellationToken = default)
             where TResult : default
         {
-            Guard.Against.Null(specification, nameof(specification));
+            ArgumentNullException.ThrowIfNull(specification, nameof(specification));
 
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
             var cachedResponse = await this.cacheService.GetAsync<TResult>(cacheKeySpecification, cancellationToken);
@@ -132,7 +132,7 @@
 
         public override async Task<TReadModel?> SingleOrDefaultAsync(ISingleResultSpecification<TReadModel> specification, CancellationToken cancellationToken = default)
         {
-            Guard.Against.Null(specification, nameof(specification));
+            ArgumentNullException.ThrowIfNull(specification, nameof(specification));
 
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
             var cachedResponse = await this.CacheGetAsync<TReadModel>(cacheKeySpecification, cancellationToken);
@@ -151,7 +151,7 @@
         public override async Task<TResult?> SingleOrDefaultAsync<TResult>(ISingleResultSpecification<TReadModel, TResult> specification, CancellationToken cancellationToken = default)
             where TResult : default
         {
-            Guard.Against.Null(specification, nameof(specification));
+            ArgumentNullException.ThrowIfNull(specification, nameof(specification));
 
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
 
@@ -186,7 +186,7 @@
 
         public override async Task<List<TReadModel>> ListAsync(ISpecification<TReadModel> specification, CancellationToken cancellationToken = default)
         {
-            Guard.Against.Null(specification, nameof(specification));
+            ArgumentNullException.ThrowIfNull(specification, nameof(specification));
 
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
             var cachedResponse = await this.CacheGetListAsync<TReadModel>(cacheKeySpecification, cancellationToken);
@@ -203,7 +203,7 @@
 
         public override async Task<List<TResult>> ListAsync<TResult>(ISpecification<TReadModel, TResult> specification, CancellationToken cancellationToken = default)
         {
-            Guard.Against.Null(specification, nameof(specification));
+            ArgumentNullException.ThrowIfNull(specification, nameof(specification));
 
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
             var cachedResponse = await this.CacheGetListAsync<TResult>(cacheKeySpecification, cancellationToken);
@@ -220,7 +220,7 @@
 
         public override async Task<int> CountAsync(ISpecification<TReadModel> specification, CancellationToken cancellationToken = default)
         {
-            Guard.Against.Null(specification, nameof(specification));
+            ArgumentNullException.ThrowIfNull(specification, nameof(specification));
 
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
 
@@ -257,7 +257,7 @@
 
         public override async Task<bool> AnyAsync(ISpecification<TReadModel> specification, CancellationToken cancellationToken = default)
         {
-            Guard.Against.Null(specification, nameof(specification));
+            ArgumentNullException.ThrowIfNull(specification, nameof(specification));
 
             var cacheKeySpecification = $"{this.CacheKey}_{specification.GetType().FullName}";
             var cachedResponse = await this.cacheService.GetAsync<bool>(cacheKeySpecification, cancellationToken);

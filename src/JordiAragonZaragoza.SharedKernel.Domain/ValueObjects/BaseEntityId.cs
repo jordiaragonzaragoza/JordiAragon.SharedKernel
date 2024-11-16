@@ -1,5 +1,6 @@
 ﻿namespace JordiAragonZaragoza.SharedKernel.Domain.ValueObjects
 {
+    using System;
     using System.Collections.Generic;
     using Ardalis.GuardClauses;
     using JordiAragonZaragoza.SharedKernel.Domain.Contracts.Interfaces;
@@ -10,7 +11,7 @@
         protected BaseEntityId(TIdType value)
         {
             Guard.Against.Default(value, nameof(value));
-            Guard.Against.Null(value, nameof(value));
+            ArgumentNullException.ThrowIfNull(value, nameof(value));
 
             this.Value = value;
         }
@@ -24,7 +25,7 @@
 
         public static implicit operator TIdType(BaseEntityId<TIdType> self)
         {
-            Guard.Against.Null(self, nameof(self));
+            ArgumentNullException.ThrowIfNull(self, nameof(self));
 
             return self.Value;
         }

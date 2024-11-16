@@ -1,5 +1,6 @@
 ﻿namespace JordiAragonZaragoza.SharedKernel.Infrastructure.EventStore
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using Ardalis.GuardClauses;
@@ -22,7 +23,7 @@
 
         public async Task<TAggregate?> GetByIdAsync(TId id, CancellationToken cancellationToken = default)
         {
-            Guard.Against.Null(id, nameof(id));
+            ArgumentNullException.ThrowIfNull(id, nameof(id));
 
             if (this.currentAggregate is not null)
             {
