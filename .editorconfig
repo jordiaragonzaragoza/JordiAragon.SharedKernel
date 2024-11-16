@@ -41,6 +41,7 @@ dotnet_diagnostic.CA2007.severity = none
 
 # Csharp settings
 csharp_style_prefer_primary_constructors = false
+csharp_using_directive_placement = inside_namespace
 
 # Resharper settings
 resharper_redundant_name_qualifier_highlighting = none
